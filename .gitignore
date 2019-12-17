@@ -24,6 +24,7 @@
 **/doc/api/
 .dart_tool/
 .flutter-plugins
+.flutter-plugins-dependencies
 .packages
 .pub-cache/
 .pub/
@@ -34,3 +35,17 @@ lib/generated_plugin_registrant.dart
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+############ My ignores 
+
+# build products 
+ios/Build/
+# API Keys 
+android/app/src/main/res/values/secrets.xml
+# mock data with potentially identifying info 
+lib/utilities/mocks.dart
+# generated files 
+*.g.dart
+# don't add project credentials to version control
+ios/Runner/GoogleService-Info.plist
+android/app/google-services.json
