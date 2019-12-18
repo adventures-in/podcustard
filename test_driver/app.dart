@@ -15,7 +15,7 @@ void main() async {
   enableFlutterDriverExtension();
 
   final RemoteDevToolsMiddleware remoteDevtools =
-      RemoteDevToolsMiddleware(imac_ip21);
+      RemoteDevToolsMiddleware(imac_ip18);
 
   final store = Store<AppState>(
     appReducer,
