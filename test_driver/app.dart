@@ -9,13 +9,12 @@ import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/utilities/mocks.dart';
 import 'package:podcustard/widgets/app.dart';
 
-import '../test/mocks/mock_firebase_auth.dart';
+import '../test/mocks/all_mocks.dart';
 
 void main() async {
   enableFlutterDriverExtension();
 
-  final RemoteDevToolsMiddleware remoteDevtools =
-      RemoteDevToolsMiddleware(imac_ip18);
+  final remoteDevtools = RemoteDevToolsMiddleware(imac_ip18);
 
   final store = Store<AppState>(
     appReducer,
@@ -23,7 +22,7 @@ void main() async {
     middleware: [
       remoteDevtools,
       ...createMiddleware(
-        AuthService(Mocks.fakeFirebaseAuth1()),
+        AuthService(Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignIn()),
       ),
     ],
   );
@@ -32,5 +31,5 @@ void main() async {
 
   await remoteDevtools.connect();
 
-  runApp(RideCompareApp(store));
+  runApp(PodcustardApp(store));
 }

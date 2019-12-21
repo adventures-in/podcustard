@@ -7,14 +7,14 @@ import 'package:podcustard/redux/app_state.dart';
 import 'package:podcustard/widgets/auth_page.dart';
 import 'package:podcustard/widgets/main_page.dart';
 
-class RideCompareApp extends StatefulWidget {
-  RideCompareApp(this.store);
+class PodcustardApp extends StatefulWidget {
+  PodcustardApp(this.store);
   final Store<AppState> store;
   @override
-  _RideCompareAppState createState() => _RideCompareAppState();
+  _PodcustardAppState createState() => _PodcustardAppState();
 }
 
-class _RideCompareAppState extends State<RideCompareApp> {
+class _PodcustardAppState extends State<PodcustardApp> {
   @override
   void initState() {
     super.initState();
@@ -30,7 +30,7 @@ class _RideCompareAppState extends State<RideCompareApp> {
           distinct: true,
           converter: (store) => store.state.user,
           builder: (context, user) {
-            return (user == null || user.id == null) ? AuthPage() : MainPage();
+            return (user == null || user.uid == null) ? AuthPage() : MainPage();
           },
         ),
       ),

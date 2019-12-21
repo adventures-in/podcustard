@@ -6,16 +6,20 @@ import 'package:mockito/mockito.dart';
 class FakeFirebaseAuthPeriodic extends Fake implements FirebaseAuth {
   @override
   Stream<FirebaseUser> get onAuthStateChanged =>
-      Stream.periodic(Duration(seconds: 1), (num) {
-        if (num > 1) num = 1;
-        return [FakeFirebaseUserNull(), FakeFirebaseUserBlah()].elementAt(num);
+      Stream.periodic(Duration(seconds: 1), (tickNum) {
+        if (tickNum > 1) tickNum = 1;
+        return [FakeFirebaseUserNull(), FakeFirebaseUser()].elementAt(tickNum);
       });
 }
 
 class FakeFirebaseAuth1 extends Fake implements FirebaseAuth {
   @override
   Stream<FirebaseUser> get onAuthStateChanged =>
-      Stream.fromIterable([FakeFirebaseUserNull(), FakeFirebaseUserBlah()]);
+      Stream.fromIterable([FakeFirebaseUserNull(), FakeFirebaseUser()]);
+
+  @override
+  Future<AuthResult> signInWithCredential(AuthCredential credential) =>
+      Future.value(FakeAuthResult());
 }
 
 class FakeFirebaseAuthOpen extends Fake implements FirebaseAuth {
@@ -34,14 +38,34 @@ class FakeFirebaseAuthOpen extends Fake implements FirebaseAuth {
 class FakeFirebaseUserNull extends Fake implements FirebaseUser {
   @override
   String get uid => null;
-}
-
-class FakeFirebaseUserBlah extends Fake implements FirebaseUser {
   @override
-  String get uid => 'blah';
+  String get displayName => null;
+  @override
+  String get email => null;
+  @override
+  String get photoUrl => null;
+
+  @override
+  List<UserInfo> providerData;
 }
 
-class Mocks {
-  static fakeFirebaseAuth1() => FakeFirebaseAuth1();
-  static fakeFirebaseAuthOpen() => FakeFirebaseAuthOpen();
+class FakeFirebaseUser extends Fake implements FirebaseUser {
+  @override
+  String get uid => 'uid';
+  @override
+  String get displayName => 'name';
+  @override
+  String get email => 'email';
+  @override
+  String get photoUrl => 'url';
+
+  @override
+  List<UserInfo> providerData = [];
+}
+
+class FakeAuthResult extends Fake implements AuthResult {
+  /// Returns the currently signed-in [FirebaseUser], or `null` if there isn't
+  /// any (i.e. the user is signed out).
+  @override
+  final FirebaseUser user = FakeFirebaseUser();
 }

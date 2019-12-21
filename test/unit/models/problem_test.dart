@@ -4,9 +4,9 @@ import 'package:podcustard/redux/app_state.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group("Problem", () {
+  group('Problem', () {
     // create a Problem with expected values
-    test("members take expected values", () {
+    test('members take expected values', () {
       // save the current trace
       final trace = StackTrace.current;
 
@@ -14,18 +14,18 @@ void main() {
         ..message = 'message'
         ..type = ProblemTypeEnum.no
         ..info = {'test': 'test'}
-        ..state = AppStateBuilder()
-        ..trace = trace);
+        ..state.replace(AppState.init())
+        ..trace = trace.toString());
 
       // check the members hold the expected values
       expect(problem.info, {'test': 'test'});
-      expect(problem.state, AppStateBuilder().build());
-      expect(problem.trace, trace);
+      expect(problem.state, AppState.init());
+      expect(problem.trace, trace.toString());
       expect(problem.type, ProblemTypeEnum.no);
       expect(problem.message, 'message');
     });
 
-    test("members that are nullable default to null", () {
+    test('members that are nullable default to null', () {
       // message and type are non-nullable
       // trace, state and info are nullable
       final problem = Problem((a) => a
@@ -40,12 +40,12 @@ void main() {
       expect(problem.message, 'message');
     });
 
-    test("will throw without non-null members", () {
+    test('will throw without non-null members', () {
       // message and type are non-nullable
       // trace, state and info are nullable
 
       // so no type should throw
-      expect(() => Problem((a) => a..message = 'message'),
+      expect(() => Problem((b) => b..message = 'message'),
           throwsA(const TypeMatcher<BuiltValueNullFieldError>()));
 
       // and no message should also throw

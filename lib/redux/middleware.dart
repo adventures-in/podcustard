@@ -17,6 +17,9 @@ List<Middleware<AppState>> createMiddleware(AuthService authService) {
     TypedMiddleware<AppState, ObserveAuthState>(
       _observeAuthState(authService),
     ),
+    TypedMiddleware<AppState, SigninWithGoogle>(
+      _signinWithGoogle(authService),
+    ),
   ];
 }
 
@@ -30,5 +33,17 @@ void Function(
     // listen to the stream that emits actions on any auth change
     // and call dispatch on the action
     authService.streamOfStateChanges.listen(store.dispatch);
+  };
+}
+
+void Function(
+        Store<AppState> store, SigninWithGoogle action, NextDispatcher next)
+    _signinWithGoogle(AuthService authService) {
+  return (Store<AppState> store, SigninWithGoogle action,
+      NextDispatcher next) async {
+    next(action);
+
+    // signin and listen to the stream and dispatch actions
+    authService.googleSignInStream.listen(store.dispatch);
   };
 }

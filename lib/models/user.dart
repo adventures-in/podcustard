@@ -5,23 +5,32 @@ import 'dart:convert';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:podcustard/models/auth.dart';
+import 'package:podcustard/models/provider_info.dart';
 import 'package:podcustard/redux/serializers.dart';
 
 part 'user.g.dart';
 
+/// Non-null Strings: [uid], [displayName], [photoUrl], [email]
+/// A list of [ProviderInfo]: providers
 abstract class User implements Built<User, UserBuilder> {
-  AuthStateEnum get authState;
-  @nullable
-  Auth get auth;
-  @nullable
-  String get id;
-  @nullable
+  /// The uid of the user's Firebase account.
+  String get uid;
+
+  /// The name of the user.
+  String get displayName;
+
+  /// The URL of the user’s profile photo.
+  String get photoUrl;
+
+  /// The user’s email address.
   String get email;
+
+  /// Info on each auth provider the user has linked to their account.
+  BuiltList<ProviderInfo> get providers;
 
   User._();
 
-  factory User([void updates(UserBuilder b)]) = _$User;
+  factory User([void Function(UserBuilder) updates]) = _$User;
 
   Object toJson() => serializers.serializeWith(User.serializer, this);
 
@@ -29,18 +38,4 @@ abstract class User implements Built<User, UserBuilder> {
       serializers.deserializeWith(User.serializer, json.decode(jsonString));
 
   static Serializer<User> get serializer => _$userSerializer;
-}
-
-class AuthStateEnum extends EnumClass {
-  static Serializer<AuthStateEnum> get serializer => _$authStateEnumSerializer;
-
-  static const AuthStateEnum precheck = _$precheck;
-  static const AuthStateEnum checking = _$checking;
-  static const AuthStateEnum found_auth = _$found_auth;
-  static const AuthStateEnum found_none = _$found_none;
-
-  const AuthStateEnum._(String name) : super(name);
-
-  static BuiltSet<AuthStateEnum> get values => _$values;
-  static AuthStateEnum valueOf(String name) => _$valueOf(name);
 }
