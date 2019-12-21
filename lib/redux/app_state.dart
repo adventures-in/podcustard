@@ -13,20 +13,22 @@ part 'app_state.g.dart';
 
 abstract class AppState implements Built<AppState, AppStateBuilder> {
   BuiltList<Problem> get problems;
+  int get authStep;
   @nullable
   User get user;
 
   AppState._();
 
-  factory AppState([void updates(AppStateBuilder b)]) = _$AppState;
+  factory AppState.init() => AppState((a) => a
+    ..problems = ListBuilder<Problem>()
+    ..authStep = 0);
+
+  factory AppState([void Function(AppStateBuilder) updates]) = _$AppState;
 
   Object toJson() => serializers.serializeWith(AppState.serializer, this);
 
   static AppState fromJson(String jsonString) =>
       serializers.deserializeWith(AppState.serializer, json.decode(jsonString));
-
-  factory AppState.init() =>
-      AppState((a) => a..problems = ListBuilder<Problem>());
 
   static Serializer<AppState> get serializer => _$appStateSerializer;
 }

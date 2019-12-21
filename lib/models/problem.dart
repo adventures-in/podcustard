@@ -14,7 +14,7 @@ abstract class Problem implements Built<Problem, ProblemBuilder> {
   ProblemTypeEnum get type;
   String get message;
   @nullable
-  StackTrace get trace;
+  String get trace;
   @nullable
   AppState get state;
   @nullable
@@ -22,7 +22,7 @@ abstract class Problem implements Built<Problem, ProblemBuilder> {
 
   Problem._();
 
-  factory Problem([void updates(ProblemBuilder b)]) = _$Problem;
+  factory Problem([void Function(ProblemBuilder) updates]) = _$Problem;
 
   Object toJson() => serializers.serializeWith(Problem.serializer, this);
 
@@ -36,7 +36,7 @@ class ProblemTypeEnum extends EnumClass {
   static Serializer<ProblemTypeEnum> get serializer =>
       _$problemTypeEnumSerializer;
 
-  static const ProblemTypeEnum yes = _$yes;
+  static const ProblemTypeEnum signin = _$signin;
   static const ProblemTypeEnum no = _$no;
 
   const ProblemTypeEnum._(String name) : super(name);

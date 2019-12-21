@@ -16,7 +16,7 @@ import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/widgets/main_page.dart';
 
-import '../mocks/mock_firebase_auth.dart';
+import '../mocks/all_mocks.dart';
 
 void main() {
   testWidgets('MainPage displays...', (WidgetTester tester) async {
@@ -27,7 +27,7 @@ void main() {
       initialState: AppState.init(),
       middleware: [
         ...createMiddleware(
-          AuthService(Mocks.fakeFirebaseAuth1()),
+          AuthService(Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignIn()),
         ),
       ],
     );
