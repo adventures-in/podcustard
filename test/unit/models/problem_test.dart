@@ -1,6 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/redux/app_state.dart';
+import 'package:podcustard/models/app_state.dart';
 import 'package:test/test.dart';
 
 void main() {

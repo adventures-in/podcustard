@@ -7,7 +7,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/user.dart';
-import 'package:podcustard/redux/serializers.dart';
+import 'package:podcustard/models/serializers.dart';
 
 part 'app_state.g.dart';
 

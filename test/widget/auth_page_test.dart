@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/redux/app_reducer.dart';
-import 'package:podcustard/redux/app_state.dart';
+import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/widgets/auth_page.dart';

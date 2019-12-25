@@ -1,9 +1,9 @@
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:redux/redux.dart';
-import 'package:podcustard/redux/actions.dart';
+import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/redux/app_reducer.dart';
-import 'package:podcustard/redux/app_state.dart';
+import 'package:podcustard/models/app_state.dart';
 import 'package:test/test.dart';
 
 void main() {

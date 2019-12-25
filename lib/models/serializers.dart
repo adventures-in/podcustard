@@ -5,7 +5,7 @@ import 'package:built_value/standard_json_plugin.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/provider_info.dart';
 import 'package:podcustard/models/user.dart';
-import 'package:podcustard/redux/app_state.dart';
+import 'package:podcustard/models/app_state.dart';
 
 part 'serializers.g.dart';
 
