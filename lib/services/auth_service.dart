@@ -4,7 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/provider_info.dart';
 import 'package:podcustard/models/user.dart';
-import 'package:podcustard/redux/actions.dart';
+import 'package:podcustard/models/actions.dart';
 
 class AuthService {
   AuthService(this._fireAuth, this._googleSignIn);

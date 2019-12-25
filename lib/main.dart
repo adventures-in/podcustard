@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 import 'package:podcustard/redux/app_reducer.dart';
-import 'package:podcustard/redux/app_state.dart';
+import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/utilities/mocks.dart';

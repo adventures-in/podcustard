@@ -1,6 +1,6 @@
 import 'package:redux/redux.dart';
-import 'package:podcustard/redux/actions.dart';
-import 'package:podcustard/redux/app_state.dart';
+import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/services/auth_service.dart';
 
 /// Middleware is used for a variety of things:

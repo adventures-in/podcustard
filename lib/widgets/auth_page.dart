@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/redux/actions.dart';
-import 'package:podcustard/redux/app_state.dart';
+import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/app_state.dart';
 
 class AuthPage extends StatefulWidget {
   @override

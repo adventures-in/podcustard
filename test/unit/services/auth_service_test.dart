@@ -1,5 +1,5 @@
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/redux/actions.dart';
+import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:test/test.dart';
 

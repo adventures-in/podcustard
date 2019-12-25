@@ -1,6 +1,6 @@
 import 'package:redux/redux.dart';
-import 'package:podcustard/redux/actions.dart';
-import 'package:podcustard/redux/app_state.dart';
+import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/app_state.dart';
 
 /// Reducers specify how the application"s state changes in response to actions
 /// sent to the store.
