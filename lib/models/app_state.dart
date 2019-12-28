@@ -16,12 +16,14 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   int get authStep;
   @nullable
   User get user;
+  int get mainPageIndex;
 
   AppState._();
 
   factory AppState.init() => AppState((a) => a
     ..problems = ListBuilder<Problem>()
-    ..authStep = 0);
+    ..authStep = 0
+    ..mainPageIndex = 0);
 
   factory AppState([void Function(AppStateBuilder) updates]) = _$AppState;
 

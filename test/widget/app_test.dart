@@ -34,7 +34,7 @@ void main() {
 
       // Create the Finders.
       final authPageFinder = find.text('SIGN IN');
-      final mainPageFinder = find.text('Main Page');
+      final mainPageFinder = find.text('More');
 
       // Use the `findsOneWidget` matcher to verify that a Text widget with the
       // expected String appears exactly once in the widget tree, indicating the
