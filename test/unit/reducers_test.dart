@@ -69,5 +69,20 @@ void main() {
       // check that the store has the expected value
       expect(store.state.authStep, 1);
     });
+
+    test('_storeMainPageIndex correctly stores index from MainPage BottomNav',
+        () {
+      // create a basic store with the app reducers
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+      );
+
+      // dispatch action to store auth step
+      store.dispatch(Action.StoreMainPageIndex(index: 1));
+
+      // check that the store has the expected value
+      expect(store.state.mainPageIndex, 1);
+    });
   });
 }

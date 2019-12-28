@@ -10,6 +10,7 @@ final appReducer = combineReducers<AppState>([
   TypedReducer<AppState, AddProblem>(_addProblem),
   TypedReducer<AppState, StoreUser>(_storeUser),
   TypedReducer<AppState, StoreAuthStep>(_storeAuthStep),
+  TypedReducer<AppState, StoreMainPageIndex>(_storeMainPageIndex),
   // ...userReducers,
 ]);
 
@@ -29,4 +30,8 @@ AppState _storeUser(AppState state, StoreUser action) {
 
 AppState _storeAuthStep(AppState state, StoreAuthStep action) {
   return state.rebuild((b) => b..authStep = action.step);
+}
+
+AppState _storeMainPageIndex(AppState state, StoreMainPageIndex action) {
+  return state.rebuild((b) => b..mainPageIndex = action.index);
 }

@@ -15,6 +15,8 @@ class Action {
       StoreAuthStep(step: step);
   factory Action.AddProblem({@required Problem problem}) =>
       AddProblem(problem: problem);
+  factory Action.StoreMainPageIndex({@required int index}) =>
+      StoreMainPageIndex(index: index);
 }
 
 class ObserveAuthState extends Action {
@@ -39,4 +41,10 @@ class AddProblem extends Action {
   AddProblem({@required this.problem})
       : super(<String, Object>{'problem': problem});
   final Problem problem;
+}
+
+class StoreMainPageIndex extends Action {
+  StoreMainPageIndex({@required this.index})
+      : super(<String, Object>{'index': index});
+  final int index;
 }

@@ -13,7 +13,7 @@ import 'package:podcustard/utilities/mocks.dart';
 import 'package:podcustard/widgets/app.dart';
 
 void main() async {
-  final remoteDevtools = RemoteDevToolsMiddleware(imac_ip18);
+  final remoteDevtools = RemoteDevToolsMiddleware(imac_ip22);
 
   final store = Store<AppState>(
     appReducer,

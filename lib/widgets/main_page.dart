@@ -1,80 +1,141 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/app_state.dart';
+import 'package:podcustard/widgets/more_options_page.dart';
 
-class MainPage extends StatefulWidget {
-  @override
-  _MainPageState createState() => _MainPageState();
-}
+const TextStyle optionStyle =
+    TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+const List<Widget> _widgetOptions = <Widget>[
+  Text(
+    'Index 0: Home',
+    style: optionStyle,
+  ),
+  Text(
+    'Index 1: Business',
+    style: optionStyle,
+  ),
+  Text(
+    'Index 2: School',
+    style: optionStyle,
+  ),
+  MoreOptionsPage(),
+];
 
-class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+    return StoreConnector<AppState, int>(
+      distinct: true,
+      converter: (store) => store.state.mainPageIndex,
+      builder: (context, selectedIndex) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('AppBar'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
+          body: Center(
+            child: _widgetOptions.elementAt(selectedIndex),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            title: Text('School'),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.business),
+                title: Text('Business'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.school),
+                title: Text('School'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.more_vert),
+                title: Text('More'),
+              ),
+            ],
+            type: BottomNavigationBarType.fixed,
+            currentIndex: selectedIndex,
+            selectedItemColor: Colors.amber[800],
+            onTap: (index) => _onItemTapped(context, index),
           ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
+        );
+      },
     );
+  }
 
-    // Column(
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   children: <Widget>[
-    //     Text('Main Page'),
-    //     RaisedButton(
-    //       child: Text('SIGN OUT'),
-    //       onPressed: () {
-    //         GoogleSignIn().disconnect();
-    //         FirebaseAuth.instance.signOut();
-    //       },
-    //     ),
-    //   ],
-    // );
+  void _onItemTapped(BuildContext context, int index) {
+    StoreProvider.of<AppState>(context)
+        .dispatch(StoreMainPageIndex(index: index));
   }
 }
+
+// class MainPage extends StatefulWidget {
+//   @override
+//   _MainPageState createState() => _MainPageState();
+// }
+
+// class _MainPageState extends State<MainPage> {
+//   int _selectedIndex = 0;
+//   static const TextStyle optionStyle =
+//       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+//   static const List<Widget> _widgetOptions = <Widget>[
+//     Text(
+//       'Index 0: Home',
+//       style: optionStyle,
+//     ),
+//     Text(
+//       'Index 1: Business',
+//       style: optionStyle,
+//     ),
+//     Text(
+//       'Index 2: School',
+//       style: optionStyle,
+//     ),
+//     MoreOptionsPage(),
+//   ];
+
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('AppBar'),
+//       ),
+//       body: Center(
+//         child: _widgetOptions.elementAt(_selectedIndex),
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         items: const <BottomNavigationBarItem>[
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.home),
+//             title: Text('Home'),
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.business),
+//             title: Text('Business'),
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.school),
+//             title: Text('School'),
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.more_vert),
+//             title: Text('More'),
+//           ),
+//         ],
+//         type: BottomNavigationBarType.fixed,
+//         currentIndex: _selectedIndex,
+//         selectedItemColor: Colors.amber[800],
+//         onTap: _onItemTapped,
+//       ),
+//     );
+//   }
+// }
