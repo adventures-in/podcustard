@@ -1,5 +1,6 @@
 import 'package:mockito/mockito.dart';
 import 'package:podcustard/models/problem.dart';
+import 'package:podcustard/services/itunes_service.dart';
 import 'package:redux/redux.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:podcustard/models/actions.dart';
@@ -8,6 +9,9 @@ import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:test/test.dart';
+
+import '../mocks/all_mocks.dart';
+import '../test_data/retrieve_podcast_summaries_response.dart' as test_data;
 
 class MockAuthService extends Mock implements AuthService {}
 
@@ -31,9 +35,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(
-          mockAuthService,
-        ),
+        middleware: createMiddleware(mockAuthService, null),
       );
 
       // dispatch action to observe the auth state
@@ -68,9 +70,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(
-          mockAuthService,
-        ),
+        middleware: createMiddleware(mockAuthService, null),
       );
 
       // dispatch action to initiate signin
@@ -85,6 +85,26 @@ void main() {
       // all the middleware does is dispatch a StoreAuthState action so check the state
       expect(store.state.authStep, 1);
       expect(store.state.problems.length, 1);
+    });
+
+    test('_retrievePodcastSummaries uses service to retrieve summaries',
+        () async {
+      // setup a mock service to give a test response
+      final fakeService =
+          ItunesService(Mocks.fakeHttpClient(test_data.jsonResponseString));
+
+      // create a basic store with the mocked out middleware
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+        middleware: createMiddleware(null, fakeService),
+      );
+
+      // dispatch action to initiate signin
+      await store.dispatch(Action.RetrievePodcastSummaries(query: 'query'));
+
+      // mut dispatches a StorePodcastSummaries action so we check the state
+      expect(store.state.podcastSummaries.length, 50);
     });
   });
 }

@@ -46,7 +46,7 @@ void main() {
 
       final problem = Problem((a) => a
         ..message = 'message'
-        ..type = ProblemTypeEnum.no
+        ..type = ProblemTypeEnum.retrievePodcastSummaries
         ..info = {'test': 'test'}
         ..state.replace(AppState.init())
         ..trace = StackTrace.current.toString());

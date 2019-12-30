@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/user.dart';
 
@@ -17,6 +18,11 @@ class Action {
       AddProblem(problem: problem);
   factory Action.StoreMainPageIndex({@required int index}) =>
       StoreMainPageIndex(index: index);
+  factory Action.RetrievePodcastSummaries({@required String query}) =>
+      RetrievePodcastSummaries(query: query);
+  factory Action.StorePodcastSummaries(
+          {@required List<PodcastSummary> summaries}) =>
+      StorePodcastSummaries(summaries: summaries);
 }
 
 class ObserveAuthState extends Action {
@@ -47,4 +53,16 @@ class StoreMainPageIndex extends Action {
   StoreMainPageIndex({@required this.index})
       : super(<String, Object>{'index': index});
   final int index;
+}
+
+class RetrievePodcastSummaries extends Action {
+  RetrievePodcastSummaries({@required this.query})
+      : super(<String, Object>{'query': query});
+  final String query;
+}
+
+class StorePodcastSummaries extends Action {
+  StorePodcastSummaries({@required this.summaries})
+      : super(<String, Object>{'summaries': summaries});
+  final List<PodcastSummary> summaries;
 }

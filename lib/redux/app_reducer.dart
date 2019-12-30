@@ -1,6 +1,6 @@
 import 'package:redux/redux.dart';
-import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
+import 'package:podcustard/models/actions.dart';
 
 /// Reducers specify how the application"s state changes in response to actions
 /// sent to the store.
@@ -11,6 +11,7 @@ final appReducer = combineReducers<AppState>([
   TypedReducer<AppState, StoreUser>(_storeUser),
   TypedReducer<AppState, StoreAuthStep>(_storeAuthStep),
   TypedReducer<AppState, StoreMainPageIndex>(_storeMainPageIndex),
+  TypedReducer<AppState, StorePodcastSummaries>(_storePodcastSummaries),
   // ...userReducers,
 ]);
 
@@ -34,4 +35,8 @@ AppState _storeAuthStep(AppState state, StoreAuthStep action) {
 
 AppState _storeMainPageIndex(AppState state, StoreMainPageIndex action) {
   return state.rebuild((b) => b..mainPageIndex = action.index);
+}
+
+AppState _storePodcastSummaries(AppState state, StorePodcastSummaries action) {
+  return state.rebuild((b) => b.podcastSummaries.replace(action.summaries));
 }

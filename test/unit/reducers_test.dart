@@ -1,3 +1,5 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:redux/redux.dart';
@@ -83,6 +85,44 @@ void main() {
 
       // check that the store has the expected value
       expect(store.state.mainPageIndex, 1);
+    });
+
+    test(
+        '_storePodcastSummaries correctly stores summaries in the StorePodcastSummaries action',
+        () {
+      // create a basic store with the app reducers
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+      );
+
+      final podcastSummary = PodcastSummary((b) => b
+        ..artistId = 1
+        ..collectionId = 2
+        ..trackId = 3
+        ..trackCount = 4
+        ..releaseDate = DateTime.now()
+        ..artistName = 'a'
+        ..collectionName = 'b'
+        ..trackName = 'c'
+        ..artistViewUrl = 'd'
+        ..collectionViewUrl = 'e'
+        ..feedUrl = 'f'
+        ..trackViewUrl = 'g'
+        ..artworkUrl30 = 'h'
+        ..artworkUrl60 = 'i'
+        ..artworkUrl100 = 'j'
+        ..artworkUrl600 = 'k'
+        ..country = 'l'
+        ..primaryGenreName = 'm'
+        ..genreIds = ListBuilder(<String>['n', 'o'])
+        ..genres = ListBuilder(<String>['p', 'q']));
+
+      // dispatch action to store summaries
+      store.dispatch(Action.StorePodcastSummaries(summaries: [podcastSummary]));
+
+      // check that the store has the expected value
+      expect(store.state.podcastSummaries.first, podcastSummary);
     });
   });
 }

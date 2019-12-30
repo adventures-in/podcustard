@@ -1,3 +1,4 @@
+import 'package:podcustard/services/itunes_service.dart';
 import 'package:redux/redux.dart';
 import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
@@ -12,13 +13,17 @@ import 'package:podcustard/services/auth_service.dart';
 ///
 /// The output of an action can perform another action using the [NextDispatcher]
 ///
-List<Middleware<AppState>> createMiddleware(AuthService authService) {
+List<Middleware<AppState>> createMiddleware(
+    AuthService authService, ItunesService itunesService) {
   return [
     TypedMiddleware<AppState, ObserveAuthState>(
       _observeAuthState(authService),
     ),
     TypedMiddleware<AppState, SigninWithGoogle>(
       _signinWithGoogle(authService),
+    ),
+    TypedMiddleware<AppState, RetrievePodcastSummaries>(
+      _retrievePodcastSummaries(itunesService),
     ),
   ];
 }
@@ -45,5 +50,19 @@ void Function(
 
     // signin and listen to the stream and dispatch actions
     authService.googleSignInStream.listen(store.dispatch);
+  };
+}
+
+void Function(Store<AppState> store, RetrievePodcastSummaries action,
+        NextDispatcher next)
+    _retrievePodcastSummaries(ItunesService itunesService) {
+  return (Store<AppState> store, RetrievePodcastSummaries action,
+      NextDispatcher next) async {
+    next(action);
+
+    // retrieve podcast summaries and dispatch action to store result
+    final storeAction =
+        await itunesService.retrievePodcastSummaries(query: action.query);
+    store.dispatch(storeAction);
   };
 }

@@ -22,8 +22,8 @@ void main() async {
     middleware: [
       remoteDevtools,
       ...createMiddleware(
-        AuthService(Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignIn()),
-      ),
+          AuthService(Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignIn()),
+          null),
     ],
   );
 
