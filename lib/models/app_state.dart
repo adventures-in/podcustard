@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:podcustard/models/serializers.dart';
@@ -17,6 +18,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   @nullable
   User get user;
   int get mainPageIndex;
+  BuiltList<PodcastSummary> get podcastSummaries;
 
   AppState._();
 

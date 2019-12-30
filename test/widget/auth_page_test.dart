@@ -19,8 +19,8 @@ void main() {
         initialState: AppState.init(),
         middleware: [
           ...createMiddleware(
-            AuthService(Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignIn()),
-          ),
+              AuthService(Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignIn()),
+              null),
         ],
       );
 
@@ -49,9 +49,9 @@ void main() {
         initialState: AppState.init(),
         middleware: [
           ...createMiddleware(
-            AuthService(
-                Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignInCancels()),
-          ),
+              AuthService(
+                  Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignInCancels()),
+              null),
         ],
       );
 

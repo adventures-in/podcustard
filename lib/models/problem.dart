@@ -37,7 +37,8 @@ class ProblemTypeEnum extends EnumClass {
       _$problemTypeEnumSerializer;
 
   static const ProblemTypeEnum signin = _$signin;
-  static const ProblemTypeEnum no = _$no;
+  static const ProblemTypeEnum retrievePodcastSummaries =
+      _$retrievePodcastSummaries;
 
   const ProblemTypeEnum._(String name) : super(name);
 

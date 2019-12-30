@@ -4,6 +4,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/widgets/more_options_page.dart';
+import 'package:podcustard/widgets/search_page.dart';
+import 'package:podcustard/widgets/search_text.dart';
 
 const TextStyle optionStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -16,10 +18,7 @@ const List<Widget> _widgetOptions = <Widget>[
     'Index 1: Business',
     style: optionStyle,
   ),
-  Text(
-    'Index 2: School',
-    style: optionStyle,
-  ),
+  SearchPage(),
   MoreOptionsPage(),
 ];
 
@@ -32,8 +31,16 @@ class MainPage extends StatelessWidget {
       builder: (context, selectedIndex) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('AppBar'),
-          ),
+              title: IndexedStack(
+            index: selectedIndex,
+            alignment: Alignment.center,
+            children: <Widget>[
+              const Text('AppBar'),
+              const Text('AppBar'),
+              SearchText(StoreProvider.of<AppState>(context)),
+              const Text('AppBar'),
+            ],
+          )),
           body: Center(
             child: _widgetOptions.elementAt(selectedIndex),
           ),
@@ -48,8 +55,8 @@ class MainPage extends StatelessWidget {
                 title: Text('Business'),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.school),
-                title: Text('School'),
+                icon: Icon(Icons.search),
+                title: Text('Search'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.more_vert),
@@ -71,71 +78,3 @@ class MainPage extends StatelessWidget {
         .dispatch(StoreMainPageIndex(index: index));
   }
 }
-
-// class MainPage extends StatefulWidget {
-//   @override
-//   _MainPageState createState() => _MainPageState();
-// }
-
-// class _MainPageState extends State<MainPage> {
-//   int _selectedIndex = 0;
-//   static const TextStyle optionStyle =
-//       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-//   static const List<Widget> _widgetOptions = <Widget>[
-//     Text(
-//       'Index 0: Home',
-//       style: optionStyle,
-//     ),
-//     Text(
-//       'Index 1: Business',
-//       style: optionStyle,
-//     ),
-//     Text(
-//       'Index 2: School',
-//       style: optionStyle,
-//     ),
-//     MoreOptionsPage(),
-//   ];
-
-//   void _onItemTapped(int index) {
-//     setState(() {
-//       _selectedIndex = index;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('AppBar'),
-//       ),
-//       body: Center(
-//         child: _widgetOptions.elementAt(_selectedIndex),
-//       ),
-//       bottomNavigationBar: BottomNavigationBar(
-//         items: const <BottomNavigationBarItem>[
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.home),
-//             title: Text('Home'),
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.business),
-//             title: Text('Business'),
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.school),
-//             title: Text('School'),
-//           ),
-//           BottomNavigationBarItem(
-//             icon: Icon(Icons.more_vert),
-//             title: Text('More'),
-//           ),
-//         ],
-//         type: BottomNavigationBarType.fixed,
-//         currentIndex: _selectedIndex,
-//         selectedItemColor: Colors.amber[800],
-//         onTap: _onItemTapped,
-//       ),
-//     );
-//   }
-// }
