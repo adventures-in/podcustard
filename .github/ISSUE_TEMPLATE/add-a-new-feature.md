@@ -1,26 +1,41 @@
 ---
-name: Add a New Feature
-about: The feature will have an associated feature branch and should be well tested
-  before closing
-title: ''
-labels: ''
-assignees: ''
+name: Feature
+about: Describe a feature that will be implemented
+title: 'Add '
+labels: enhancement
+assignees: nickmeinhold
 
 ---
 
 Notes: 
 - 
 
-Feature components 
-- [ ] Widget: 
-- [ ] Model / AppState member: 
-- [ ] Reducer: 
-- [ ] Middleware: 
-- [ ] Service: 
+Actions: 
+- [ ] 
+  - [ ] implement 
+  - [ ] test 
 
-Tests: 
-- [ ] Widget: 
-- [ ] Model / AppState member: 
-- [ ] Reducer: 
-- [ ] Middleware: 
-- [ ] Service:
+Widgets: 
+- [ ] 
+  - [ ] implement 
+  - [ ] test 
+
+Models: 
+- [ ] 
+  - [ ] implement 
+  - [ ] test 
+
+Reducers: 
+- [ ] 
+  - [ ] implement 
+  - [ ] test 
+
+Middleware: 
+- [ ] 
+  - [ ] implement 
+  - [ ] test 
+
+Services: 
+- [ ] 
+  - [ ] implement 
+  - [ ] test 
