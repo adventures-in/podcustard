@@ -5,9 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter",
+            "name": "Main",
             "request": "launch",
             "type": "dart"
+        },
+        {
+            "name": "MainRDT",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main_rdt.dart",
         }
     ]
 }
