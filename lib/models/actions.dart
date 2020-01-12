@@ -23,6 +23,8 @@ class Action {
   factory Action.StorePodcastSummaries(
           {@required List<PodcastSummary> summaries}) =>
       StorePodcastSummaries(summaries: summaries);
+  factory Action.StoreThemeMode({@required int themeMode}) =>
+      StoreThemeMode(themeMode: themeMode);
 }
 
 class ObserveAuthState extends Action {
@@ -65,4 +67,10 @@ class StorePodcastSummaries extends Action {
   StorePodcastSummaries({@required this.summaries})
       : super(<String, Object>{'summaries': summaries});
   final List<PodcastSummary> summaries;
+}
+
+class StoreThemeMode extends Action {
+  StoreThemeMode({@required this.themeMode})
+      : super(<String, Object>{'themeMode': themeMode});
+  final int themeMode;
 }

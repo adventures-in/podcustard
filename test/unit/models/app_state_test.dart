@@ -11,6 +11,7 @@ void main() {
   ///
   /// int authStep
   /// int mainPageIndex
+  /// int themeMode
   ///
   /// -- nullable
   ///
@@ -21,10 +22,12 @@ void main() {
     test('deals with null for nullable members', () {
       final appState = AppState((b) => b
         ..authStep = 0
-        ..mainPageIndex = 0);
+        ..mainPageIndex = 0
+        ..themeMode = 0);
 
       expect(appState.authStep, 0);
       expect(appState.mainPageIndex, 0);
+      expect(appState.themeMode, 0);
       expect(appState.problems, []);
       expect(appState.user, null);
     });
@@ -54,11 +57,13 @@ void main() {
       final appState = AppState((b) => b
         ..authStep = 0
         ..mainPageIndex = 0
+        ..themeMode = 0
         ..problems.add(problem)
         ..user.replace(user));
 
       expect(appState.authStep, 0);
       expect(appState.mainPageIndex, 0);
+      expect(appState.themeMode, 0);
       expect(appState.problems, [problem]);
       expect(appState.user, user);
     });

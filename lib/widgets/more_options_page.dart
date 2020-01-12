@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:podcustard/widgets/dark_mode_toggle.dart';
 
 class MoreOptionsPage extends StatelessWidget {
   const MoreOptionsPage();
@@ -17,7 +18,8 @@ class MoreOptionsPage extends StatelessWidget {
               FirebaseAuth.instance.signOut();
             },
           ),
-        )
+        ),
+        DarkModeToggle(),
       ],
     );
   }

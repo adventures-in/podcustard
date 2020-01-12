@@ -23,17 +23,29 @@ class _PodcustardAppState extends State<PodcustardApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: StoreProvider<AppState>(
-        store: widget.store,
-        child: StoreConnector<AppState, User>(
+    return StoreProvider<AppState>(
+      store: widget.store,
+      child: StoreConnector<AppState, int>(
           distinct: true,
-          converter: (store) => store.state.user,
-          builder: (context, user) {
-            return (user == null || user.uid == null) ? AuthPage() : MainPage();
-          },
-        ),
-      ),
+          converter: (store) => store.state.themeMode,
+          builder: (context, themeMode) {
+            return MaterialApp(
+              theme: ThemeData(),
+              darkTheme: ThemeData.dark(),
+              themeMode: (themeMode == 0)
+                  ? ThemeMode.light
+                  : (themeMode == 1) ? ThemeMode.dark : ThemeMode.system,
+              home: StoreConnector<AppState, User>(
+                distinct: true,
+                converter: (store) => store.state.user,
+                builder: (context, user) {
+                  return (user == null || user.uid == null)
+                      ? AuthPage()
+                      : MainPage();
+                },
+              ),
+            );
+          }),
     );
   }
 }
