@@ -18,6 +18,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   @nullable
   User get user;
   int get mainPageIndex;
+  int get themeMode;
   BuiltList<PodcastSummary> get podcastSummaries;
 
   AppState._();
@@ -25,7 +26,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   factory AppState.init() => AppState((a) => a
     ..problems = ListBuilder<Problem>()
     ..authStep = 0
-    ..mainPageIndex = 0);
+    ..mainPageIndex = 0
+    ..themeMode = 2);
 
   factory AppState([void Function(AppStateBuilder) updates]) = _$AppState;
 

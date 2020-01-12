@@ -125,4 +125,24 @@ void main() {
       expect(store.state.podcastSummaries.first, podcastSummary);
     });
   });
+
+  test('_storeThemeMode correctly stores themeMode', () {
+    // create a basic store with the app reducers
+    final store = Store<AppState>(
+      appReducer,
+      initialState: AppState.init(),
+    );
+
+    // dispatch action to store themeMode
+    store.dispatch(Action.StoreThemeMode(themeMode: 0));
+
+    // check that the store has the expected value
+    expect(store.state.themeMode, 0);
+
+    // dispatch action to store themeMode
+    store.dispatch(Action.StoreThemeMode(themeMode: 1));
+
+    // check that the store has the expected value
+    expect(store.state.themeMode, 1);
+  });
 }

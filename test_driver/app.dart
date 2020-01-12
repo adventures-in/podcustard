@@ -14,7 +14,7 @@ import '../test/mocks/all_mocks.dart';
 void main() async {
   enableFlutterDriverExtension();
 
-  final remoteDevtools = RemoteDevToolsMiddleware(imac_ip18);
+  final remoteDevtools = RemoteDevToolsMiddleware(imac18);
 
   final store = Store<AppState>(
     appReducer,
