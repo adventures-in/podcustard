@@ -62,7 +62,7 @@ void main() {
           AddProblem(
               problem: Problem((b) => b
                 ..message = 'm'
-                ..type = ProblemTypeEnum.signin))
+                ..type = ProblemTypeEnum.googleSignin))
         ]),
       );
 

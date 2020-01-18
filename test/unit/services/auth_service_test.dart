@@ -61,7 +61,8 @@ void main() {
             TypeMatcher<StoreAuthStep>()..having((a) => a.step, 'step', 1),
             TypeMatcher<StoreAuthStep>()..having((a) => a.step, 'step', 0),
             TypeMatcher<AddProblem>()
-              ..having((p) => p.problem.type, 'type', ProblemTypeEnum.signin)
+              ..having(
+                  (p) => p.problem.type, 'type', ProblemTypeEnum.googleSignin)
               ..having((p) => p.problem.message, 'message',
                   equals('Exception: GoogleSignIn.signIn')),
             emitsDone,

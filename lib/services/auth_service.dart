@@ -1,3 +1,4 @@
+import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -82,7 +83,53 @@ class AuthService {
           problem: Problem((b) => b
             ..message = error.toString()
             ..trace = trace.toString()
-            ..type = ProblemTypeEnum.signin));
+            ..type = ProblemTypeEnum.googleSignin));
+    }
+  }
+
+  Stream<Action> get appleSigninStream async* {
+    try {
+      final result = await AppleSignIn.performRequests([
+        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+      ]);
+
+      switch (result.status) {
+        case AuthorizationStatus.authorized:
+          try {
+            print('successfull sign in');
+            final appleIdCredential = result.credential;
+
+            final oAuthProvider = OAuthProvider(providerId: 'apple.com');
+            final credential = oAuthProvider.getCredential(
+              idToken: String.fromCharCodes(appleIdCredential.identityToken),
+              accessToken:
+                  String.fromCharCodes(appleIdCredential.authorizationCode),
+            );
+
+            await FirebaseAuth.instance.signInWithCredential(credential);
+          } catch (e) {
+            print('error: $e');
+          }
+          break;
+        case AuthorizationStatus.error:
+          print('${result.error}');
+          break;
+
+        case AuthorizationStatus.cancelled:
+          print('User cancelled');
+          break;
+      }
+    } catch (error, trace) {
+      // reset the UI and display an alert
+
+      yield Action.StoreAuthStep(step: 0);
+      // any specific errors are caught and dealt with so we can assume
+      // anything caught here is a problem and send to the store for display
+      yield Action.AddProblem(
+          problem: Problem((b) => b
+            ..message = error.toString()
+            ..trace = trace.toString()
+            ..type = ProblemTypeEnum.appleSignin));
     }
   }
 }

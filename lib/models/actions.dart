@@ -12,6 +12,7 @@ class Action {
   factory Action.ObserveAuthState() => ObserveAuthState();
   factory Action.StoreUser({@required User user}) => StoreUser(user: user);
   factory Action.SigninWithGoogle() => SigninWithGoogle();
+  factory Action.SigninWithApple() => SigninWithApple();
   factory Action.StoreAuthStep({@required int step}) =>
       StoreAuthStep(step: step);
   factory Action.AddProblem({@required Problem problem}) =>
@@ -38,6 +39,10 @@ class StoreUser extends Action {
 
 class SigninWithGoogle extends Action {
   SigninWithGoogle() : super(<String, Object>{});
+}
+
+class SigninWithApple extends Action {
+  SigninWithApple() : super(<String, Object>{});
 }
 
 class StoreAuthStep extends Action {
