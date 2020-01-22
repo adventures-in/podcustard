@@ -32,7 +32,7 @@ void main() {
       await tester.pumpWidget(PodcustardApp(store));
 
       // Create the Finders.
-      final authPageFinder = find.text('SIGN IN');
+      final authPageFinder = find.text('Sign in with Google');
       final mainPageFinder = find.text('More');
 
       // Use the `findsOneWidget` matcher to verify that a Text widget with the

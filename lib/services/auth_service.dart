@@ -45,9 +45,10 @@ class AuthService {
   }
 
   Stream<Action> get googleSignInStream async* {
-    try {
-      yield Action.StoreAuthStep(step: 1);
+    // signal to change UI
+    yield Action.StoreAuthStep(step: 1);
 
+    try {
       final googleUser = await _googleSignIn.signIn();
 
       // if the user canceled signin, an error is thrown but it gets swallowed
@@ -57,6 +58,7 @@ class AuthService {
         return;
       }
 
+      // signal to change UI
       yield Action.StoreAuthStep(step: 2);
 
       final googleAuth = await googleUser.authentication;
@@ -88,6 +90,9 @@ class AuthService {
   }
 
   Stream<Action> get appleSigninStream async* {
+    // signal to change UI
+    yield Action.StoreAuthStep(step: 1);
+
     try {
       final result = await AppleSignIn.performRequests([
         AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
@@ -95,28 +100,27 @@ class AuthService {
 
       switch (result.status) {
         case AuthorizationStatus.authorized:
-          try {
-            print('successfull sign in');
-            final appleIdCredential = result.credential;
+          // signal to change UI
+          yield Action.StoreAuthStep(step: 2);
 
-            final oAuthProvider = OAuthProvider(providerId: 'apple.com');
-            final credential = oAuthProvider.getCredential(
-              idToken: String.fromCharCodes(appleIdCredential.identityToken),
-              accessToken:
-                  String.fromCharCodes(appleIdCredential.authorizationCode),
-            );
+          // retrieve the apple credential and convert to oauth credential
+          final appleIdCredential = result.credential;
+          final oAuthProvider = OAuthProvider(providerId: 'apple.com');
+          final credential = oAuthProvider.getCredential(
+            idToken: String.fromCharCodes(appleIdCredential.identityToken),
+            accessToken:
+                String.fromCharCodes(appleIdCredential.authorizationCode),
+          );
 
-            await FirebaseAuth.instance.signInWithCredential(credential);
-          } catch (e) {
-            print('error: $e');
-          }
+          // use the credential to sign in to firebase
+          await FirebaseAuth.instance.signInWithCredential(credential);
           break;
         case AuthorizationStatus.error:
-          print('${result.error}');
+          throw result.error;
           break;
 
         case AuthorizationStatus.cancelled:
-          print('User cancelled');
+          yield Action.StoreAuthStep(step: 0);
           break;
       }
     } catch (error, trace) {
@@ -126,10 +130,11 @@ class AuthService {
       // any specific errors are caught and dealt with so we can assume
       // anything caught here is a problem and send to the store for display
       yield Action.AddProblem(
-          problem: Problem((b) => b
-            ..message = error.toString()
-            ..trace = trace.toString()
-            ..type = ProblemTypeEnum.appleSignin));
+        problem: Problem((b) => b
+          ..message = error.toString()
+          ..trace = trace.toString()
+          ..type = ProblemTypeEnum.appleSignin),
+      );
     }
   }
 }

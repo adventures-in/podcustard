@@ -15,7 +15,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 
 void main() async {
-  final remoteDevtools = RemoteDevToolsMiddleware(iphone);
+  final remoteDevtools = RemoteDevToolsMiddleware(imac31);
 
   final store = Store<AppState>(
     appReducer,

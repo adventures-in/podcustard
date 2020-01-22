@@ -64,7 +64,7 @@ void Function(
     next(action);
 
     // signin and listen to the stream and dispatch actions
-    authService.googleSignInStream.listen(store.dispatch);
+    authService.appleSigninStream.listen(store.dispatch);
   };
 }
 

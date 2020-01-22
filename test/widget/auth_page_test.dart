@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/redux/app_reducer.dart';
@@ -24,7 +25,7 @@ void main() {
         ],
       );
 
-      final authPageFinder = find.text('SIGN IN');
+      final authPageFinder = find.byType(GoogleSignInButton);
 
       // build our app and trigger a frame
       await tester.pumpWidget(
@@ -41,7 +42,7 @@ void main() {
 
     testWidgets('dispatches SigninWithGoogle on tap',
         (WidgetTester tester) async {
-      final signinButtonFinder = find.text('SIGN IN');
+      final signinButtonFinder = find.byType(GoogleSignInButton);
 
       // create a basic store with middleware, services and reducers
       final store = Store<AppState>(

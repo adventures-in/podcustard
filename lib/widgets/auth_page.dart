@@ -13,20 +13,6 @@ class _AuthPageState extends State<AuthPage> {
   bool supportsAppleSignIn = true;
 
   @override
-  void initState() {
-    // // this bool will be true if apple sign in is enabled
-    // if (Platform.isIOS) {
-    //   var iosInfo = await DeviceInfoPlugin().iosInfo;
-    //   var version = iosInfo.systemVersion;
-
-    //   if (version.contains('13') == true) {
-    //     supportsAppleSignIn = true;
-    //   }
-    // }
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, int>(
         distinct: true,
@@ -57,13 +43,13 @@ class _AuthPageState extends State<AuthPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CircularProgressIndicator(),
-                      Text('Calling Auth Provider...')
+                      Text('Contacting Auth Provider...')
                     ]),
                 Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CircularProgressIndicator(),
-                      Text('Calling Firebase...')
+                      Text('Signing in with Firebase...')
                     ]),
               ],
             ),
