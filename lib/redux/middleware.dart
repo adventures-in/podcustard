@@ -20,7 +20,10 @@ List<Middleware<AppState>> createMiddleware(
       _observeAuthState(authService),
     ),
     TypedMiddleware<AppState, SigninWithGoogle>(
-      _signinWithGoogle(authService),
+      _signInWithGoogle(authService),
+    ),
+    TypedMiddleware<AppState, SigninWithApple>(
+      _signInWithApple(authService),
     ),
     TypedMiddleware<AppState, RetrievePodcastSummaries>(
       _retrievePodcastSummaries(itunesService),
@@ -43,13 +46,25 @@ void Function(
 
 void Function(
         Store<AppState> store, SigninWithGoogle action, NextDispatcher next)
-    _signinWithGoogle(AuthService authService) {
+    _signInWithGoogle(AuthService authService) {
   return (Store<AppState> store, SigninWithGoogle action,
       NextDispatcher next) async {
     next(action);
 
     // signin and listen to the stream and dispatch actions
     authService.googleSignInStream.listen(store.dispatch);
+  };
+}
+
+void Function(
+        Store<AppState> store, SigninWithApple action, NextDispatcher next)
+    _signInWithApple(AuthService authService) {
+  return (Store<AppState> store, SigninWithApple action,
+      NextDispatcher next) async {
+    next(action);
+
+    // signin and listen to the stream and dispatch actions
+    authService.appleSignInStream.listen(store.dispatch);
   };
 }
 
