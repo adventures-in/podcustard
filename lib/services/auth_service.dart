@@ -6,12 +6,14 @@ import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/provider_info.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/utils/apple_signin.dart';
 
 class AuthService {
-  AuthService(this._fireAuth, this._googleSignIn);
+  AuthService(this._fireAuth, this._googleSignIn, this._appleSignIn);
 
   final FirebaseAuth _fireAuth;
   final GoogleSignIn _googleSignIn;
+  final AppleSignInObject _appleSignIn;
 
   // map the emitted FirebaseUsers to StoreAuthState actions
   // if FirebaseUser is null, map to a StoreAuthState with null uid
@@ -89,14 +91,12 @@ class AuthService {
     }
   }
 
-  Stream<Action> get appleSigninStream async* {
+  Stream<Action> get appleSignInStream async* {
     // signal to change UI
     yield Action.StoreAuthStep(step: 1);
 
     try {
-      final result = await AppleSignIn.performRequests([
-        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-      ]);
+      final result = await _appleSignIn.startAuth();
 
       switch (result.status) {
         case AuthorizationStatus.authorized:

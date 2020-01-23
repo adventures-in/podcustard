@@ -10,7 +10,7 @@ import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:test/test.dart';
 
-import '../mocks/all_mocks.dart';
+import '../mocks/http_client_mocks.dart';
 import '../test_data/retrieve_podcast_summaries_response.dart' as test_data;
 
 class MockAuthService extends Mock implements AuthService {}
@@ -52,7 +52,7 @@ void main() {
     });
 
     test(
-        '_signinWithGoogle starts signin sequence and dispatches emitted actions',
+        '_signInWithGoogle starts signin sequence and dispatches emitted actions',
         () async {
       // setup a mock auth service to give a test response
       final mockAuthService = MockAuthService();
@@ -87,11 +87,47 @@ void main() {
       expect(store.state.problems.length, 1);
     });
 
+    test(
+        '_signInWithApple starts signin sequence and dispatches emitted actions',
+        () async {
+      // setup a mock auth service to give a test response
+      final mockAuthService = MockAuthService();
+      when(mockAuthService.appleSignInStream).thenAnswer(
+        (_) => Stream.fromIterable([
+          Action.StoreAuthStep(step: 1),
+          AddProblem(
+              problem: Problem((b) => b
+                ..message = 'm'
+                ..type = ProblemTypeEnum.googleSignin))
+        ]),
+      );
+
+      // create a basic store with the mocked out middleware
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+        middleware: createMiddleware(mockAuthService, null),
+      );
+
+      // dispatch action to initiate signin
+      store.dispatch(Action.SigninWithApple());
+
+      // verify the middleware used the service to get a stream of actions
+      verify(mockAuthService.appleSignInStream);
+
+      // wait for the stream to complete so we can test that the middleware did it's thing
+      await for (Action _ in mockAuthService.appleSignInStream) {}
+
+      // all the middleware does is dispatch a StoreAuthState action so check the state
+      expect(store.state.authStep, 1);
+      expect(store.state.problems.length, 1);
+    });
+
     test('_retrievePodcastSummaries uses service to retrieve summaries',
         () async {
       // setup a mock service to give a test response
       final fakeService =
-          ItunesService(Mocks.fakeHttpClient(test_data.jsonResponseString));
+          ItunesService(FakeHttpClient(response: test_data.jsonResponseString));
 
       // create a basic store with the mocked out middleware
       final store = Store<AppState>(

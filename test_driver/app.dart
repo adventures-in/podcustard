@@ -6,10 +6,11 @@ import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
-import 'package:podcustard/utilities/mocks.dart';
+import 'package:podcustard/utils/mocks.dart';
 import 'package:podcustard/widgets/app.dart';
 
-import '../test/mocks/all_mocks.dart';
+import '../test/mocks/firebase_auth_mocks.dart';
+import '../test/mocks/google_signin_mocks.dart';
 
 void main() async {
   enableFlutterDriverExtension();
@@ -22,8 +23,7 @@ void main() async {
     middleware: [
       remoteDevtools,
       ...createMiddleware(
-          AuthService(Mocks.fakeFirebaseAuth1(), Mocks.fakeGoogleSignIn()),
-          null),
+          AuthService(FakeFirebaseAuth1(), FakeGoogleSignIn(), null), null),
     ],
   );
 
