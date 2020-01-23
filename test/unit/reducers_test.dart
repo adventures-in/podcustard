@@ -46,7 +46,7 @@ void main() {
             ..info = {'a': 'b'}
             ..state.replace(AppState.init())
             ..trace = 'trace'
-            ..type = ProblemTypeEnum.signin)));
+            ..type = ProblemTypeEnum.googleSignin)));
 
       // check that the store has the expected value
       expect(store.state.problems.length, 1);
@@ -55,7 +55,7 @@ void main() {
       expect(problem.info, {'a': 'b'});
       expect(problem.state, AppState.init());
       expect(problem.trace, 'trace');
-      expect(problem.type, ProblemTypeEnum.signin);
+      expect(problem.type, ProblemTypeEnum.googleSignin);
     });
 
     test('_storeAuthStep stores the auth step', () {

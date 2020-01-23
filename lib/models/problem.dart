@@ -36,7 +36,8 @@ class ProblemTypeEnum extends EnumClass {
   static Serializer<ProblemTypeEnum> get serializer =>
       _$problemTypeEnumSerializer;
 
-  static const ProblemTypeEnum signin = _$signin;
+  static const ProblemTypeEnum googleSignin = _$googleSignin;
+  static const ProblemTypeEnum appleSignin = _$appleSignin;
   static const ProblemTypeEnum retrievePodcastSummaries =
       _$retrievePodcastSummaries;
 

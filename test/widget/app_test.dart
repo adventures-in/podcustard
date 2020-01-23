@@ -6,15 +6,15 @@ import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/widgets/app.dart';
 
-import '../mocks/all_mocks.dart';
-import '../mocks/mock_firebase_auth.dart';
+import '../mocks/firebase_auth_mocks.dart';
+import '../mocks/google_signin_mocks.dart';
 
 void main() {
   group('PodcustardApp widget', () {
     testWidgets('observes auth state on load and navigates',
         (WidgetTester tester) async {
-      final fakeFirebaseAuth = Mocks.fakeFirebaseAuthOpen();
-      final fakeGoogleSignIn = Mocks.fakeGoogleSignIn();
+      final fakeFirebaseAuth = FakeFirebaseAuthOpen();
+      final fakeGoogleSignIn = FakeGoogleSignIn();
       // create a basic store with middleware that uses the AuthService to
       // observe auth state and a reducer that saves the emitted auth state
       final store = Store<AppState>(
@@ -22,7 +22,7 @@ void main() {
         initialState: AppState.init(),
         middleware: [
           ...createMiddleware(
-              AuthService(fakeFirebaseAuth, fakeGoogleSignIn), null),
+              AuthService(fakeFirebaseAuth, fakeGoogleSignIn, null), null),
         ],
       );
 
@@ -32,7 +32,7 @@ void main() {
       await tester.pumpWidget(PodcustardApp(store));
 
       // Create the Finders.
-      final authPageFinder = find.text('SIGN IN');
+      final authPageFinder = find.text('Sign in with Google');
       final mainPageFinder = find.text('More');
 
       // Use the `findsOneWidget` matcher to verify that a Text widget with the

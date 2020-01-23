@@ -29,3 +29,11 @@ class FakeHttpClientThrows extends Fake implements http.Client {
   @override
   void close() {}
 }
+
+// MockHttpClient getMockHttpClient(String response) {
+//   final mock = MockHttpClient();
+//   when(mock.get(any)).thenAnswer((_) => Future.value(http.Response(
+//       response, 200,
+//       headers: {'content-type': 'application/json; charset=utf-8'})));
+//   return mock;
+// }
