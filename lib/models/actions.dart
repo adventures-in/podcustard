@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/user.dart';
+import 'package:webfeed/webfeed.dart';
 
 class Action {
   const Action(this.propsMap);
@@ -26,6 +27,7 @@ class Action {
       StorePodcastSummaries(summaries: summaries);
   factory Action.StoreThemeMode({@required int themeMode}) =>
       StoreThemeMode(themeMode: themeMode);
+  factory Action.StoreFeed({@required RssFeed feed}) => StoreFeed(feed: feed);
 }
 
 class ObserveAuthState extends Action {
@@ -78,4 +80,9 @@ class StoreThemeMode extends Action {
   StoreThemeMode({@required this.themeMode})
       : super(<String, Object>{'themeMode': themeMode});
   final int themeMode;
+}
+
+class StoreFeed extends Action {
+  StoreFeed({@required this.feed}) : super(<String, Object>{'feed': feed});
+  final RssFeed feed;
 }

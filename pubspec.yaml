@@ -22,6 +22,8 @@ dependencies:
   device_info:
   flutter_auth_buttons:
 
+  webfeed:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
