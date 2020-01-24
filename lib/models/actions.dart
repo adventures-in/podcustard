@@ -2,7 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/user.dart';
-import 'package:webfeed/webfeed.dart';
+import 'package:rss_dart/models/rss_feed.dart';
 
 class Action {
   const Action(this.propsMap);

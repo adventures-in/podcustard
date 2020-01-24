@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:webfeed/webfeed.dart';
+import 'package:rss_dart/models/rss_feed.dart';
 
 class FeedsService {
   FeedsService(this._httpClient);
