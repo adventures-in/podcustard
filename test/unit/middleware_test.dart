@@ -35,7 +35,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(mockAuthService, null),
+        middleware: createMiddleware(mockAuthService, null, null),
       );
 
       // dispatch action to observe the auth state
@@ -70,7 +70,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(mockAuthService, null),
+        middleware: createMiddleware(mockAuthService, null, null),
       );
 
       // dispatch action to initiate signin
@@ -106,7 +106,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(mockAuthService, null),
+        middleware: createMiddleware(mockAuthService, null, null),
       );
 
       // dispatch action to initiate signin
@@ -133,7 +133,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(null, fakeService),
+        middleware: createMiddleware(null, fakeService, null),
       );
 
       // dispatch action to initiate signin

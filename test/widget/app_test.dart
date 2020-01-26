@@ -22,7 +22,9 @@ void main() {
         initialState: AppState.init(),
         middleware: [
           ...createMiddleware(
-              AuthService(fakeFirebaseAuth, fakeGoogleSignIn, null), null),
+              AuthService(fakeFirebaseAuth, fakeGoogleSignIn, null),
+              null,
+              null),
         ],
       );
 

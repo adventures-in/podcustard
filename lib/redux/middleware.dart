@@ -1,3 +1,4 @@
+import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
 import 'package:redux/redux.dart';
 import 'package:podcustard/models/actions.dart';
@@ -13,8 +14,8 @@ import 'package:podcustard/services/auth_service.dart';
 ///
 /// The output of an action can perform another action using the [NextDispatcher]
 ///
-List<Middleware<AppState>> createMiddleware(
-    AuthService authService, ItunesService itunesService) {
+List<Middleware<AppState>> createMiddleware(AuthService authService,
+    ItunesService itunesService, FeedsService feedsService) {
   return [
     TypedMiddleware<AppState, ObserveAuthState>(
       _observeAuthState(authService),
@@ -27,6 +28,9 @@ List<Middleware<AppState>> createMiddleware(
     ),
     TypedMiddleware<AppState, RetrievePodcastSummaries>(
       _retrievePodcastSummaries(itunesService),
+    ),
+    TypedMiddleware<AppState, SelectPodcast>(
+      _retrieveFeed(feedsService),
     ),
   ];
 }
@@ -78,6 +82,19 @@ void Function(Store<AppState> store, RetrievePodcastSummaries action,
     // retrieve podcast summaries and dispatch action to store result
     final storeAction =
         await itunesService.retrievePodcastSummaries(query: action.query);
+    store.dispatch(storeAction);
+  };
+}
+
+void Function(Store<AppState> store, SelectPodcast action, NextDispatcher next)
+    _retrieveFeed(FeedsService feedsService) {
+  return (Store<AppState> store, SelectPodcast action,
+      NextDispatcher next) async {
+    next(action);
+
+    // retrieve feed and dispatch action to store result
+    final storeAction =
+        await feedsService.retrieveFeed(url: action.podcast.feedUrl);
     store.dispatch(storeAction);
   };
 }

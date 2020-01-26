@@ -6,24 +6,26 @@ import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
+import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
 import 'package:podcustard/utils/apple_signin.dart';
 import 'package:podcustard/widgets/app.dart';
 import 'package:redux/redux.dart';
 
 void main() async {
+  final httpClient = http.Client();
   final store = Store<AppState>(
     appReducer,
     initialState: AppState.init(),
     middleware: [
       ...createMiddleware(
-        AuthService(
-          FirebaseAuth.instance,
-          GoogleSignIn(scopes: <String>['email']),
-          AppleSignInObject(),
-        ),
-        ItunesService(http.Client()),
-      ),
+          AuthService(
+            FirebaseAuth.instance,
+            GoogleSignIn(scopes: <String>['email']),
+            AppleSignInObject(),
+          ),
+          ItunesService(httpClient),
+          FeedsService(httpClient)),
     ],
   );
 

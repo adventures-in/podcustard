@@ -2,6 +2,13 @@
 
 Enjoy your podcasts right here.
 
+## Parsing RSS Feeds 
+
+Using `rss_dart` package to parse RSS into built_value objects.
+
+- https://github.com/nickmeinhold/rss_dart 
+
+
 ## Redux RemoteDevTools (RDT) 
 
 - find the IP address of the computer 
