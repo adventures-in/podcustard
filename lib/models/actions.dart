@@ -31,6 +31,7 @@ class Action {
   factory Action.StoreFeed({@required RssFeed feed}) => StoreFeed(feed: feed);
   factory Action.SelectPodcast({@required PodcastSummary podcast}) =>
       SelectPodcast(podcast: podcast);
+  factory Action.ClearPodcastSelection() => ClearPodcastSelection();
 }
 
 class ObserveAuthState extends Action {
@@ -99,4 +100,8 @@ class SelectPodcast extends Action {
   SelectPodcast({@required this.podcast})
       : super(<String, Object>{'podcast': podcast});
   final PodcastSummary podcast;
+}
+
+class ClearPodcastSelection extends Action {
+  ClearPodcastSelection() : super(<String, Object>{});
 }
