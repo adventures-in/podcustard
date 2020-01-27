@@ -1,16 +1,19 @@
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/services/itunes_service.dart';
-import 'package:redux/redux.dart';
-import 'package:podcustard/models/user.dart';
 import 'package:podcustard/models/actions.dart';
-import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/models/app_state.dart';
+import 'package:podcustard/models/problem.dart';
+import 'package:podcustard/models/user.dart';
+import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
+import 'package:podcustard/services/feeds_service.dart';
+import 'package:podcustard/services/itunes_service.dart';
+import 'package:redux/redux.dart';
 import 'package:test/test.dart';
+import 'package:http/http.dart' as http;
 
 import '../mocks/http_client_mocks.dart';
+import '../test_data/after_dark_rss_feed_xml.dart';
 import '../test_data/retrieve_podcast_summaries_response.dart' as test_data;
 
 class MockAuthService extends Mock implements AuthService {}
@@ -141,6 +144,27 @@ void main() {
 
       // mut dispatches a StorePodcastSummaries action so we check the state
       expect(store.state.podcastSummaries.length, 50);
+    });
+
+    test('_retrieveFeed retrieves and parses the feed', () async {
+      // setup a mock service to give a test response
+      final fakeService = FeedsService(FakeHttpClient(response: after_dark));
+
+      final url =
+          'https://feeds.publicradio.org/public_feeds/in-the-dark/itunes/rss';
+
+      // create a basic store with the mocked out middleware
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+        middleware: createMiddleware(null, null, fakeService),
+      );
+
+      // dispatch action to initiate signin
+      await store.dispatch(Action.RetrieveFeed(url: url));
+
+      // mut dispatches a StoreFeed action so we check the state
+      expect(store.state.detailVM.feed.title, 'After Dark');
     });
   });
 }

@@ -40,6 +40,10 @@ class PodcastDetailPage extends StatelessWidget {
                               ? ''
                               : vm.feed.items[index].media.contents.first.url;
                           return ListTile(
+                            leading: IconButton(
+                              icon: Icon(Icons.play_circle_filled),
+                              onPressed: () {},
+                            ),
                             title: GestureDetector(
                                 child: Text(vm.feed.items[index].title,
                                     style: TextStyle(

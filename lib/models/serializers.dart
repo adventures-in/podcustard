@@ -8,6 +8,9 @@ import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/provider_info.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:podcustard/models/app_state.dart';
+import 'package:rss_dart/models/media/content.dart';
+import 'package:rss_dart/models/media/media.dart';
+import 'package:rss_dart/models/rss_enclosure.dart';
 import 'package:rss_dart/models/rss_feed.dart';
 import 'package:rss_dart/models/rss_item.dart';
 
