@@ -20,7 +20,7 @@ void main() {
 
     // create a basic store with a reducer that ...
     final store = Store<AppState>(appReducer,
-        middleware: [...createMiddleware(null, fakeService)],
+        middleware: [...createMiddleware(null, fakeService, null)],
         initialState: AppState.init());
 
     // build our app and trigger a frame

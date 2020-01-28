@@ -13,6 +13,9 @@ final appReducer = combineReducers<AppState>([
   TypedReducer<AppState, StoreMainPageIndex>(_storeMainPageIndex),
   TypedReducer<AppState, StorePodcastSummaries>(_storePodcastSummaries),
   TypedReducer<AppState, StoreThemeMode>(_storeThemeMode),
+  TypedReducer<AppState, SelectPodcast>(_storePodcastSummary),
+  TypedReducer<AppState, StoreFeed>(_storeFeed),
+  TypedReducer<AppState, ClearPodcastSelection>(_clearPodcastSelection),
   // ...userReducers,
 ]);
 
@@ -44,4 +47,16 @@ AppState _storePodcastSummaries(AppState state, StorePodcastSummaries action) {
 
 AppState _storeThemeMode(AppState state, StoreThemeMode action) {
   return state.rebuild((b) => b.themeMode = action.themeMode);
+}
+
+AppState _storePodcastSummary(AppState state, SelectPodcast action) {
+  return state.rebuild((b) => b..detailVM.summary = action.podcast.toBuilder());
+}
+
+AppState _storeFeed(AppState state, StoreFeed action) {
+  return state.rebuild((b) => b..detailVM.feed = action.feed.toBuilder());
+}
+
+AppState _clearPodcastSelection(AppState state, ClearPodcastSelection action) {
+  return state.rebuild((b) => b..detailVM = null);
 }

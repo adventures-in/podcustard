@@ -55,12 +55,12 @@ class ItunesService {
 
       // Create an action and return
       return Action.StorePodcastSummaries(summaries: summariesList);
-    } on Exception catch (e, trace) {
+    } catch (error, trace) {
       // if there were any problems collect available info and create an action
       return AddProblem(
           problem: Problem((b) => b
             ..type = ProblemTypeEnum.retrievePodcastSummaries
-            ..message = e.toString()
+            ..message = error.toString()
             ..trace = trace.toString()));
     }
   }

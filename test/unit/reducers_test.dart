@@ -8,6 +8,8 @@ import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:test/test.dart';
 
+import '../test_data/podcasts_data.dart';
+
 void main() {
   group('Reducer', () {
     test('_storeAuthState stores auth state', () {
@@ -144,5 +146,21 @@ void main() {
 
     // check that the store has the expected value
     expect(store.state.themeMode, 1);
+  });
+
+  test('_storeFeed correctly stores a feed', () async {
+    // create a basic store with the app reducers
+    final store = Store<AppState>(
+      appReducer,
+      initialState: AppState.init(),
+    );
+
+    final feed = await getAfterDarkFeed();
+
+    // dispatch action to store themeMode
+    store.dispatch(Action.StoreFeed(feed: feed));
+
+    // check that the store has the expected value
+    expect(store.state.detailVM.feed, feed);
   });
 }
