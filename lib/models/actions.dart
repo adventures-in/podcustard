@@ -27,7 +27,6 @@ class Action {
       StorePodcastSummaries(summaries: summaries);
   factory Action.StoreThemeMode({@required int themeMode}) =>
       StoreThemeMode(themeMode: themeMode);
-  factory Action.RetrieveFeed({@required String url}) => RetrieveFeed(url: url);
   factory Action.StoreFeed({@required RssFeed feed}) => StoreFeed(feed: feed);
   factory Action.SelectPodcast({@required PodcastSummary podcast}) =>
       SelectPodcast(podcast: podcast);
@@ -84,11 +83,6 @@ class StoreThemeMode extends Action {
   StoreThemeMode({@required this.themeMode})
       : super(<String, Object>{'themeMode': themeMode});
   final int themeMode;
-}
-
-class RetrieveFeed extends Action {
-  RetrieveFeed({@required this.url}) : super(<String, Object>{'url': url});
-  final String url;
 }
 
 class StoreFeed extends Action {

@@ -11,8 +11,8 @@ class FeedsService {
 
   Future<Action> retrieveFeed({@required String url}) async {
     try {
-      var uriResponse = await _httpClient.get(url);
-      var feed = RssFeed.parse(uriResponse.body);
+      final uriResponse = await _httpClient.get(url);
+      final feed = RssFeed.parse(uriResponse.body);
 
       // Create an action and return
       return Action.StoreFeed(feed: feed);
