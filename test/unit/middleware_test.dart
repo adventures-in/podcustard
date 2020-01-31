@@ -38,7 +38,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(mockAuthService, null, null),
+        middleware: createMiddleware(authService: mockAuthService),
       );
 
       // dispatch action to observe the auth state
@@ -73,7 +73,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(mockAuthService, null, null),
+        middleware: createMiddleware(authService: mockAuthService),
       );
 
       // dispatch action to initiate signin
@@ -109,7 +109,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(mockAuthService, null, null),
+        middleware: createMiddleware(authService: mockAuthService),
       );
 
       // dispatch action to initiate signin
@@ -136,7 +136,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(null, fakeService, null),
+        middleware: createMiddleware(itunesService: fakeService),
       );
 
       // dispatch action to initiate signin
@@ -154,7 +154,7 @@ void main() {
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
-        middleware: createMiddleware(null, null, fakeService),
+        middleware: createMiddleware(feedsService: fakeService),
       );
 
       final url =

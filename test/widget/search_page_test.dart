@@ -5,7 +5,7 @@ import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/redux/app_reducer.dart';
-import 'package:podcustard/widgets/search_page.dart';
+import 'package:podcustard/widgets/podcasts_search/search_page.dart';
 import 'package:redux/redux.dart';
 
 import '../mocks/image_test_utils.dart';

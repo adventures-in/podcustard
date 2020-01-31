@@ -19,6 +19,7 @@ class _PodcustardAppState extends State<PodcustardApp> {
   void initState() {
     super.initState();
     widget.store.dispatch(Action.ObserveAuthState());
+    widget.store.dispatch(Action.ObserveAudioPlayer());
   }
 
   @override

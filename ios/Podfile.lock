@@ -6,6 +6,8 @@ PODS:
   - AppAuth/ExternalUserAgent (1.3.0)
   - apple_sign_in (0.0.1):
     - Flutter
+  - audiofileplayer (0.0.1):
+    - Flutter
   - device_info (0.0.1):
     - Flutter
   - Firebase/Auth (6.13.0):
@@ -119,6 +121,7 @@ PODS:
 
 DEPENDENCIES:
   - apple_sign_in (from `.symlinks/plugins/apple_sign_in/ios`)
+  - audiofileplayer (from `.symlinks/plugins/audiofileplayer/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_auth_web (from `.symlinks/plugins/firebase_auth_web/ios`)
@@ -154,6 +157,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   apple_sign_in:
     :path: ".symlinks/plugins/apple_sign_in/ios"
+  audiofileplayer:
+    :path: ".symlinks/plugins/audiofileplayer/ios"
   device_info:
     :path: ".symlinks/plugins/device_info/ios"
   firebase_auth:
@@ -180,6 +185,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   apple_sign_in: 7716c7ddfa195aeab7dec0dc374ef4ff45d1adb4
+  audiofileplayer: 4aaff759a721ec3a850a682e0d9ec554e5f9e86f
   device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
   Firebase: 458d109512200d1aca2e1b9b6cf7d68a869a4a46
   firebase_auth: 697625863042c7af7a01b5f1a4cfff37d30743b4
@@ -208,6 +214,6 @@ SPEC CHECKSUMS:
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
 
-PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+PODFILE CHECKSUM: 1c019deae9eeb943376f64565e9388a8605cd58a
 
 COCOAPODS: 1.8.4

@@ -40,6 +40,12 @@ class ProblemTypeEnum extends EnumClass {
   static const ProblemTypeEnum appleSignin = _$appleSignin;
   static const ProblemTypeEnum retrievePodcastSummaries =
       _$retrievePodcastSummaries;
+  static const ProblemTypeEnum audioPlayerService_loadWithUrl =
+      _$audioPlayerService_loadWithUrl;
+  static const ProblemTypeEnum audioPlayerService_play =
+      _$audioPlayerService_play;
+  static const ProblemTypeEnum audioPlayerService_loadWithUrl_onError =
+      _$audioPlayerService_loadWithUrl_onError;
 
   const ProblemTypeEnum._(String name) : super(name);
 

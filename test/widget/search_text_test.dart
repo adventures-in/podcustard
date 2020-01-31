@@ -5,7 +5,7 @@ import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/itunes_service.dart';
-import 'package:podcustard/widgets/search_text.dart';
+import 'package:podcustard/widgets/podcasts_search/search_text.dart';
 import 'package:redux/redux.dart';
 
 import '../mocks/http_client_mocks.dart';
@@ -20,7 +20,7 @@ void main() {
 
     // create a basic store with a reducer that ...
     final store = Store<AppState>(appReducer,
-        middleware: [...createMiddleware(null, fakeService, null)],
+        middleware: [...createMiddleware(itunesService: fakeService)],
         initialState: AppState.init());
 
     // build our app and trigger a frame

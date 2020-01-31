@@ -1,3 +1,4 @@
+import 'package:podcustard/services/audio_player_service.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
 import 'package:redux/redux.dart';
@@ -14,8 +15,11 @@ import 'package:podcustard/services/auth_service.dart';
 ///
 /// The output of an action can perform another action using the [NextDispatcher]
 ///
-List<Middleware<AppState>> createMiddleware(AuthService authService,
-    ItunesService itunesService, FeedsService feedsService) {
+List<Middleware<AppState>> createMiddleware(
+    {AuthService authService,
+    ItunesService itunesService,
+    FeedsService feedsService,
+    AudioPlayerService audioPlayerService}) {
   return [
     TypedMiddleware<AppState, ObserveAuthState>(
       _observeAuthState(authService),
@@ -31,6 +35,12 @@ List<Middleware<AppState>> createMiddleware(AuthService authService,
     ),
     TypedMiddleware<AppState, SelectPodcast>(
       _retrieveFeed(feedsService),
+    ),
+    TypedMiddleware<AppState, ObserveAudioPlayer>(
+      _observeAudioPlayer(audioPlayerService),
+    ),
+    TypedMiddleware<AppState, StartTrack>(
+      _startTrack(audioPlayerService),
     ),
   ];
 }
@@ -96,5 +106,30 @@ void Function(Store<AppState> store, SelectPodcast action, NextDispatcher next)
     final storeAction =
         await feedsService.retrieveFeed(url: action.podcast.feedUrl);
     store.dispatch(storeAction);
+  };
+}
+
+void Function(
+        Store<AppState> store, ObserveAudioPlayer action, NextDispatcher next)
+    _observeAudioPlayer(AudioPlayerService audioPlayerService) {
+  return (Store<AppState> store, ObserveAudioPlayer action,
+      NextDispatcher next) async {
+    next(action);
+
+    // listen to the stream of audio player events and dispatch actions
+    audioPlayerService.streamOfActions.listen(store.dispatch);
+  };
+}
+
+void Function(Store<AppState> store, StartTrack action, NextDispatcher next)
+    _startTrack(AudioPlayerService audioPlayerService) {
+  return (Store<AppState> store, StartTrack action, NextDispatcher next) async {
+    next(action);
+
+    // load and play the track, the service will emit relevant actions
+    // into its stream and the _observeAudioPlayer middleware will dispatch
+    // actions as they are emitted
+    await audioPlayerService.loadWithUrl(action.url);
+    await audioPlayerService.play();
   };
 }

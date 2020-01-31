@@ -13,6 +13,7 @@ dependencies:
   rss_dart:
     path: /Users/nick/git/open_source/dart/rss_dart
   url_launcher:
+  audiofileplayer:
 
   built_value:
   built_collection:

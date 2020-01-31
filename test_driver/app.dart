@@ -23,10 +23,8 @@ void main() async {
     middleware: [
       remoteDevtools,
       ...createMiddleware(
-        AuthService(FakeFirebaseAuth1(), FakeGoogleSignIn(), null),
-        null,
-        null,
-      ),
+          authService:
+              AuthService(FakeFirebaseAuth1(), FakeGoogleSignIn(), null)),
     ],
   );
 

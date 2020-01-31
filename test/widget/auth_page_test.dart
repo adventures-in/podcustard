@@ -22,9 +22,8 @@ void main() {
         initialState: AppState.init(),
         middleware: [
           ...createMiddleware(
-            AuthService(FakeFirebaseAuth1(), FakeGoogleSignIn(), null),
-            null,
-            null,
+            authService:
+                AuthService(FakeFirebaseAuth1(), FakeGoogleSignIn(), null),
           ),
         ],
       );
@@ -54,10 +53,8 @@ void main() {
         initialState: AppState.init(),
         middleware: [
           ...createMiddleware(
-            AuthService(FakeFirebaseAuth1(), FakeGoogleSignInCancels(), null),
-            null,
-            null,
-          ),
+              authService: AuthService(
+                  FakeFirebaseAuth1(), FakeGoogleSignInCancels(), null)),
         ],
       );
 
@@ -87,9 +84,7 @@ void main() {
         initialState: AppState.init(),
         middleware: [
           ...createMiddleware(
-            AuthService(null, null, FakeAppleSignInCancels()),
-            null,
-            null,
+            authService: AuthService(null, null, FakeAppleSignInCancels()),
           ),
         ],
       );

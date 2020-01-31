@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
+import 'package:podcustard/models/track.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:rss_dart/models/rss_feed.dart';
 
@@ -16,6 +17,7 @@ class Action {
   factory Action.SigninWithApple() => SigninWithApple();
   factory Action.StoreAuthStep({@required int step}) =>
       StoreAuthStep(step: step);
+  factory Action.ObserveAudioPlayer() => ObserveAudioPlayer();
   factory Action.AddProblem({@required Problem problem}) =>
       AddProblem(problem: problem);
   factory Action.StoreMainPageIndex({@required int index}) =>
@@ -31,6 +33,17 @@ class Action {
   factory Action.SelectPodcast({@required PodcastSummary podcast}) =>
       SelectPodcast(podcast: podcast);
   factory Action.ClearPodcastSelection() => ClearPodcastSelection();
+  factory Action.StartTrack({@required String url}) => StartTrack(url: url);
+  factory Action.PauseTrack() => PauseTrack();
+  factory Action.RestartTrack() => RestartTrack();
+  factory Action.StoreTrackUrl({@required String url}) =>
+      StoreTrackUrl(url: url);
+  factory Action.StoreTrackDuration({@required double duration}) =>
+      StoreTrackDuration(duration: duration);
+  factory Action.StoreTrackPosition({@required double position}) =>
+      StoreTrackPosition(position: position);
+  factory Action.StoreTrackState({@required TrackStateEnum state}) =>
+      StoreTrackState(state: state);
 }
 
 class ObserveAuthState extends Action {
@@ -53,6 +66,10 @@ class SigninWithApple extends Action {
 class StoreAuthStep extends Action {
   StoreAuthStep({@required this.step}) : super(<String, Object>{'step': step});
   final int step;
+}
+
+class ObserveAudioPlayer extends Action {
+  ObserveAudioPlayer() : super(<String, Object>{});
 }
 
 class AddProblem extends Action {
@@ -98,4 +115,40 @@ class SelectPodcast extends Action {
 
 class ClearPodcastSelection extends Action {
   ClearPodcastSelection() : super(<String, Object>{});
+}
+
+class StartTrack extends Action {
+  StartTrack({@required this.url}) : super(<String, Object>{'url': url});
+  final String url;
+}
+
+class PauseTrack extends Action {
+  PauseTrack() : super(<String, Object>{});
+}
+
+class RestartTrack extends Action {
+  RestartTrack() : super(<String, Object>{});
+}
+
+class StoreTrackUrl extends Action {
+  StoreTrackUrl({@required this.url}) : super(<String, Object>{'url': url});
+  final String url;
+}
+
+class StoreTrackDuration extends Action {
+  StoreTrackDuration({@required this.duration})
+      : super(<String, Object>{'duration': duration});
+  final double duration;
+}
+
+class StoreTrackPosition extends Action {
+  StoreTrackPosition({@required this.position})
+      : super(<String, Object>{'position': position});
+  final double position;
+}
+
+class StoreTrackState extends Action {
+  StoreTrackState({@required this.state})
+      : super(<String, Object>{'state': state});
+  final TrackStateEnum state;
 }

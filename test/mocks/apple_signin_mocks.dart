@@ -1,6 +1,6 @@
 import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/utils/apple_signin.dart';
+import 'package:podcustard/utils/apple_signin_object.dart';
 
 class FakeAppleSignIn extends Fake implements AppleSignInObject {
   @override

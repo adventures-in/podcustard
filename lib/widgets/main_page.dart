@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/widgets/more_options_page.dart';
-import 'package:podcustard/widgets/search_page.dart';
-import 'package:podcustard/widgets/search_text.dart';
+import 'package:podcustard/widgets/podcasts_search/search_page.dart';
+import 'package:podcustard/widgets/podcasts_search/search_text.dart';
 
 const TextStyle optionStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);

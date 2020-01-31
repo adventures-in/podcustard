@@ -5,7 +5,7 @@ import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/redux/middleware.dart';
-import 'package:podcustard/widgets/podcast_detail_page.dart';
+import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
 import 'package:redux/redux.dart';
 
 import '../mocks/feeds_service_mocks.dart';
@@ -20,7 +20,7 @@ void main() {
         .rebuild((b) => b..detailVM.summary.replace(podcastSummaryBasic));
     final store = Store<AppState>(appReducer,
         initialState: appState,
-        middleware: createMiddleware(null, null, FakeFeedsService()));
+        middleware: createMiddleware(feedsService: FakeFeedsService()));
 
     store.dispatch(Action.SelectPodcast(podcast: podcastSummaryBasic));
 

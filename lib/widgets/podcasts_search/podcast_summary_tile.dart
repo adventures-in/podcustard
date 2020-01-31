@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_summary.dart';
-import 'package:podcustard/widgets/podcast_detail_page.dart';
+import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
 
 class PodcastSummaryTile extends StatelessWidget {
   PodcastSummaryTile(this._summary);

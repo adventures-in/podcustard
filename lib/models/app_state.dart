@@ -8,6 +8,7 @@ import 'package:built_value/serializer.dart';
 import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
+import 'package:podcustard/models/track.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:podcustard/models/serializers.dart';
 
@@ -22,6 +23,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   User get user;
   @nullable
   PodcastDetailViewModel get detailVM;
+  @nullable
+  Track get track;
   BuiltList<PodcastSummary> get podcastSummaries;
 
   AppState._();

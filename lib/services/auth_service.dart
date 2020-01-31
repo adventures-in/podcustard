@@ -6,7 +6,7 @@ import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/provider_info.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:podcustard/models/actions.dart';
-import 'package:podcustard/utils/apple_signin.dart';
+import 'package:podcustard/utils/apple_signin_object.dart';
 
 class AuthService {
   AuthService(this._fireAuth, this._googleSignIn, this._appleSignIn);

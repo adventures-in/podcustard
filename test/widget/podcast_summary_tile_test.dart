@@ -3,8 +3,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/app_reducer.dart';
-import 'package:podcustard/widgets/podcast_detail_page.dart';
-import 'package:podcustard/widgets/podcast_summary_tile.dart';
+import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
+import 'package:podcustard/widgets/podcasts_search/podcast_summary_tile.dart';
 import 'package:redux/redux.dart';
 
 import '../mocks/image_test_utils.dart';
