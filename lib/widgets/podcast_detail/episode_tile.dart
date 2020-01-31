@@ -22,8 +22,8 @@ class EpisodeTile extends StatelessWidget {
       leading: IconButton(
         icon: Icon(Icons.play_circle_filled),
         onPressed: () {
-          StoreProvider.of<AppState>(context)
-              .dispatch(StartTrack(url: episode.enclosure.url));
+          StoreProvider.of<AppState>(context).dispatch(StartTrack(
+              audioUrl: episode.enclosure.url, episodeTitle: episode.title));
         },
       ),
       title: GestureDetector(

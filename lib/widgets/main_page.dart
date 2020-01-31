@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/widgets/more_options_page.dart';
+import 'package:podcustard/widgets/more_options/more_options_page.dart';
 import 'package:podcustard/widgets/podcasts_search/search_page.dart';
 import 'package:podcustard/widgets/podcasts_search/search_text.dart';
+import 'package:podcustard/widgets/track_state_watcher.dart';
 
 const TextStyle optionStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -30,16 +31,20 @@ class MainPage extends StatelessWidget {
       builder: (context, selectedIndex) {
         return Scaffold(
           appBar: AppBar(
-              title: IndexedStack(
-            index: selectedIndex,
-            alignment: Alignment.center,
-            children: <Widget>[
-              const Text('AppBar'),
-              const Text('AppBar'),
-              SearchText(StoreProvider.of<AppState>(context)),
-              const Text('AppBar'),
+            title: IndexedStack(
+              index: selectedIndex,
+              alignment: Alignment.center,
+              children: <Widget>[
+                const Text('AppBar'),
+                const Text('AppBar'),
+                SearchText(StoreProvider.of<AppState>(context)),
+                const Text('AppBar'),
+              ],
+            ),
+            actions: <Widget>[
+              TrackStateWatcher(), // shows bottom sheet on state change
             ],
-          )),
+          ),
           body: Center(
             child: _widgetOptions.elementAt(selectedIndex),
           ),

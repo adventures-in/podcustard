@@ -16,7 +16,7 @@ final appReducer = combineReducers<AppState>([
   TypedReducer<AppState, SelectPodcast>(_storePodcastSummary),
   TypedReducer<AppState, StoreFeed>(_storeFeed),
   TypedReducer<AppState, ClearPodcastSelection>(_clearPodcastSelection),
-  TypedReducer<AppState, StoreTrackUrl>(_storeTrackUrl),
+  TypedReducer<AppState, StoreTrack>(_storeTrack),
   TypedReducer<AppState, StoreTrackState>(_storeTrackState),
   // ...userReducers,
 ]);
@@ -63,8 +63,8 @@ AppState _clearPodcastSelection(AppState state, ClearPodcastSelection action) {
   return state.rebuild((b) => b..detailVM = null);
 }
 
-AppState _storeTrackUrl(AppState state, StoreTrackUrl action) {
-  return state.rebuild((b) => b..track.url = action.url);
+AppState _storeTrack(AppState state, StoreTrack action) {
+  return state.rebuild((b) => b..track.replace(action.track));
 }
 
 AppState _storeTrackState(AppState state, StoreTrackState action) {

@@ -1,3 +1,4 @@
+import 'package:podcustard/models/track.dart';
 import 'package:podcustard/services/audio_player_service.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
@@ -126,10 +127,18 @@ void Function(Store<AppState> store, StartTrack action, NextDispatcher next)
   return (Store<AppState> store, StartTrack action, NextDispatcher next) async {
     next(action);
 
+    final track = Track((b) => b
+      ..author = store.state.detailVM.summary.artistName
+      ..imageUrl = store.state.detailVM.summary.artworkUrl60
+      ..audioUrl = action.audioUrl
+      ..episode = action.episodeTitle
+      ..state = TrackStateEnum.loading);
+    store.dispatch(StoreTrack(track: track));
+
     // load and play the track, the service will emit relevant actions
     // into its stream and the _observeAudioPlayer middleware will dispatch
     // actions as they are emitted
-    await audioPlayerService.loadWithUrl(action.url);
+    await audioPlayerService.loadWithUrl(action.audioUrl);
     await audioPlayerService.play();
   };
 }

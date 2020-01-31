@@ -10,15 +10,15 @@ import 'package:podcustard/models/serializers.dart';
 part 'track.g.dart';
 
 abstract class Track implements Built<Track, TrackBuilder> {
-  @nullable
-  String get url;
-  @nullable
-  String get path;
+  String get episode;
+  String get author;
+  String get audioUrl;
+  String get imageUrl;
+  TrackStateEnum get state;
   @nullable
   double get duration;
   @nullable
   double get position;
-  TrackStateEnum get state;
 
   Track._();
 

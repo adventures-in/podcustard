@@ -33,11 +33,13 @@ class Action {
   factory Action.SelectPodcast({@required PodcastSummary podcast}) =>
       SelectPodcast(podcast: podcast);
   factory Action.ClearPodcastSelection() => ClearPodcastSelection();
-  factory Action.StartTrack({@required String url}) => StartTrack(url: url);
+  factory Action.StartTrack(
+          {@required String audioUrl, @required String episodeTitle}) =>
+      StartTrack(audioUrl: audioUrl, episodeTitle: episodeTitle);
   factory Action.PauseTrack() => PauseTrack();
   factory Action.RestartTrack() => RestartTrack();
-  factory Action.StoreTrackUrl({@required String url}) =>
-      StoreTrackUrl(url: url);
+  factory Action.StoreTrack({@required Track track}) =>
+      StoreTrack(track: track);
   factory Action.StoreTrackDuration({@required double duration}) =>
       StoreTrackDuration(duration: duration);
   factory Action.StoreTrackPosition({@required double position}) =>
@@ -118,8 +120,13 @@ class ClearPodcastSelection extends Action {
 }
 
 class StartTrack extends Action {
-  StartTrack({@required this.url}) : super(<String, Object>{'url': url});
-  final String url;
+  StartTrack({@required this.audioUrl, @required this.episodeTitle})
+      : super(<String, Object>{
+          'audioUrl': audioUrl,
+          'episodeTitle': episodeTitle
+        });
+  final String audioUrl;
+  final String episodeTitle;
 }
 
 class PauseTrack extends Action {
@@ -130,9 +137,9 @@ class RestartTrack extends Action {
   RestartTrack() : super(<String, Object>{});
 }
 
-class StoreTrackUrl extends Action {
-  StoreTrackUrl({@required this.url}) : super(<String, Object>{'url': url});
-  final String url;
+class StoreTrack extends Action {
+  StoreTrack({@required this.track}) : super(<String, Object>{'track': track});
+  final Track track;
 }
 
 class StoreTrackDuration extends Action {
