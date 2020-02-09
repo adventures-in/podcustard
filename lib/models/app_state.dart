@@ -18,6 +18,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   BuiltList<Problem> get problems;
   int get authStep;
   int get mainPageIndex;
+  bool get bottomSheetShown;
   int get themeMode;
   @nullable
   User get user;
@@ -33,6 +34,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
     ..problems = ListBuilder<Problem>()
     ..authStep = 0
     ..mainPageIndex = 0
+    ..bottomSheetShown = false
     ..themeMode = 2);
 
   factory AppState([void Function(AppStateBuilder) updates]) = _$AppState;

@@ -3,11 +3,11 @@ import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:rss_dart/models/rss_feed.dart';
 
-import '../test_data/after_dark_rss_feed_xml.dart';
+import '../data/feed_test_data.dart';
 import 'http_client_mocks.dart';
 
 class FakeFeedsService extends Fake implements FeedsService {
-  final client = FakeHttpClient(response: after_dark);
+  final client = FakeHttpClient(response: after_dark_feed);
 
   @override
   Future<Action> retrieveFeed({String url}) async {

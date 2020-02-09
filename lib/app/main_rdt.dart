@@ -14,12 +14,12 @@ import 'package:podcustard/services/itunes_service.dart';
 import 'package:podcustard/utils/apple_signin_object.dart';
 import 'package:podcustard/utils/audio_player_object.dart';
 import 'package:podcustard/utils/mocks.dart';
-import 'package:podcustard/widgets/app.dart';
+import 'package:podcustard/app/app.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 
 void main() async {
-  final remoteDevtools = RemoteDevToolsMiddleware(imac22);
+  final remoteDevtools = RemoteDevToolsMiddleware(imac18);
 
   final httpClient = http.Client();
 

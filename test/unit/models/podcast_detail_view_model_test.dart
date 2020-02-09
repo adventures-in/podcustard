@@ -2,7 +2,7 @@ import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:test/test.dart';
 
-import '../../test_data/podcasts_data.dart';
+import '../../data/podcast_summary_data.dart';
 
 void main() {
   ///

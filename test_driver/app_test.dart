@@ -2,8 +2,10 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Ride Comapare App', () {
-    // TODO: define the Finders and use them to locate widgets
+  group('Podcustard App', () {
+    // define the Finders used to locate widgets
+    final homePageTextFinder = find.byValueKey('a');
+    final buttonFinder = find.byValueKey('increment');
 
     FlutterDriver driver;
 
@@ -15,15 +17,12 @@ void main() {
     // Close the connection to the driver after the tests have completed.
     tearDownAll(() async {
       if (driver != null) {
-        driver.close();
+        await driver.close();
       }
     });
 
-    test('dispatches ObserveAuthState on load', () async {
-      // TODO: check that action was dispatched
-      // - not sure how difficult it is to check directly
-      // - seems that driver is designed to check at the surface level only
-      // - when navigation is working check that app navigates
+    test('navigates to MainPage on load', () async {
+      expect(await driver.getText(homePageTextFinder), 'Index 0: Home');
     });
 
     test('stores user details when Auth Service emits action', () async {

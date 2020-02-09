@@ -11,7 +11,7 @@ import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
 import 'package:podcustard/utils/apple_signin_object.dart';
 import 'package:podcustard/utils/audio_player_object.dart';
-import 'package:podcustard/widgets/app.dart';
+import 'package:podcustard/app/app.dart';
 import 'package:redux/redux.dart';
 
 void main() async {

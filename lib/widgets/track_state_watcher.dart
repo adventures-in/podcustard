@@ -10,12 +10,16 @@ class TrackStateWatcher extends StatelessWidget {
     return StoreConnector<AppState, TrackStateEnum>(
       distinct: true,
       converter: (store) => store.state.track?.state,
-      builder: (context, state) {
-        if (state == TrackStateEnum.loading) {
+      onWillChange: (previousViewModel, newViewModel) {
+        final shown =
+            StoreProvider.of<AppState>(context).state.bottomSheetShown;
+        if (newViewModel == TrackStateEnum.loading && !shown) {
           Scaffold.of(context).showBottomSheet((context) {
             return TrackBottomSheet();
           });
         }
+      },
+      builder: (context, state) {
         return Container();
       },
     );

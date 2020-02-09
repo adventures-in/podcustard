@@ -11,10 +11,10 @@ import 'package:podcustard/services/itunes_service.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
+import '../data/feed_test_data.dart';
+import '../data/podcast_summary_data.dart';
 import '../mocks/http_client_mocks.dart';
-import '../test_data/after_dark_rss_feed_xml.dart';
-import '../test_data/podcasts_data.dart';
-import '../test_data/retrieve_podcast_summaries_response.dart' as test_data;
+import '../data/retrieve_podcast_summaries_response.dart' as test_data;
 
 class MockAuthService extends Mock implements AuthService {}
 
@@ -148,7 +148,8 @@ void main() {
 
     test('_retrieveFeed retrieves and parses the feed', () async {
       // setup a mock service to give a test response
-      final fakeService = FeedsService(FakeHttpClient(response: after_dark));
+      final fakeService =
+          FeedsService(FakeHttpClient(response: after_dark_feed));
 
       // create a basic store with the mocked out middleware
       final store = Store<AppState>(

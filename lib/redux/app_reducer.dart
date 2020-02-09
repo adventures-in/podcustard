@@ -18,6 +18,8 @@ final appReducer = combineReducers<AppState>([
   TypedReducer<AppState, ClearPodcastSelection>(_clearPodcastSelection),
   TypedReducer<AppState, StoreTrack>(_storeTrack),
   TypedReducer<AppState, StoreTrackState>(_storeTrackState),
+  TypedReducer<AppState, StoreTrackDuration>(_storeTrackDuration),
+  TypedReducer<AppState, StoreTrackPosition>(_storeTrackPosition),
   // ...userReducers,
 ]);
 
@@ -69,4 +71,12 @@ AppState _storeTrack(AppState state, StoreTrack action) {
 
 AppState _storeTrackState(AppState state, StoreTrackState action) {
   return state.rebuild((b) => b..track.state = action.state);
+}
+
+AppState _storeTrackDuration(AppState state, StoreTrackDuration action) {
+  return state.rebuild((b) => b..track.duration = action.duration);
+}
+
+AppState _storeTrackPosition(AppState state, StoreTrackPosition action) {
+  return state.rebuild((b) => b..track.position = action.position);
 }

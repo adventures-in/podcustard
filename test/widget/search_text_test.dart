@@ -9,7 +9,7 @@ import 'package:podcustard/widgets/podcasts_search/search_text.dart';
 import 'package:redux/redux.dart';
 
 import '../mocks/http_client_mocks.dart';
-import '../test_data/retrieve_podcast_summaries_response.dart' as test_data;
+import '../data/retrieve_podcast_summaries_response.dart' as test_data;
 
 void main() {
   testWidgets('SearchText dispatches actions on input',

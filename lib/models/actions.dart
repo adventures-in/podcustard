@@ -33,9 +33,9 @@ class Action {
   factory Action.SelectPodcast({@required PodcastSummary podcast}) =>
       SelectPodcast(podcast: podcast);
   factory Action.ClearPodcastSelection() => ClearPodcastSelection();
-  factory Action.StartTrack(
+  factory Action.BuildTrackFromEpisode(
           {@required String audioUrl, @required String episodeTitle}) =>
-      StartTrack(audioUrl: audioUrl, episodeTitle: episodeTitle);
+      BuildTrackFromEpisode(audioUrl: audioUrl, episodeTitle: episodeTitle);
   factory Action.PauseTrack() => PauseTrack();
   factory Action.RestartTrack() => RestartTrack();
   factory Action.StoreTrack({@required Track track}) =>
@@ -119,8 +119,8 @@ class ClearPodcastSelection extends Action {
   ClearPodcastSelection() : super(<String, Object>{});
 }
 
-class StartTrack extends Action {
-  StartTrack({@required this.audioUrl, @required this.episodeTitle})
+class BuildTrackFromEpisode extends Action {
+  BuildTrackFromEpisode({@required this.audioUrl, @required this.episodeTitle})
       : super(<String, Object>{
           'audioUrl': audioUrl,
           'episodeTitle': episodeTitle

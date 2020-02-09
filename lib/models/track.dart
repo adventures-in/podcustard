@@ -41,9 +41,12 @@ class TrackStateEnum extends EnumClass {
   static const TrackStateEnum paused = _$paused;
   static const TrackStateEnum loading = _$loading;
   static const TrackStateEnum loaded = _$loaded;
+  static const TrackStateEnum nothing = _$nothing;
 
   const TrackStateEnum._(String name) : super(name);
 
   static BuiltSet<TrackStateEnum> get values => _$values;
   static TrackStateEnum valueOf(String name) => _$valueOf(name);
+
+  Object toJson() => serializers.serializeWith(TrackStateEnum.serializer, this);
 }

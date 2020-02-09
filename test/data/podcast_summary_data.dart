@@ -5,7 +5,7 @@ import 'package:podcustard/services/feeds_service.dart';
 import 'package:rss_dart/models/rss_feed.dart';
 
 import '../mocks/http_client_mocks.dart';
-import 'after_dark_rss_feed_xml.dart';
+import 'feed_test_data.dart';
 
 final podcastSummaryBasic = PodcastSummary((b) => b
   ..artistId = 1
@@ -32,7 +32,7 @@ final podcastSummaryBasic = PodcastSummary((b) => b
 /// Use the feeds service with a fake http client that returns previously saved
 /// response data for the after dark podcast
 Future<RssFeed> getAfterDarkFeed() async {
-  final service = FeedsService(FakeHttpClient(response: after_dark));
+  final service = FeedsService(FakeHttpClient(response: after_dark_feed));
   final action = await service.retrieveFeed(url: 'url') as StoreFeed;
   return action.feed;
 }

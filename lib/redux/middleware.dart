@@ -40,8 +40,14 @@ List<Middleware<AppState>> createMiddleware(
     TypedMiddleware<AppState, ObserveAudioPlayer>(
       _observeAudioPlayer(audioPlayerService),
     ),
-    TypedMiddleware<AppState, StartTrack>(
-      _startTrack(audioPlayerService),
+    TypedMiddleware<AppState, BuildTrackFromEpisode>(
+      _buildTrackFromEpisode(audioPlayerService),
+    ),
+    TypedMiddleware<AppState, PauseTrack>(
+      _pauseTrack(audioPlayerService),
+    ),
+    TypedMiddleware<AppState, RestartTrack>(
+      _restartTrack(audioPlayerService),
     ),
   ];
 }
@@ -122,9 +128,11 @@ void Function(
   };
 }
 
-void Function(Store<AppState> store, StartTrack action, NextDispatcher next)
-    _startTrack(AudioPlayerService audioPlayerService) {
-  return (Store<AppState> store, StartTrack action, NextDispatcher next) async {
+void Function(Store<AppState> store, BuildTrackFromEpisode action,
+        NextDispatcher next)
+    _buildTrackFromEpisode(AudioPlayerService audioPlayerService) {
+  return (Store<AppState> store, BuildTrackFromEpisode action,
+      NextDispatcher next) async {
     next(action);
 
     final track = Track((b) => b
@@ -132,7 +140,7 @@ void Function(Store<AppState> store, StartTrack action, NextDispatcher next)
       ..imageUrl = store.state.detailVM.summary.artworkUrl60
       ..audioUrl = action.audioUrl
       ..episode = action.episodeTitle
-      ..state = TrackStateEnum.loading);
+      ..state = TrackStateEnum.nothing);
     store.dispatch(StoreTrack(track: track));
 
     // load and play the track, the service will emit relevant actions
@@ -140,5 +148,24 @@ void Function(Store<AppState> store, StartTrack action, NextDispatcher next)
     // actions as they are emitted
     await audioPlayerService.loadWithUrl(action.audioUrl);
     await audioPlayerService.play();
+  };
+}
+
+void Function(Store<AppState> store, PauseTrack action, NextDispatcher next)
+    _pauseTrack(AudioPlayerService audioPlayerService) {
+  return (Store<AppState> store, PauseTrack action, NextDispatcher next) async {
+    next(action);
+
+    await audioPlayerService.pause();
+  };
+}
+
+void Function(Store<AppState> store, RestartTrack action, NextDispatcher next)
+    _restartTrack(AudioPlayerService audioPlayerService) {
+  return (Store<AppState> store, RestartTrack action,
+      NextDispatcher next) async {
+    next(action);
+
+    await audioPlayerService.play(store.state.track.position);
   };
 }

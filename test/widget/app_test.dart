@@ -4,7 +4,7 @@ import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
-import 'package:podcustard/widgets/app.dart';
+import 'package:podcustard/app/app.dart';
 
 import '../mocks/firebase_auth_mocks.dart';
 import '../mocks/google_signin_mocks.dart';

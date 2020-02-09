@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_driver/driver_extension.dart';
+import 'package:podcustard/services/feeds_service.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 import 'package:podcustard/redux/app_reducer.dart';
@@ -7,10 +8,12 @@ import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/utils/mocks.dart';
-import 'package:podcustard/widgets/app.dart';
+import 'package:podcustard/app/app.dart';
 
 import '../test/mocks/firebase_auth_mocks.dart';
 import '../test/mocks/google_signin_mocks.dart';
+import '../test/data/feed_test_data.dart';
+import '../test/mocks/http_client_mocks.dart';
 
 void main() async {
   enableFlutterDriverExtension();
@@ -24,7 +27,8 @@ void main() async {
       remoteDevtools,
       ...createMiddleware(
           authService:
-              AuthService(FakeFirebaseAuth1(), FakeGoogleSignIn(), null)),
+              AuthService(FakeFirebaseAuth1(), FakeGoogleSignIn(), null),
+          feedsService: FeedsService(FakeHttpClient(response: twit_feed))),
     ],
   );
 

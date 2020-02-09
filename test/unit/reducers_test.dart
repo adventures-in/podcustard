@@ -8,7 +8,7 @@ import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:test/test.dart';
 
-import '../test_data/podcasts_data.dart';
+import '../data/podcast_summary_data.dart';
 
 void main() {
   group('Reducer', () {

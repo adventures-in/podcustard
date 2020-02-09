@@ -8,9 +8,9 @@ import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
 import 'package:redux/redux.dart';
 
+import '../data/podcast_summary_data.dart';
 import '../mocks/feeds_service_mocks.dart';
 import '../mocks/image_test_utils.dart';
-import '../test_data/podcasts_data.dart';
 
 void main() {
   testWidgets('PodcastDetailPage displays expected values',

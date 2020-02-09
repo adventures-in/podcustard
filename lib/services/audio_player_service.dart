@@ -36,7 +36,7 @@ class AudioPlayerService {
       _controller.add(AddProblem(
           problem: Problem(
         (b) => b
-          ..message.toString()
+          ..message = error.toString()
           ..trace = trace.toString()
           ..type = ProblemTypeEnum.audioPlayerService_loadWithUrl,
       )));
@@ -51,7 +51,22 @@ class AudioPlayerService {
       _controller.add(AddProblem(
           problem: Problem(
         (b) => b
-          ..message.toString()
+          ..message = error.toString()
+          ..trace = trace.toString()
+          ..type = ProblemTypeEnum.audioPlayerService_play,
+      )));
+    }
+  }
+
+  Future<void> pause([double endpointSeconds]) async {
+    try {
+      await _audio.pause();
+      _controller.add(StoreTrackState(state: TrackStateEnum.paused));
+    } catch (error, trace) {
+      _controller.add(AddProblem(
+          problem: Problem(
+        (b) => b
+          ..message = error.toString()
           ..trace = trace.toString()
           ..type = ProblemTypeEnum.audioPlayerService_play,
       )));

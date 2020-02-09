@@ -44,9 +44,20 @@ flutter test
 
 ### Integration Tests 
 
-In VSCode set the device to an emulator then run: 
+To start the driver run:
 
 ```
 flutter drive --target=test_driver/app.dart
 ```
 
+If the automatically selected device is not the one you want, run: 
+
+```
+flutter devices
+```
+
+and copy the relevant ID and then run:
+
+```
+flutter drive --target=test_driver/app.dart -d <device_id>
+```
