@@ -68,7 +68,22 @@ class AudioPlayerService {
         (b) => b
           ..message = error.toString()
           ..trace = trace.toString()
-          ..type = ProblemTypeEnum.audioPlayerService_play,
+          ..type = ProblemTypeEnum.audioPlayerService_pause,
+      )));
+    }
+  }
+
+  Future<void> resume() async {
+    try {
+      await _audio.resume();
+      _controller.add(StoreTrackState(state: TrackStateEnum.playing));
+    } catch (error, trace) {
+      _controller.add(AddProblem(
+          problem: Problem(
+        (b) => b
+          ..message = error.toString()
+          ..trace = trace.toString()
+          ..type = ProblemTypeEnum.audioPlayerService_resume,
       )));
     }
   }

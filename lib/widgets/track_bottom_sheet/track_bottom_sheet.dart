@@ -37,7 +37,7 @@ class TrackBottomSheet extends StatelessWidget {
                                 icon: Icon(Icons.play_arrow),
                                 onPressed: () {
                                   StoreProvider.of<AppState>(context)
-                                      .dispatch(RestartTrack());
+                                      .dispatch(ResumeTrack());
                                 },
                               )
                             else

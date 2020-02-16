@@ -46,8 +46,8 @@ List<Middleware<AppState>> createMiddleware(
     TypedMiddleware<AppState, PauseTrack>(
       _pauseTrack(audioPlayerService),
     ),
-    TypedMiddleware<AppState, RestartTrack>(
-      _restartTrack(audioPlayerService),
+    TypedMiddleware<AppState, ResumeTrack>(
+      _resumeTrack(audioPlayerService),
     ),
   ];
 }
@@ -160,12 +160,12 @@ void Function(Store<AppState> store, PauseTrack action, NextDispatcher next)
   };
 }
 
-void Function(Store<AppState> store, RestartTrack action, NextDispatcher next)
-    _restartTrack(AudioPlayerService audioPlayerService) {
-  return (Store<AppState> store, RestartTrack action,
+void Function(Store<AppState> store, ResumeTrack action, NextDispatcher next)
+    _resumeTrack(AudioPlayerService audioPlayerService) {
+  return (Store<AppState> store, ResumeTrack action,
       NextDispatcher next) async {
     next(action);
 
-    await audioPlayerService.play(store.state.track.position);
+    await audioPlayerService.resume();
   };
 }

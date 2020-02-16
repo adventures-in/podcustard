@@ -37,7 +37,7 @@ class Action {
           {@required String audioUrl, @required String episodeTitle}) =>
       BuildTrackFromEpisode(audioUrl: audioUrl, episodeTitle: episodeTitle);
   factory Action.PauseTrack() => PauseTrack();
-  factory Action.RestartTrack() => RestartTrack();
+  factory Action.ResumeTrack() => ResumeTrack();
   factory Action.StoreTrack({@required Track track}) =>
       StoreTrack(track: track);
   factory Action.StoreTrackDuration({@required double duration}) =>
@@ -133,8 +133,8 @@ class PauseTrack extends Action {
   PauseTrack() : super(<String, Object>{});
 }
 
-class RestartTrack extends Action {
-  RestartTrack() : super(<String, Object>{});
+class ResumeTrack extends Action {
+  ResumeTrack() : super(<String, Object>{});
 }
 
 class StoreTrack extends Action {

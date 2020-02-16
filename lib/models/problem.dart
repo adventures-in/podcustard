@@ -44,6 +44,10 @@ class ProblemTypeEnum extends EnumClass {
       _$audioPlayerService_loadWithUrl;
   static const ProblemTypeEnum audioPlayerService_play =
       _$audioPlayerService_play;
+  static const ProblemTypeEnum audioPlayerService_pause =
+      _$audioPlayerService_pause;
+  static const ProblemTypeEnum audioPlayerService_resume =
+      _$audioPlayerService_resume;
   static const ProblemTypeEnum audioPlayerService_loadWithUrl_onError =
       _$audioPlayerService_loadWithUrl_onError;
 
