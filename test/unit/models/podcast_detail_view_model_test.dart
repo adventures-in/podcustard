@@ -2,6 +2,7 @@ import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:test/test.dart';
 
+import '../../data/feed_test_data.dart';
 import '../../data/podcast_summary_data.dart';
 
 void main() {
@@ -24,12 +25,13 @@ void main() {
     });
 
     test('members take expected values', () async {
-      final feed = await getAfterDarkFeed();
+      final feed = await getInTheDarkFeed();
+      final summary = await getInTheDarkSummary();
       final vm = PodcastDetailViewModel((b) => b
-        ..summary = podcastSummaryBasic.toBuilder()
+        ..summary = summary.toBuilder()
         ..feed = feed.toBuilder());
 
-      expect(vm.summary, podcastSummaryBasic);
+      expect(vm.summary, summary);
       expect(vm.feed, feed);
     });
   });

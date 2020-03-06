@@ -21,7 +21,7 @@ class AudioPlayerService {
   StreamController<Action> _controller;
 
   /// a getter for the stream of data events from the player
-  Stream<Action> get streamOfActions => _controller.stream;
+  Stream<Action> get streamOfAudioEvents => _controller.stream;
 
   Future<void> loadWithUrl(String url) async {
     try {

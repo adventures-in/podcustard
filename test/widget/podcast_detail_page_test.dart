@@ -15,17 +15,18 @@ import '../mocks/image_test_utils.dart';
 void main() {
   testWidgets('PodcastDetailPage displays expected values',
       (WidgetTester tester) async {
+    final summary = await getInTheDarkSummary();
     // create a basic store with expected app state
-    final appState = AppState.init()
-        .rebuild((b) => b..detailVM.summary.replace(podcastSummaryBasic));
+    final appState =
+        AppState.init().rebuild((b) => b..detailVM.summary.replace(summary));
     final store = Store<AppState>(appReducer,
         initialState: appState,
         middleware: createMiddleware(feedsService: FakeFeedsService()));
 
-    store.dispatch(Action.SelectPodcast(podcast: podcastSummaryBasic));
+    store.dispatch(Action.SelectPodcast(podcast: summary));
 
-    final artistNameFinder = find.text('a');
-    final collectionName = find.text('b');
+    final artistNameFinder = find.text(summary.artistName);
+    final collectionName = find.text(summary.collectionName);
     final episodeFinder = find.text('S2 E17: Home');
     final episodeFinder2 = find.text('S2 E14: The Decision');
 
@@ -51,13 +52,14 @@ void main() {
   /// for testing navigation methods see https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/will_pop_test.dart
   testWidgets('PodcastDetailPage resets state when popped',
       (WidgetTester tester) async {
+    final summary = await getInTheDarkSummary();
     // create a basic store with expected app state
-    final appState = AppState.init()
-        .rebuild((b) => b..detailVM.summary.replace(podcastSummaryBasic));
+    final appState =
+        AppState.init().rebuild((b) => b..detailVM.summary.replace(summary));
     final store = Store<AppState>(appReducer, initialState: appState);
 
-    final artistNameFinder = find.text('a');
-    final collectionName = find.text('b');
+    final artistNameFinder = find.text(summary.artistName);
+    final collectionName = find.text(summary.collectionName);
     // var backButton = find.byTooltip('Back');
     // if (backButton.evaluate().isEmpty) {
     //   backButton = find.byType(CupertinoNavigationBarBackButton);
@@ -100,7 +102,7 @@ void main() {
       // check that the Text with the expected Strings are in the widget tree
       expect(artistNameFinder, findsOneWidget);
       expect(collectionName, findsOneWidget);
-      expect(store.state.detailVM.summary, podcastSummaryBasic);
+      expect(store.state.detailVM.summary, summary);
 
       await tester.pageBack();
       await tester.pump();

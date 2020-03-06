@@ -1,9 +1,22 @@
+import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/services/feeds_service.dart';
+import 'package:rss_dart/models/rss_feed.dart';
+
+import '../mocks/http_client_mocks.dart';
+
+/// Use the feeds service with a fake http client that returns previously saved
+/// response data for the after dark podcast
+Future<RssFeed> getInTheDarkFeed() async {
+  final service = FeedsService(FakeHttpClient(response: in_the_dark_feed));
+  final action = await service.retrieveFeed(url: 'url') as StoreFeed;
+  return action.feed;
+}
+
 /// typical xml from some rss feeds
-/// - after_dark_feed
+/// - in_the_dark_feed
 /// - twit_feed
 ///
-
-final after_dark_feed = '''
+final in_the_dark_feed = '''
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>

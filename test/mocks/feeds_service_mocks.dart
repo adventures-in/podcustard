@@ -7,7 +7,7 @@ import '../data/feed_test_data.dart';
 import 'http_client_mocks.dart';
 
 class FakeFeedsService extends Fake implements FeedsService {
-  final client = FakeHttpClient(response: after_dark_feed);
+  final client = FakeHttpClient(response: in_the_dark_feed);
 
   @override
   Future<Action> retrieveFeed({String url}) async {

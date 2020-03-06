@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/track.dart';
-import 'package:podcustard/widgets/track_bottom_sheet/track_bottom_sheet.dart';
+import 'package:podcustard/widgets/audio_player_bottom_sheet/audio_player_bottom_sheet.dart';
 
 class TrackStateWatcher extends StatelessWidget {
   @override
@@ -15,7 +15,7 @@ class TrackStateWatcher extends StatelessWidget {
             StoreProvider.of<AppState>(context).state.bottomSheetShown;
         if (newViewModel == TrackStateEnum.loading && !shown) {
           Scaffold.of(context).showBottomSheet((context) {
-            return TrackBottomSheet();
+            return AudioPlayerBottomSheet();
           });
         }
       },

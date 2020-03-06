@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:mockito/mockito.dart';
 import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/problem.dart';
+import 'package:podcustard/models/track.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/redux/middleware.dart';
@@ -13,8 +16,10 @@ import 'package:test/test.dart';
 
 import '../data/feed_test_data.dart';
 import '../data/podcast_summary_data.dart';
+import '../data/track_test_data.dart';
+import '../mocks/audio_player_service_mocks.dart';
+import '../mocks/feeds_service_mocks.dart';
 import '../mocks/http_client_mocks.dart';
-import '../data/retrieve_podcast_summaries_response.dart' as test_data;
 
 class MockAuthService extends Mock implements AuthService {}
 
@@ -129,8 +134,8 @@ void main() {
     test('_retrievePodcastSummaries uses service to retrieve summaries',
         () async {
       // setup a mock service to give a test response
-      final fakeService =
-          ItunesService(FakeHttpClient(response: test_data.jsonResponseString));
+      final fakeService = ItunesService(
+          FakeHttpClient(response: summaries_json_response_string));
 
       // create a basic store with the mocked out middleware
       final store = Store<AppState>(
@@ -149,7 +154,7 @@ void main() {
     test('_retrieveFeed retrieves and parses the feed', () async {
       // setup a mock service to give a test response
       final fakeService =
-          FeedsService(FakeHttpClient(response: after_dark_feed));
+          FeedsService(FakeHttpClient(response: in_the_dark_feed));
 
       // create a basic store with the mocked out middleware
       final store = Store<AppState>(
@@ -158,16 +163,118 @@ void main() {
         middleware: createMiddleware(feedsService: fakeService),
       );
 
-      final url =
-          'https://feeds.publicradio.org/public_feeds/in-the-dark/itunes/rss';
-      final summary = podcastSummaryBasic.rebuild((b) => b..feedUrl = url);
+      final summary = await getInTheDarkSummary();
+
       // dispatch action to initiate retrieving the feed
       await store.dispatch(Action.SelectPodcast(podcast: summary));
 
-      final feed = await getAfterDarkFeed();
+      final feed = await getInTheDarkFeed();
 
       // mut dispatches a StoreFeed action so we check the state
       expect(store.state.detailVM.feed, feed);
+    });
+
+    test('_observeAudioPlayer listens to audio service and dispatches',
+        () async {
+      // setup a mock service to give a test response
+      final controller = StreamController<Action>();
+      final fakeService = FakeAudioPlayerService(controller: controller);
+
+      // create a basic store with the mocked out middleware
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+        middleware: createMiddleware(audioPlayerService: fakeService),
+      );
+
+      // trigger the _observeAudioPlayer function (ie. the sut)
+      store.dispatch(ObserveAudioPlayer());
+
+      // create a test data object
+      final track = in_the_dark_s2e18_track;
+
+      // push an action into the stream
+      await controller.add(StoreTrack(track: track));
+
+      // check that action emitted by service produced expected state
+      expect(store.state.track, track);
+    });
+
+    test('_buildTrackFromEpisode loads and plays the track', () async {
+      // setup a mock service to give a test response
+      final controller = StreamController<Action>();
+
+      // create a basic store with the mocked out middleware
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+        middleware: createMiddleware(
+            feedsService: FakeFeedsService(),
+            audioPlayerService: FakeAudioPlayerService(controller: controller)),
+      );
+
+      final summary = await getInTheDarkSummary();
+
+      store.dispatch(SelectPodcast(podcast: summary));
+
+      final track = in_the_dark_s2e18_track;
+
+      store.dispatch(BuildTrackFromEpisode(
+          audioUrl: track.audioUrl, episodeTitle: track.episode));
+
+      // check that action emitted by service produced expected state
+      expect(store.state.track, track);
+    });
+
+    test('_pauseTrack pauses the track and stores state', () async {
+      // setup a mock service to give a test response
+      final controller = StreamController<Action>();
+      final service = FakeAudioPlayerService(controller: controller);
+
+      // create a basic store with the mocked out middleware
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+        middleware: createMiddleware(
+            audioPlayerService: service, feedsService: FakeFeedsService()),
+      );
+
+      // add a track to the app state
+      final summary = await getInTheDarkSummary();
+      final track = in_the_dark_s2e18_track;
+      store.dispatch(SelectPodcast(podcast: summary));
+      store.dispatch(BuildTrackFromEpisode(
+          audioUrl: track.audioUrl, episodeTitle: track.episode));
+
+      store.dispatch(PauseTrack());
+
+      // check that the action resulted in the service being called
+      expect(service.pausedCount, 1);
+    });
+
+    test('_resumeTrack resumes the track and sets state', () async {
+      // setup a mock service to give a test response
+      final controller = StreamController<Action>();
+      final service = FakeAudioPlayerService(controller: controller);
+      // create a basic store with the mocked out middleware
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+        middleware: createMiddleware(
+            audioPlayerService: service, feedsService: FakeFeedsService()),
+      );
+
+      // add a track to the app state
+      final summary = await getInTheDarkSummary();
+      final track = in_the_dark_s2e18_track;
+      store.dispatch(SelectPodcast(podcast: summary));
+      store.dispatch(BuildTrackFromEpisode(
+          audioUrl: track.audioUrl, episodeTitle: track.episode));
+
+      store.dispatch(ResumeTrack());
+
+      // check that the action resulted in the service being called
+      expect(service.resumedCount, 1);
     });
   });
 }

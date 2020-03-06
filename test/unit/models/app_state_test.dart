@@ -23,7 +23,8 @@ void main() {
       final appState = AppState((b) => b
         ..authStep = 0
         ..mainPageIndex = 0
-        ..themeMode = 0);
+        ..themeMode = 0
+        ..bottomSheetShown = false);
 
       expect(appState.authStep, 0);
       expect(appState.mainPageIndex, 0);
@@ -58,6 +59,7 @@ void main() {
         ..authStep = 0
         ..mainPageIndex = 0
         ..themeMode = 0
+        ..bottomSheetShown = false
         ..problems.add(problem)
         ..user.replace(user));
 

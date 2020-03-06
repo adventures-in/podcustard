@@ -20,7 +20,7 @@ void main() {
 
     test('hello', () async {
       // pass a fake client that returns a saved xml string
-      final service = FeedsService(FakeHttpClient(response: after_dark_feed));
+      final service = FeedsService(FakeHttpClient(response: in_the_dark_feed));
 
       final url =
           'https://feeds.publicradio.org/public_feeds/in-the-dark/itunes/rss';

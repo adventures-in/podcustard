@@ -1,6 +1,5 @@
-import 'package:built_collection/built_collection.dart';
-import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
+import 'package:podcustard/models/track.dart';
 import 'package:podcustard/models/user.dart';
 import 'package:redux/redux.dart';
 import 'package:podcustard/models/actions.dart';
@@ -8,7 +7,9 @@ import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:test/test.dart';
 
+import '../data/feed_test_data.dart';
 import '../data/podcast_summary_data.dart';
+import '../data/track_test_data.dart';
 
 void main() {
   group('Reducer', () {
@@ -91,76 +92,154 @@ void main() {
 
     test(
         '_storePodcastSummaries correctly stores summaries in the StorePodcastSummaries action',
-        () {
+        () async {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.init(),
       );
 
-      final podcastSummary = PodcastSummary((b) => b
-        ..artistId = 1
-        ..collectionId = 2
-        ..trackId = 3
-        ..trackCount = 4
-        ..releaseDate = DateTime.now()
-        ..artistName = 'a'
-        ..collectionName = 'b'
-        ..trackName = 'c'
-        ..artistViewUrl = 'd'
-        ..collectionViewUrl = 'e'
-        ..feedUrl = 'f'
-        ..trackViewUrl = 'g'
-        ..artworkUrl30 = 'h'
-        ..artworkUrl60 = 'i'
-        ..artworkUrl100 = 'j'
-        ..artworkUrl600 = 'k'
-        ..country = 'l'
-        ..primaryGenreName = 'm'
-        ..genreIds = ListBuilder(<String>['n', 'o'])
-        ..genres = ListBuilder(<String>['p', 'q']));
+      final summary = await getInTheDarkSummary();
 
       // dispatch action to store summaries
-      store.dispatch(Action.StorePodcastSummaries(summaries: [podcastSummary]));
+      store.dispatch(Action.StorePodcastSummaries(summaries: [summary]));
 
       // check that the store has the expected value
-      expect(store.state.podcastSummaries.first, podcastSummary);
+      expect(store.state.podcastSummaries.first, summary);
     });
-  });
 
-  test('_storeThemeMode correctly stores themeMode', () {
-    // create a basic store with the app reducers
-    final store = Store<AppState>(
-      appReducer,
-      initialState: AppState.init(),
-    );
+    test('_storeThemeMode correctly stores themeMode', () {
+      // create a basic store with the app reducers
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+      );
 
-    // dispatch action to store themeMode
-    store.dispatch(Action.StoreThemeMode(themeMode: 0));
+      // dispatch action to store themeMode
+      store.dispatch(Action.StoreThemeMode(themeMode: 0));
 
-    // check that the store has the expected value
-    expect(store.state.themeMode, 0);
+      // check that the store has the expected value
+      expect(store.state.themeMode, 0);
 
-    // dispatch action to store themeMode
-    store.dispatch(Action.StoreThemeMode(themeMode: 1));
+      // dispatch action to store themeMode
+      store.dispatch(Action.StoreThemeMode(themeMode: 1));
 
-    // check that the store has the expected value
-    expect(store.state.themeMode, 1);
-  });
+      // check that the store has the expected value
+      expect(store.state.themeMode, 1);
+    });
 
-  test('_storeFeed correctly stores a feed', () async {
-    // create a basic store with the app reducers
-    final store = Store<AppState>(
-      appReducer,
-      initialState: AppState.init(),
-    );
+    test('_storeFeed correctly stores a feed', () async {
+      // create a basic store with the app reducers
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+      );
 
-    final feed = await getAfterDarkFeed();
+      final feed = await getInTheDarkFeed();
 
-    // dispatch action to store themeMode
-    store.dispatch(Action.StoreFeed(feed: feed));
+      // dispatch action to store the feed
+      store.dispatch(Action.StoreFeed(feed: feed));
 
-    // check that the store has the expected value
-    expect(store.state.detailVM.feed, feed);
+      // check that the store has the expected value
+      expect(store.state.detailVM.feed, feed);
+    });
+
+    test('_storeTrack correctly stores a track', () async {
+      // create a basic store with the app reducers
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+      );
+
+      // use a pre-defined track from the test data
+      final track = in_the_dark_s2e18_track;
+
+      // dispatch action to store the track
+      store.dispatch(Action.StoreTrack(track: track));
+
+      // check that the store has the expected value
+      expect(store.state.track, track);
+    });
+
+    test('_storeTrackState sets the state for the current track', () async {
+      // create a basic store with the app reducers
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+      );
+
+      // use a pre-defined track from the test data
+      final track = in_the_dark_s2e18_track;
+
+      // dispatch action to store the track
+      store.dispatch(Action.StoreTrack(track: track));
+
+      // check the initial track state
+      expect(store.state.track.state, TrackStateEnum.nothing);
+
+      // dispatch to update the track state
+      store.dispatch(Action.StoreTrackState(state: TrackStateEnum.playing));
+
+      // rebuild the test data track with the updated TrackState
+      final updatedTrack =
+          track.rebuild((b) => b..state = TrackStateEnum.playing);
+
+      // check that the store has the expected value
+      expect(store.state.track, updatedTrack);
+    });
+
+    test('_storeTrackDuration sets the duration for the current track',
+        () async {
+      // create a basic store with the app reducers
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+      );
+
+      // use a pre-defined track from the test data
+      final track = in_the_dark_s2e18_track;
+
+      // dispatch action to store the track
+      store.dispatch(Action.StoreTrack(track: track));
+
+      // check the initial track duration
+      expect(store.state.track.duration, null);
+
+      // dispatch to update the track duration
+      store.dispatch(Action.StoreTrackDuration(duration: 100.3));
+
+      // rebuild the test data track with the updated duration
+      final updatedTrack = track.rebuild((b) => b..duration = 100.3);
+
+      // check that the store has the expected value
+      expect(store.state.track, updatedTrack);
+    });
+
+    test('_storeTrackPosition sets the position for the current track',
+        () async {
+      // create a basic store with the app reducers
+      final store = Store<AppState>(
+        appReducer,
+        initialState: AppState.init(),
+      );
+
+      // use a pre-defined track from the test data
+      final track = in_the_dark_s2e18_track;
+
+      // dispatch action to store the track
+      store.dispatch(Action.StoreTrack(track: track));
+
+      // check the initial track position
+      expect(store.state.track.position, null);
+
+      // dispatch to update the track position
+      store.dispatch(Action.StoreTrackPosition(position: 55.5));
+
+      // rebuild the test data track with the updated position
+      final updatedTrack = track.rebuild((b) => b..position = 55.5);
+
+      // check that the store has the expected value
+      expect(store.state.track, updatedTrack);
+    });
   });
 }

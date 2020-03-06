@@ -124,7 +124,7 @@ void Function(
     next(action);
 
     // listen to the stream of audio player events and dispatch actions
-    audioPlayerService.streamOfActions.listen(store.dispatch);
+    audioPlayerService.streamOfAudioEvents.listen(store.dispatch);
   };
 }
 

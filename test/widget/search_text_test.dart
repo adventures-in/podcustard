@@ -8,14 +8,14 @@ import 'package:podcustard/services/itunes_service.dart';
 import 'package:podcustard/widgets/podcasts_search/search_text.dart';
 import 'package:redux/redux.dart';
 
+import '../data/podcast_summary_data.dart';
 import '../mocks/http_client_mocks.dart';
-import '../data/retrieve_podcast_summaries_response.dart' as test_data;
 
 void main() {
   testWidgets('SearchText dispatches actions on input',
       (WidgetTester tester) async {
     // final fakeClient = Mocks.fakeHttpClient(test_data.jsonResponseString);
-    final fakeClient = FakeHttpClient(response: test_data.jsonResponseString);
+    final fakeClient = FakeHttpClient(response: summaries_json_response_string);
     final fakeService = ItunesService(fakeClient);
 
     // create a basic store with a reducer that ...

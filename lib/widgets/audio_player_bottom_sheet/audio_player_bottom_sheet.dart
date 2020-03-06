@@ -4,7 +4,7 @@ import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/track.dart';
 
-class TrackBottomSheet extends StatelessWidget {
+class AudioPlayerBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Track>(

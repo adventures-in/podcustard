@@ -16,9 +16,11 @@ void main() {
     // create a basic store with a reducer that ...
     final store = Store<AppState>(appReducer, initialState: AppState.init());
 
-    final subscribeFinder = find.byIcon(Icons.arrow_forward_ios);
-    final titleFinder = find.text('a');
-    final subtitleFinder = find.text('b');
+    final summary = await getInTheDarkSummary();
+
+    final arrowFinder = find.byIcon(Icons.arrow_forward_ios);
+    final titleFinder = find.text(summary.collectionName);
+    final subtitleFinder = find.text(summary.artistName);
 
     /// so we can pump NetworkImages without crashing
     await provideMockedNetworkImages(() async {
@@ -27,14 +29,14 @@ void main() {
         // create a StoreProvider to wrap widget
         StoreProvider<AppState>(
           store: store,
-          child: MaterialApp(
-              home: Material(child: PodcastSummaryTile(podcastSummaryBasic))),
+          child:
+              MaterialApp(home: Material(child: PodcastSummaryTile(summary))),
         ),
       );
     });
 
     // check that the Text with the expected String is in the widget tree
-    expect(subscribeFinder, findsOneWidget);
+    expect(arrowFinder, findsOneWidget);
     expect(titleFinder, findsOneWidget);
     expect(subtitleFinder, findsOneWidget);
   });
@@ -47,6 +49,8 @@ void main() {
     final tileFinder = find.byType(ListTile);
     final detailFinder = find.byType(PodcastDetailPage);
 
+    final summary = await getInTheDarkSummary();
+
     /// so we can pump NetworkImages without crashing
     await provideMockedNetworkImages(() async {
       // build our app and trigger a frame
@@ -54,8 +58,8 @@ void main() {
         // create a StoreProvider to wrap widget
         StoreProvider<AppState>(
           store: store,
-          child: MaterialApp(
-              home: Material(child: PodcastSummaryTile(podcastSummaryBasic))),
+          child:
+              MaterialApp(home: Material(child: PodcastSummaryTile(summary))),
         ),
       );
     });
@@ -67,7 +71,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
-    expect(store.state.detailVM.summary, podcastSummaryBasic);
+    expect(store.state.detailVM.summary, summary);
     expect(detailFinder, findsOneWidget);
   });
 }
