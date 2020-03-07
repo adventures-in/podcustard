@@ -1,5 +1,6 @@
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/redux_action.dart';
+import 'package:podcustard/models/actions/store_feed.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:rss_dart/models/rss_feed.dart';
 
@@ -10,9 +11,9 @@ class FakeFeedsService extends Fake implements FeedsService {
   final client = FakeHttpClient(response: in_the_dark_feed);
 
   @override
-  Future<Action> retrieveFeed({String url}) async {
+  Future<ReduxAction> retrieveFeed({String url}) async {
     final uriResponse = await client.get(url);
     final feed = RssFeed.parse(uriResponse.body);
-    return Action.StoreFeed(feed: feed);
+    return StoreFeed((b) => b..feed = feed.toBuilder());
   }
 }

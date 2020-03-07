@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:meta/meta.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/add_problem.dart';
+import 'package:podcustard/models/actions/redux_action.dart';
+import 'package:podcustard/models/actions/store_podcast_summaries.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 
 import 'package:http/http.dart' as http;
@@ -13,7 +15,7 @@ class ItunesService {
 
   final http.Client _httpClient;
 
-  Future<Action> retrievePodcastSummaries({@required String query}) async {
+  Future<ReduxAction> retrievePodcastSummaries({@required String query}) async {
     final queryNoSpaces = query.replaceAll(RegExp(' '), '+');
     try {
       var uriResponse = await _httpClient.get(
@@ -54,14 +56,14 @@ class ItunesService {
       }
 
       // Create an action and return
-      return Action.StorePodcastSummaries(summaries: summariesList);
+      return StorePodcastSummaries(
+          (b) => b..summaries = ListBuilder<PodcastSummary>(summariesList));
     } catch (error, trace) {
       // if there were any problems collect available info and create an action
-      return AddProblem(
-          problem: Problem((b) => b
-            ..type = ProblemTypeEnum.retrievePodcastSummaries
-            ..message = error.toString()
-            ..trace = trace.toString()));
+      return AddProblem((b) => b.problem
+        ..type = ProblemTypeEnum.retrievePodcastSummaries
+        ..message = error.toString()
+        ..trace = trace.toString());
     }
   }
 }

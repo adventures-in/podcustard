@@ -1,7 +1,8 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/store_podcast_summaries.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/redux/app_reducer.dart';
@@ -43,7 +44,8 @@ void main() {
       );
     });
 
-    store.dispatch(StorePodcastSummaries(summaries: summaries));
+    store.dispatch(
+        StorePodcastSummaries((b) => b..summaries = ListBuilder(summaries)));
 
     await provideMockedNetworkImages(() async {
       await tester.pump();

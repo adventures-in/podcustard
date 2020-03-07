@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:podcustard/models/actions/observe_audio_player.dart';
+import 'package:podcustard/models/actions/observe_auth_state.dart';
 import 'package:redux/redux.dart';
 import 'package:podcustard/models/user.dart';
-import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/widgets/auth_page.dart';
 import 'package:podcustard/widgets/main_page.dart';
@@ -18,8 +19,8 @@ class _PodcustardAppState extends State<PodcustardApp> {
   @override
   void initState() {
     super.initState();
-    widget.store.dispatch(Action.ObserveAuthState());
-    widget.store.dispatch(Action.ObserveAudioPlayer());
+    widget.store.dispatch(ObserveAuthState());
+    widget.store.dispatch(ObserveAudioPlayer());
   }
 
   @override

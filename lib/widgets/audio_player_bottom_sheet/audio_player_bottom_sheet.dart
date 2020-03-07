@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/pause_track.dart';
+import 'package:podcustard/models/actions/resume_track.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/track.dart';
 

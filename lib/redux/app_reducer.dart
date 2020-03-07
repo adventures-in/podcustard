@@ -1,6 +1,18 @@
+import 'package:podcustard/models/actions/add_problem.dart';
+import 'package:podcustard/models/actions/clear_podcast_selection.dart';
+import 'package:podcustard/models/actions/select_podcast.dart';
+import 'package:podcustard/models/actions/store_auth_step.dart';
+import 'package:podcustard/models/actions/store_feed.dart';
+import 'package:podcustard/models/actions/store_main_page_index.dart';
+import 'package:podcustard/models/actions/store_podcast_summaries.dart';
+import 'package:podcustard/models/actions/store_theme_mode.dart';
+import 'package:podcustard/models/actions/store_track.dart';
+import 'package:podcustard/models/actions/store_track_duration.dart';
+import 'package:podcustard/models/actions/store_track_position.dart';
+import 'package:podcustard/models/actions/store_track_state.dart';
+import 'package:podcustard/models/actions/store_user.dart';
 import 'package:redux/redux.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/models/actions.dart';
 
 /// Reducers specify how the application"s state changes in response to actions
 /// sent to the store.
@@ -54,7 +66,8 @@ AppState _storeThemeMode(AppState state, StoreThemeMode action) {
 }
 
 AppState _storePodcastSummary(AppState state, SelectPodcast action) {
-  return state.rebuild((b) => b..detailVM.summary = action.podcast.toBuilder());
+  return state
+      .rebuild((b) => b..detailVM.summary = action.selection.toBuilder());
 }
 
 AppState _storeFeed(AppState state, StoreFeed action) {

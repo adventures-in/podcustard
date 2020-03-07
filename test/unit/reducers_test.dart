@@ -1,8 +1,18 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:podcustard/models/actions/add_problem.dart';
+import 'package:podcustard/models/actions/store_auth_step.dart';
+import 'package:podcustard/models/actions/store_feed.dart';
+import 'package:podcustard/models/actions/store_main_page_index.dart';
+import 'package:podcustard/models/actions/store_podcast_summaries.dart';
+import 'package:podcustard/models/actions/store_theme_mode.dart';
+import 'package:podcustard/models/actions/store_track.dart';
+import 'package:podcustard/models/actions/store_track_duration.dart';
+import 'package:podcustard/models/actions/store_track_position.dart';
+import 'package:podcustard/models/actions/store_track_state.dart';
+import 'package:podcustard/models/actions/store_user.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/track.dart';
-import 'package:podcustard/models/user.dart';
 import 'package:redux/redux.dart';
-import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:test/test.dart';
@@ -21,12 +31,11 @@ void main() {
       );
 
       // dispatch action to store auth state
-      store.dispatch(Action.StoreUser(
-          user: User((b) => b
-            ..displayName = 'name'
-            ..email = 'email'
-            ..photoUrl = 'url'
-            ..uid = 'uid')));
+      store.dispatch(StoreUser((b) => b.user
+        ..displayName = 'name'
+        ..email = 'email'
+        ..photoUrl = 'url'
+        ..uid = 'uid'));
 
       // check that the store has the expected value
       expect(store.state.user.uid, equals('uid'));
@@ -43,13 +52,12 @@ void main() {
       );
 
       // dispatch action to add a problem
-      store.dispatch(Action.AddProblem(
-          problem: Problem((b) => b
-            ..message = 'm'
-            ..info = {'a': 'b'}
-            ..state.replace(AppState.init())
-            ..trace = 'trace'
-            ..type = ProblemTypeEnum.googleSignin)));
+      store.dispatch(AddProblem((b) => b.problem
+        ..message = 'm'
+        ..info = {'a': 'b'}
+        ..state.replace(AppState.init())
+        ..trace = 'trace'
+        ..type = ProblemTypeEnum.googleSignin));
 
       // check that the store has the expected value
       expect(store.state.problems.length, 1);
@@ -69,7 +77,7 @@ void main() {
       );
 
       // dispatch action to store auth step
-      store.dispatch(Action.StoreAuthStep(step: 1));
+      store.dispatch(StoreAuthStep((b) => b..step = 1));
 
       // check that the store has the expected value
       expect(store.state.authStep, 1);
@@ -84,7 +92,7 @@ void main() {
       );
 
       // dispatch action to store auth step
-      store.dispatch(Action.StoreMainPageIndex(index: 1));
+      store.dispatch(StoreMainPageIndex((b) => b..index = 1));
 
       // check that the store has the expected value
       expect(store.state.mainPageIndex, 1);
@@ -102,7 +110,8 @@ void main() {
       final summary = await getInTheDarkSummary();
 
       // dispatch action to store summaries
-      store.dispatch(Action.StorePodcastSummaries(summaries: [summary]));
+      store.dispatch(
+          StorePodcastSummaries((b) => b..summaries = ListBuilder([summary])));
 
       // check that the store has the expected value
       expect(store.state.podcastSummaries.first, summary);
@@ -116,13 +125,13 @@ void main() {
       );
 
       // dispatch action to store themeMode
-      store.dispatch(Action.StoreThemeMode(themeMode: 0));
+      store.dispatch(StoreThemeMode((b) => b..themeMode = 0));
 
       // check that the store has the expected value
       expect(store.state.themeMode, 0);
 
       // dispatch action to store themeMode
-      store.dispatch(Action.StoreThemeMode(themeMode: 1));
+      store.dispatch(StoreThemeMode((b) => b..themeMode = 1));
 
       // check that the store has the expected value
       expect(store.state.themeMode, 1);
@@ -138,7 +147,7 @@ void main() {
       final feed = await getInTheDarkFeed();
 
       // dispatch action to store the feed
-      store.dispatch(Action.StoreFeed(feed: feed));
+      store.dispatch(StoreFeed((b) => b..feed = feed.toBuilder()));
 
       // check that the store has the expected value
       expect(store.state.detailVM.feed, feed);
@@ -155,7 +164,7 @@ void main() {
       final track = in_the_dark_s2e18_track;
 
       // dispatch action to store the track
-      store.dispatch(Action.StoreTrack(track: track));
+      store.dispatch(StoreTrack((b) => b..track = track.toBuilder()));
 
       // check that the store has the expected value
       expect(store.state.track, track);
@@ -172,13 +181,13 @@ void main() {
       final track = in_the_dark_s2e18_track;
 
       // dispatch action to store the track
-      store.dispatch(Action.StoreTrack(track: track));
+      store.dispatch(StoreTrack((b) => b..track = track.toBuilder()));
 
       // check the initial track state
       expect(store.state.track.state, TrackStateEnum.nothing);
 
       // dispatch to update the track state
-      store.dispatch(Action.StoreTrackState(state: TrackStateEnum.playing));
+      store.dispatch(StoreTrackState((b) => b..state = TrackStateEnum.playing));
 
       // rebuild the test data track with the updated TrackState
       final updatedTrack =
@@ -200,13 +209,13 @@ void main() {
       final track = in_the_dark_s2e18_track;
 
       // dispatch action to store the track
-      store.dispatch(Action.StoreTrack(track: track));
+      store.dispatch(StoreTrack((b) => b..track = track.toBuilder()));
 
       // check the initial track duration
       expect(store.state.track.duration, null);
 
       // dispatch to update the track duration
-      store.dispatch(Action.StoreTrackDuration(duration: 100.3));
+      store.dispatch(StoreTrackDuration((b) => b..duration = 100.3));
 
       // rebuild the test data track with the updated duration
       final updatedTrack = track.rebuild((b) => b..duration = 100.3);
@@ -227,13 +236,13 @@ void main() {
       final track = in_the_dark_s2e18_track;
 
       // dispatch action to store the track
-      store.dispatch(Action.StoreTrack(track: track));
+      store.dispatch(StoreTrack((b) => b..track = track.toBuilder()));
 
       // check the initial track position
       expect(store.state.track.position, null);
 
       // dispatch to update the track position
-      store.dispatch(Action.StoreTrackPosition(position: 55.5));
+      store.dispatch(StoreTrackPosition((b) => b..position = 55.5));
 
       // rebuild the test data track with the updated position
       final updatedTrack = track.rebuild((b) => b..position = 55.5);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/store_theme_mode.dart';
 import 'package:podcustard/models/app_state.dart';
 
 class DarkModeToggle extends StatefulWidget {
@@ -21,7 +21,7 @@ class _DarkModeToggleState extends State<DarkModeToggle> {
       ],
       onPressed: (int index) {
         StoreProvider.of<AppState>(context)
-            .dispatch(StoreThemeMode(themeMode: index));
+            .dispatch(StoreThemeMode((b) => b..themeMode = index));
         setState(() {
           for (var i = 0; i < 3; i++) {
             isSelected[i] = false;

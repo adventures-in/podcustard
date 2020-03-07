@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/select_podcast.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/redux/middleware.dart';
@@ -23,7 +23,7 @@ void main() {
         initialState: appState,
         middleware: createMiddleware(feedsService: FakeFeedsService()));
 
-    store.dispatch(Action.SelectPodcast(podcast: summary));
+    store.dispatch(SelectPodcast((b) => b..selection = summary.toBuilder()));
 
     final artistNameFinder = find.text(summary.artistName);
     final collectionName = find.text(summary.collectionName);

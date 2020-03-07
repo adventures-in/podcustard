@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/select_podcast.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
@@ -18,8 +18,8 @@ class PodcastSummaryTile extends StatelessWidget {
       subtitle: Text(_summary.artistName),
       trailing: Icon(Icons.arrow_forward_ios),
       onTap: () {
-        StoreProvider.of<AppState>(context)
-            .dispatch(SelectPodcast(podcast: _summary));
+        StoreProvider.of<AppState>(context).dispatch(
+            SelectPodcast((b) => b..selection = _summary.toBuilder()));
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => PodcastDetailPage()),

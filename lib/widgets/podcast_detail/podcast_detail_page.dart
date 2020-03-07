@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/clear_podcast_selection.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/widgets/podcast_detail/episode_tile.dart';

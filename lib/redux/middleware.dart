@@ -1,9 +1,18 @@
+import 'package:podcustard/models/actions/build_track_from_episode.dart';
+import 'package:podcustard/models/actions/observe_audio_player.dart';
+import 'package:podcustard/models/actions/observe_auth_state.dart';
+import 'package:podcustard/models/actions/pause_track.dart';
+import 'package:podcustard/models/actions/resume_track.dart';
+import 'package:podcustard/models/actions/retrieve_podcast_summaries.dart';
+import 'package:podcustard/models/actions/select_podcast.dart';
+import 'package:podcustard/models/actions/signin_with_apple.dart';
+import 'package:podcustard/models/actions/signin_with_google.dart';
+import 'package:podcustard/models/actions/store_track.dart';
 import 'package:podcustard/models/track.dart';
 import 'package:podcustard/services/audio_player_service.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
 import 'package:redux/redux.dart';
-import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/services/auth_service.dart';
 
@@ -111,7 +120,7 @@ void Function(Store<AppState> store, SelectPodcast action, NextDispatcher next)
 
     // retrieve feed and dispatch action to store result
     final storeAction =
-        await feedsService.retrieveFeed(url: action.podcast.feedUrl);
+        await feedsService.retrieveFeed(url: action.selection.feedUrl);
     store.dispatch(storeAction);
   };
 }
@@ -135,13 +144,12 @@ void Function(Store<AppState> store, BuildTrackFromEpisode action,
       NextDispatcher next) async {
     next(action);
 
-    final track = Track((b) => b
+    store.dispatch(StoreTrack((b) => b.track
       ..author = store.state.detailVM.summary.artistName
       ..imageUrl = store.state.detailVM.summary.artworkUrl60
       ..audioUrl = action.audioUrl
       ..episode = action.episodeTitle
-      ..state = TrackStateEnum.nothing);
-    store.dispatch(StoreTrack(track: track));
+      ..state = TrackStateEnum.nothing));
 
     // load and play the track, the service will emit relevant actions
     // into its stream and the _observeAudioPlayer middleware will dispatch

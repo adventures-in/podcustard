@@ -1,5 +1,7 @@
+import 'package:podcustard/models/actions/add_problem.dart';
+import 'package:podcustard/models/actions/store_auth_step.dart';
+import 'package:podcustard/models/actions/store_user.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/models/actions.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:test/test.dart';
 

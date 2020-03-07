@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/store_main_page_index.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/widgets/more_options/more_options_page.dart';
 import 'package:podcustard/widgets/podcasts_search/search_page.dart';
@@ -79,6 +79,6 @@ class MainPage extends StatelessWidget {
 
   void _onItemTapped(BuildContext context, int index) {
     StoreProvider.of<AppState>(context)
-        .dispatch(StoreMainPageIndex(index: index));
+        .dispatch(StoreMainPageIndex((b) => b..index = index));
   }
 }

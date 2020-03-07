@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/add_problem.dart';
+import 'package:podcustard/models/actions/redux_action.dart';
+import 'package:podcustard/models/actions/store_feed.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:rss_dart/models/rss_feed.dart';
 
@@ -9,20 +11,19 @@ class FeedsService {
 
   final http.Client _httpClient;
 
-  Future<Action> retrieveFeed({@required String url}) async {
+  Future<ReduxAction> retrieveFeed({@required String url}) async {
     try {
       final uriResponse = await _httpClient.get(url);
       final feed = RssFeed.parse(uriResponse.body);
 
       // Create an action and return
-      return Action.StoreFeed(feed: feed);
+      return StoreFeed((b) => b..feed = feed.toBuilder());
     } catch (error, trace) {
       // if there were any problems collect available info and create an action
-      return AddProblem(
-          problem: Problem((b) => b
-            ..type = ProblemTypeEnum.retrievePodcastSummaries
-            ..message = error.toString()
-            ..trace = trace.toString()));
+      return AddProblem((b) => b.problem
+        ..type = ProblemTypeEnum.retrievePodcastSummaries
+        ..message = error.toString()
+        ..trace = trace.toString());
     }
   }
 }

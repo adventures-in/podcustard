@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/models/actions.dart';
-import 'package:podcustard/services/audio_player_service.dart';
+import 'package:podcustard/models/actions/redux_action.dart';
 import 'package:redux/redux.dart';
 import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/models/app_state.dart';
@@ -21,7 +20,7 @@ void main() {
       final fakeFirebaseAuth = FakeFirebaseAuthOpen();
       final fakeGoogleSignIn = FakeGoogleSignIn();
 
-      final audioEventsController = StreamController<Action>();
+      final audioEventsController = StreamController<ReduxAction>();
 
       // create a basic store with middleware that uses the AuthService to
       // observe auth state and a reducer that saves the emitted auth state

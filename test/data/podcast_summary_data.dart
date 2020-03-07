@@ -1,4 +1,4 @@
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/store_podcast_summaries.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/services/itunes_service.dart';
 

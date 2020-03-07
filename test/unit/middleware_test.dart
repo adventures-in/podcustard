@@ -1,11 +1,22 @@
 import 'dart:async';
 
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/add_problem.dart';
+import 'package:podcustard/models/actions/build_track_from_episode.dart';
+import 'package:podcustard/models/actions/observe_audio_player.dart';
+import 'package:podcustard/models/actions/observe_auth_state.dart';
+import 'package:podcustard/models/actions/pause_track.dart';
+import 'package:podcustard/models/actions/redux_action.dart';
+import 'package:podcustard/models/actions/resume_track.dart';
+import 'package:podcustard/models/actions/retrieve_podcast_summaries.dart';
+import 'package:podcustard/models/actions/select_podcast.dart';
+import 'package:podcustard/models/actions/signin_with_apple.dart';
+import 'package:podcustard/models/actions/signin_with_google.dart';
+import 'package:podcustard/models/actions/store_auth_step.dart';
+import 'package:podcustard/models/actions/store_track.dart';
+import 'package:podcustard/models/actions/store_user.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/models/track.dart';
-import 'package:podcustard/models/user.dart';
 import 'package:podcustard/redux/app_reducer.dart';
 import 'package:podcustard/redux/middleware.dart';
 import 'package:podcustard/services/auth_service.dart';
@@ -30,12 +41,11 @@ void main() {
       final mockAuthService = MockAuthService();
       when(mockAuthService.streamOfStateChanges).thenAnswer(
         (_) => Stream.fromIterable([
-          Action.StoreUser(
-              user: User((b) => b
-                ..uid = 'id'
-                ..email = 'email'
-                ..displayName = 'name'
-                ..photoUrl = 'url'))
+          StoreUser((b) => b.user
+            ..uid = 'id'
+            ..email = 'email'
+            ..displayName = 'name'
+            ..photoUrl = 'url')
         ]),
       );
 
@@ -47,13 +57,13 @@ void main() {
       );
 
       // dispatch action to observe the auth state
-      store.dispatch(Action.ObserveAuthState());
+      store.dispatch(ObserveAuthState());
 
       // verify the middleware used the service to get a stream of auth state
       verify(mockAuthService.streamOfStateChanges);
 
       // wait for the stream to complete so we can test that the middleware did it's thing
-      await for (Action _ in mockAuthService.streamOfStateChanges) {}
+      await for (ReduxAction _ in mockAuthService.streamOfStateChanges) {}
 
       // all the middleware does is dispatch a StoreAuthState action so check the state
       expect(store.state.user.uid, 'id');
@@ -66,11 +76,10 @@ void main() {
       final mockAuthService = MockAuthService();
       when(mockAuthService.googleSignInStream).thenAnswer(
         (_) => Stream.fromIterable([
-          Action.StoreAuthStep(step: 1),
-          AddProblem(
-              problem: Problem((b) => b
-                ..message = 'm'
-                ..type = ProblemTypeEnum.googleSignin))
+          StoreAuthStep((b) => b..step = 1),
+          AddProblem((b) => b.problem
+            ..message = 'm'
+            ..type = ProblemTypeEnum.googleSignin)
         ]),
       );
 
@@ -82,13 +91,13 @@ void main() {
       );
 
       // dispatch action to initiate signin
-      store.dispatch(Action.SigninWithGoogle());
+      store.dispatch(SigninWithGoogle());
 
       // verify the middleware used the service to get a stream of actions
       verify(mockAuthService.googleSignInStream);
 
       // wait for the stream to complete so we can test that the middleware did it's thing
-      await for (Action _ in mockAuthService.googleSignInStream) {}
+      await for (ReduxAction _ in mockAuthService.googleSignInStream) {}
 
       // all the middleware does is dispatch a StoreAuthState action so check the state
       expect(store.state.authStep, 1);
@@ -102,11 +111,10 @@ void main() {
       final mockAuthService = MockAuthService();
       when(mockAuthService.appleSignInStream).thenAnswer(
         (_) => Stream.fromIterable([
-          Action.StoreAuthStep(step: 1),
-          AddProblem(
-              problem: Problem((b) => b
-                ..message = 'm'
-                ..type = ProblemTypeEnum.googleSignin))
+          StoreAuthStep((b) => b..step = 1),
+          AddProblem((b) => b.problem
+            ..message = 'm'
+            ..type = ProblemTypeEnum.googleSignin)
         ]),
       );
 
@@ -118,13 +126,13 @@ void main() {
       );
 
       // dispatch action to initiate signin
-      store.dispatch(Action.SigninWithApple());
+      store.dispatch(SigninWithApple());
 
       // verify the middleware used the service to get a stream of actions
       verify(mockAuthService.appleSignInStream);
 
       // wait for the stream to complete so we can test that the middleware did it's thing
-      await for (Action _ in mockAuthService.appleSignInStream) {}
+      await for (ReduxAction _ in mockAuthService.appleSignInStream) {}
 
       // all the middleware does is dispatch a StoreAuthState action so check the state
       expect(store.state.authStep, 1);
@@ -145,7 +153,7 @@ void main() {
       );
 
       // dispatch action to initiate signin
-      await store.dispatch(Action.RetrievePodcastSummaries(query: 'query'));
+      await store.dispatch(RetrievePodcastSummaries((b) => b..query = 'query'));
 
       // mut dispatches a StorePodcastSummaries action so we check the state
       expect(store.state.podcastSummaries.length, 50);
@@ -166,7 +174,8 @@ void main() {
       final summary = await getInTheDarkSummary();
 
       // dispatch action to initiate retrieving the feed
-      await store.dispatch(Action.SelectPodcast(podcast: summary));
+      await store
+          .dispatch(SelectPodcast((b) => b..selection = summary.toBuilder()));
 
       final feed = await getInTheDarkFeed();
 
@@ -177,7 +186,7 @@ void main() {
     test('_observeAudioPlayer listens to audio service and dispatches',
         () async {
       // setup a mock service to give a test response
-      final controller = StreamController<Action>();
+      final controller = StreamController<ReduxAction>();
       final fakeService = FakeAudioPlayerService(controller: controller);
 
       // create a basic store with the mocked out middleware
@@ -194,7 +203,7 @@ void main() {
       final track = in_the_dark_s2e18_track;
 
       // push an action into the stream
-      await controller.add(StoreTrack(track: track));
+      await controller.add(StoreTrack((b) => b..track = track.toBuilder()));
 
       // check that action emitted by service produced expected state
       expect(store.state.track, track);
@@ -202,7 +211,7 @@ void main() {
 
     test('_buildTrackFromEpisode loads and plays the track', () async {
       // setup a mock service to give a test response
-      final controller = StreamController<Action>();
+      final controller = StreamController<ReduxAction>();
 
       // create a basic store with the mocked out middleware
       final store = Store<AppState>(
@@ -215,12 +224,13 @@ void main() {
 
       final summary = await getInTheDarkSummary();
 
-      store.dispatch(SelectPodcast(podcast: summary));
+      store.dispatch(SelectPodcast((b) => b..selection = summary.toBuilder()));
 
       final track = in_the_dark_s2e18_track;
 
-      store.dispatch(BuildTrackFromEpisode(
-          audioUrl: track.audioUrl, episodeTitle: track.episode));
+      store.dispatch(BuildTrackFromEpisode((b) => b
+        ..audioUrl = track.audioUrl
+        ..episodeTitle = track.episode));
 
       // check that action emitted by service produced expected state
       expect(store.state.track, track);
@@ -228,7 +238,7 @@ void main() {
 
     test('_pauseTrack pauses the track and stores state', () async {
       // setup a mock service to give a test response
-      final controller = StreamController<Action>();
+      final controller = StreamController<ReduxAction>();
       final service = FakeAudioPlayerService(controller: controller);
 
       // create a basic store with the mocked out middleware
@@ -242,9 +252,10 @@ void main() {
       // add a track to the app state
       final summary = await getInTheDarkSummary();
       final track = in_the_dark_s2e18_track;
-      store.dispatch(SelectPodcast(podcast: summary));
-      store.dispatch(BuildTrackFromEpisode(
-          audioUrl: track.audioUrl, episodeTitle: track.episode));
+      store.dispatch(SelectPodcast((b) => b..selection = summary.toBuilder()));
+      store.dispatch(BuildTrackFromEpisode((b) => b
+        ..audioUrl = track.audioUrl
+        ..episodeTitle = track.episode));
 
       store.dispatch(PauseTrack());
 
@@ -254,7 +265,7 @@ void main() {
 
     test('_resumeTrack resumes the track and sets state', () async {
       // setup a mock service to give a test response
-      final controller = StreamController<Action>();
+      final controller = StreamController<ReduxAction>();
       final service = FakeAudioPlayerService(controller: controller);
       // create a basic store with the mocked out middleware
       final store = Store<AppState>(
@@ -267,9 +278,10 @@ void main() {
       // add a track to the app state
       final summary = await getInTheDarkSummary();
       final track = in_the_dark_s2e18_track;
-      store.dispatch(SelectPodcast(podcast: summary));
-      store.dispatch(BuildTrackFromEpisode(
-          audioUrl: track.audioUrl, episodeTitle: track.episode));
+      store.dispatch(SelectPodcast((b) => b..selection = summary.toBuilder()));
+      store.dispatch(BuildTrackFromEpisode((b) => b
+        ..audioUrl = track.audioUrl
+        ..episodeTitle = track.episode));
 
       store.dispatch(ResumeTrack());
 

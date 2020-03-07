@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide Action;
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/retrieve_podcast_summaries.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -51,8 +51,8 @@ class _SearchTextState extends State<SearchText> {
   Widget build(BuildContext context) {
     return TextField(
       controller: _controller,
-      onChanged: (text) =>
-          widget._store.dispatch(Action.RetrievePodcastSummaries(query: text)),
+      onChanged: (text) => widget._store
+          .dispatch(RetrievePodcastSummaries((b) => b..query = text)),
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(

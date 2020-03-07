@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/build_track_from_episode.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:rss_dart/models/rss_item.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,8 +22,10 @@ class EpisodeTile extends StatelessWidget {
       leading: IconButton(
         icon: Icon(Icons.play_circle_filled),
         onPressed: () {
-          StoreProvider.of<AppState>(context).dispatch(BuildTrackFromEpisode(
-              audioUrl: episode.enclosure.url, episodeTitle: episode.title));
+          StoreProvider.of<AppState>(context)
+              .dispatch(BuildTrackFromEpisode((b) => b
+                ..audioUrl = episode.enclosure.url
+                ..episodeTitle = episode.title));
           Navigator.pop(context);
         },
       ),

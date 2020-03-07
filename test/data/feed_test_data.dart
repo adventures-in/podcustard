@@ -1,4 +1,4 @@
-import 'package:podcustard/models/actions.dart';
+import 'package:podcustard/models/actions/store_feed.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:rss_dart/models/rss_feed.dart';
 
