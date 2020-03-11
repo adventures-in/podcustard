@@ -46,9 +46,26 @@ class FakeAudioPlayerService extends Fake implements AudioPlayerService {
   }
 }
 
+/// The FakeAudioPlayerObject allows passing arguments that will
+/// call the callbacks that are passed in to loadFromRemoteUrl
+/// and would be called by the Audio object on the corresponding events
 class FakeAudioPlayerObject extends Fake implements AudioPlayerObject {
-  FakeAudioPlayerObject();
+  FakeAudioPlayerObject(
+      {this.callOnError,
+      this.callOnDuration,
+      this.callOnPosition,
+      this.callOnComplete,
+      this.errorString,
+      this.position,
+      this.duration});
 
+  bool callOnError;
+  bool callOnDuration;
+  bool callOnPosition;
+  bool callOnComplete;
+  String errorString;
+  double duration;
+  double position;
   int loadCount = 0;
 
   @override
@@ -58,10 +75,10 @@ class FakeAudioPlayerObject extends Fake implements AudioPlayerObject {
       void Function(double) onDuration,
       void Function(double) onPosition}) {
     loadCount++;
-    if (url == 'onError') onError('errorString');
-    if (url == 'onComplete') onComplete();
-    if (url == 'onDuration') onDuration(1.0);
-    if (url == 'onPosition') onPosition(0.5);
+    if (callOnError != null) onError(errorString);
+    if (callOnDuration != null) onDuration(duration);
+    if (callOnPosition != null) onPosition(position);
+    if (callOnComplete != null) onComplete();
     return FakeAudio();
   }
 }

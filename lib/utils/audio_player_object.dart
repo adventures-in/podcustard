@@ -10,7 +10,7 @@ class AudioPlayerObject {
 
   /// Creates an Audio object using a remote URL.
   ///
-  /// --- From Audio.loadFromRemoteUrl ----
+  /// --- From [Audio.loadFromRemoteUrl] ----
   /// Returns null if url is invalid.
   /// Note that it returns an Audio sync'ly, though loading occurs async'ly.
   /// Note that onError will fire if remote loading fails (due to connectivity,
