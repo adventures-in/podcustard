@@ -11,8 +11,12 @@ class TrackStateWatcher extends StatelessWidget {
       distinct: true,
       converter: (store) => store.state.track?.state,
       onWillChange: (previousViewModel, newViewModel) {
+        // we want to kow if the bottom sheet is already shown
         final shown =
             StoreProvider.of<AppState>(context).state.bottomSheetShown;
+
+        // if the track state has changed to loading and the bottom sheet is not
+        // already shown then show it
         if (newViewModel == TrackStateEnum.loading && !shown) {
           Scaffold.of(context).showBottomSheet((context) {
             return AudioPlayerBottomSheet();
@@ -20,6 +24,7 @@ class TrackStateWatcher extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        // the widget is just for monitering the state and showing the bottom sheet
         return Container();
       },
     );
