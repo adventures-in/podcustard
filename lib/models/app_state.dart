@@ -1,48 +1,28 @@
-library app_state;
-
-import 'dart:convert';
-
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/track.dart';
 import 'package:podcustard/models/user.dart';
-import 'package:podcustard/models/serializers.dart';
 
+part 'app_state.freezed.dart';
 part 'app_state.g.dart';
 
-abstract class AppState implements Built<AppState, AppStateBuilder> {
-  BuiltList<Problem> get problems;
-  int get authStep;
-  int get mainPageIndex;
-  bool get bottomSheetShown;
-  int get themeMode;
-  @nullable
-  User get user;
-  @nullable
-  PodcastDetailViewModel get detailVM;
-  @nullable
-  Track get track;
-  BuiltList<PodcastSummary> get podcastSummaries;
+@freezed
+class AppState with _$AppState {
+  factory AppState({
+    @Default(IListConst([])) IList<Problem> problems,
+    @Default(0) int authStep,
+    @Default(0) int mainPageIndex,
+    @Default(false) bool bottomSheetShown,
+    @Default(2) int themeMode,
+    User? user,
+    PodcastDetailViewModel? detailVM,
+    Track? track,
+    @Default(IListConst([])) IList<PodcastSummary> podcastSummaries,
+  }) = _AppState;
 
-  AppState._();
-
-  factory AppState.init() => AppState((a) => a
-    ..problems = ListBuilder<Problem>()
-    ..authStep = 0
-    ..mainPageIndex = 0
-    ..bottomSheetShown = false
-    ..themeMode = 2);
-
-  factory AppState([void Function(AppStateBuilder) updates]) = _$AppState;
-
-  Object toJson() => serializers.serializeWith(AppState.serializer, this);
-
-  static AppState fromJson(String jsonString) =>
-      serializers.deserializeWith(AppState.serializer, json.decode(jsonString));
-
-  static Serializer<AppState> get serializer => _$appStateSerializer;
+  factory AppState.fromJson(Map<String, dynamic> json) =>
+      _$AppStateFromJson(json);
 }

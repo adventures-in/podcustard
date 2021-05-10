@@ -2,17 +2,17 @@ import 'dart:async';
 
 import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/models/actions/redux_action.dart';
+import 'package:podcustard/actions/redux_action.dart';
 import 'package:podcustard/services/audio_player_service.dart';
 import 'package:podcustard/utils/audio_player_object.dart';
 
 class FakeAudioPlayerService extends Fake implements AudioPlayerService {
-  FakeAudioPlayerService({this.controller});
+  FakeAudioPlayerService(this.controller);
 
   /// a stream controller used to emit data events from the player
   StreamController<ReduxAction> controller;
 
-  String loadedUrl;
+  String? loadedUrl;
   int playedCount = 0;
   int pausedCount = 0;
   int resumedCount = 0;
@@ -28,13 +28,13 @@ class FakeAudioPlayerService extends Fake implements AudioPlayerService {
   }
 
   @override
-  Future<void> play([double endpointSeconds]) {
+  Future<void> play([double? endpointSeconds]) {
     playedCount++;
     return Future.value(null);
   }
 
   @override
-  Future<void> pause([double endpointSeconds]) {
+  Future<void> pause([double? endpointSeconds]) {
     pausedCount++;
     return Future.value(null);
   }
@@ -59,26 +59,30 @@ class FakeAudioPlayerObject extends Fake implements AudioPlayerObject {
       this.position,
       this.duration});
 
-  bool callOnError;
-  bool callOnDuration;
-  bool callOnPosition;
-  bool callOnComplete;
-  String errorString;
-  double duration;
-  double position;
+  bool? callOnError;
+  bool? callOnDuration;
+  bool? callOnPosition;
+  bool? callOnComplete;
+  String? errorString;
+  double? duration;
+  double? position;
   int loadCount = 0;
 
   @override
   Audio loadFromRemoteUrl(String url,
-      {void Function(String) onError,
-      void Function() onComplete,
-      void Function(double) onDuration,
-      void Function(double) onPosition}) {
+      {void Function(String?)? onError,
+      void Function()? onComplete,
+      void Function(double)? onDuration,
+      void Function(double)? onPosition}) {
     loadCount++;
-    if (callOnError != null) onError(errorString);
-    if (callOnDuration != null) onDuration(duration);
-    if (callOnPosition != null) onPosition(position);
-    if (callOnComplete != null) onComplete();
+    if (callOnError != null && onError != null) onError(errorString);
+    if (callOnDuration != null && onDuration != null && duration != null) {
+      onDuration(duration!);
+    }
+    if (callOnPosition != null && onPosition != null && position != null) {
+      onPosition(position!);
+    }
+    if (callOnComplete != null && onComplete != null) onComplete();
     return FakeAudio();
   }
 }
@@ -91,7 +95,7 @@ class FakeAudio extends Fake implements Audio {
   int resumedCount = 0;
 
   @override
-  Future<void> play([double endpointSeconds]) {
+  Future<void> play({double? endpointSeconds}) {
     playedCount++;
     return Future.value();
   }

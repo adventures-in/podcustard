@@ -1,4 +1,4 @@
-import 'package:built_collection/built_collection.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/provider_info.dart';
@@ -20,11 +20,8 @@ void main() {
 
   group('ApState', () {
     test('deals with null for nullable members', () {
-      final appState = AppState((b) => b
-        ..authStep = 0
-        ..mainPageIndex = 0
-        ..themeMode = 0
-        ..bottomSheetShown = false);
+      final appState = AppState(
+          authStep: 0, mainPageIndex: 0, themeMode: 0, bottomSheetShown: false);
 
       expect(appState.authStep, 0);
       expect(appState.mainPageIndex, 0);
@@ -34,34 +31,32 @@ void main() {
     });
 
     test('members take expected values', () {
-      final providerInfo = ProviderInfo((b) => b
-        ..displayName = 'name'
-        ..providerId = 'provider'
-        ..photoUrl = 'url'
-        ..email = 'email'
-        ..uid = 'uid');
+      final providerInfo = ProviderInfo(
+          displayName: 'name',
+          providerId: 'provider',
+          photoUrl: 'url',
+          email: 'email',
+          uid: 'uid');
 
-      final user = User((a) => a
-        ..email = 'email'
-        ..uid = 'id'
-        ..displayName = 'name'
-        ..photoUrl = 'url'
-        ..providers = ListBuilder([providerInfo]));
+      final user = User(
+          email: 'email',
+          uid: 'id',
+          displayName: 'name',
+          photoUrl: 'url',
+          providers: IList([providerInfo]));
 
-      final problem = Problem((a) => a
-        ..message = 'message'
-        ..type = ProblemTypeEnum.retrievePodcastSummaries
-        ..info = {'test': 'test'}
-        ..state.replace(AppState.init())
-        ..trace = StackTrace.current.toString());
+      final problem = Problem(
+          message: 'message',
+          info: IMap({'test': 'test'}),
+          trace: StackTrace.current.toString());
 
-      final appState = AppState((b) => b
-        ..authStep = 0
-        ..mainPageIndex = 0
-        ..themeMode = 0
-        ..bottomSheetShown = false
-        ..problems.add(problem)
-        ..user.replace(user));
+      final appState = AppState(
+          authStep: 0,
+          mainPageIndex: 0,
+          themeMode: 0,
+          bottomSheetShown: false,
+          problems: [problem].lock,
+          user: user);
 
       expect(appState.authStep, 0);
       expect(appState.mainPageIndex, 0);

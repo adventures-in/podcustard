@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions/signin_with_apple.dart';
-import 'package:podcustard/models/actions/signin_with_google.dart';
+import 'package:podcustard/actions/signin_with_apple_action.dart';
+import 'package:podcustard/actions/signin_with_google_action.dart';
 import 'package:podcustard/models/app_state.dart';
 
 class AuthPage extends StatefulWidget {
@@ -31,11 +31,11 @@ class _AuthPageState extends State<AuthPage> {
                       AppleSignInButton(
                           style: AppleButtonStyle.black,
                           onPressed: () => StoreProvider.of<AppState>(context)
-                              .dispatch(SigninWithApple())),
+                              .dispatch(SigninWithAppleAction())),
                     SizedBox(height: 50),
                     GoogleSignInButton(
                       onPressed: () => StoreProvider.of<AppState>(context)
-                          .dispatch(SigninWithGoogle()),
+                          .dispatch(SigninWithGoogleAction()),
                       darkMode: true, // default: false
                     )
                   ],

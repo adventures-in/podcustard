@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/redux/app_reducer.dart';
+import 'package:podcustard/middleware/middleware_middleware.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/redux/middleware.dart';
+import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/widgets/auth_page.dart';
 import 'package:redux/redux.dart';
@@ -19,11 +19,11 @@ void main() {
       // create a basic store with middleware, services and reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState.init(),
+        initialState: AppState(),
         middleware: [
           ...createMiddleware(
-            authService:
-                AuthService(FakeFirebaseAuth1(), FakeGoogleSignIn(), null),
+            authService: AuthService(
+                FakeFirebaseAuth1(), FakeGoogleSignIn(), FakeAppleSignIn()),
           ),
         ],
       );
@@ -50,11 +50,11 @@ void main() {
       // create a basic store with middleware, services and reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState.init(),
+        initialState: AppState(),
         middleware: [
           ...createMiddleware(
-              authService: AuthService(
-                  FakeFirebaseAuth1(), FakeGoogleSignInCancels(), null)),
+              authService: AuthService(FakeFirebaseAuth1(),
+                  FakeGoogleSignInCancels(), FakeAppleSignIn())),
         ],
       );
 
@@ -81,10 +81,11 @@ void main() {
       // create a basic store with middleware, services and reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState.init(),
+        initialState: AppState(),
         middleware: [
           ...createMiddleware(
-            authService: AuthService(null, null, FakeAppleSignInCancels()),
+            authService: AuthService(FakeFirebaseAuth1(),
+                FakeGoogleSignInCancels(), FakeAppleSignInCancels()),
           ),
         ],
       );

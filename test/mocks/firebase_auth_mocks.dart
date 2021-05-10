@@ -1,55 +1,42 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mockito/mockito.dart';
 
-class FakeFirebaseAuthPeriodic extends Fake implements FirebaseAuth {
+class FakeFirebaseAuthPeriodic extends Fake implements auth.FirebaseAuth {
   @override
-  Stream<FirebaseUser> get onAuthStateChanged =>
+  Stream<auth.User?> authStateChanges() =>
       Stream.periodic(Duration(seconds: 1), (tickNum) {
         if (tickNum > 1) tickNum = 1;
-        return [FakeFirebaseUserNull(), FakeFirebaseUser()].elementAt(tickNum);
+        return [null, FakeFirebaseUser()].elementAt(tickNum);
       });
 }
 
-class FakeFirebaseAuth1 extends Fake implements FirebaseAuth {
+class FakeFirebaseAuth1 extends Fake implements auth.FirebaseAuth {
   @override
-  Stream<FirebaseUser> get onAuthStateChanged =>
-      Stream.fromIterable([FakeFirebaseUserNull(), FakeFirebaseUser()]);
+  Stream<auth.User?> authStateChanges() =>
+      Stream.fromIterable([null, FakeFirebaseUser()]);
 
   @override
-  Future<AuthResult> signInWithCredential(AuthCredential credential) =>
-      Future.value(FakeAuthResult());
+  Future<UserCredential> signInWithCredential(auth.AuthCredential credential) =>
+      Future.value(FakeUserCredential());
 }
 
 class FakeFirebaseAuthOpen extends Fake implements FirebaseAuth {
-  final controller = StreamController<FirebaseUser>();
+  final controller = StreamController<auth.User?>();
 
   @override
-  Stream<FirebaseUser> get onAuthStateChanged => controller.stream;
+  Stream<auth.User?> authStateChanges() => controller.stream;
 
-  void add(FirebaseUser user) => controller.add(user);
+  void add(auth.User? user) => controller.add(user);
 
   void close() {
     controller.close();
   }
 }
 
-class FakeFirebaseUserNull extends Fake implements FirebaseUser {
-  @override
-  String get uid => null;
-  @override
-  String get displayName => null;
-  @override
-  String get email => null;
-  @override
-  String get photoUrl => null;
-
-  @override
-  List<UserInfo> providerData;
-}
-
-class FakeFirebaseUser extends Fake implements FirebaseUser {
+class FakeFirebaseUser extends Fake implements auth.User {
   @override
   String get uid => 'uid';
   @override
@@ -57,15 +44,10 @@ class FakeFirebaseUser extends Fake implements FirebaseUser {
   @override
   String get email => 'email';
   @override
-  String get photoUrl => 'url';
+  String get photoURL => 'url';
 
   @override
   List<UserInfo> providerData = [];
 }
 
-class FakeAuthResult extends Fake implements AuthResult {
-  /// Returns the currently signed-in [FirebaseUser], or `null` if there isn't
-  /// any (i.e. the user is signed out).
-  @override
-  final FirebaseUser user = FakeFirebaseUser();
-}
+class FakeUserCredential extends Fake implements auth.UserCredential {}

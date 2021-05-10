@@ -1,11 +1,11 @@
-import 'package:built_collection/built_collection.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/models/actions/store_podcast_summaries.dart';
+import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_summary.dart';
-import 'package:podcustard/redux/app_reducer.dart';
+import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcasts_search/search_page.dart';
 import 'package:redux/redux.dart';
 
@@ -15,17 +15,13 @@ void main() {
   testWidgets('SearchPage displays the results of a search',
       (WidgetTester tester) async {
     // create a basic store with a reducer that...
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store = Store<AppState>(appReducer, initialState: AppState());
 
-    final summary1 = PodcastSummary((b) => b
-      ..artistName = 'a'
-      ..collectionName = 'b'
-      ..artworkUrl100 = 'h');
-    final summary2 = PodcastSummary((b) => b
-      ..artistName = 'c'
-      ..collectionName = 'd'
-      ..artworkUrl100 = 't');
-    final summaries = [summary1, summary2];
+    final summary1 = PodcastSummary(
+        artistName: 'a', collectionName: 'b', artworkUrl100: 'h');
+    final summary2 = PodcastSummary(
+        artistName: 'c', collectionName: 'd', artworkUrl100: 't');
+    final summaries = [summary1, summary2].lock;
 
     final titleFinder1 = find.text('a');
     final subtitleFinder1 = find.text('c');
@@ -44,8 +40,7 @@ void main() {
       );
     });
 
-    store.dispatch(
-        StorePodcastSummaries((b) => b..summaries = ListBuilder(summaries)));
+    store.dispatch(StorePodcastSummariesAction(summaries));
 
     await provideMockedNetworkImages(() async {
       await tester.pump();

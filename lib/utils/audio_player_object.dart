@@ -18,11 +18,11 @@ class AudioPlayerObject {
   /// a longer timeout on Android.
   /// -------------------------------------
   ///
-  Audio loadFromRemoteUrl(String url,
-      {void Function(String) onError,
-      void Function() onComplete,
-      void Function(double) onDuration,
-      void Function(double) onPosition}) {
+  Audio? loadFromRemoteUrl(String url,
+      {void Function(String?)? onError,
+      void Function()? onComplete,
+      void Function(double)? onDuration,
+      void Function(double)? onPosition}) {
     return Audio.loadFromRemoteUrl(
       url,
       onError: onError,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/redux/app_reducer.dart';
+import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/more_options/dark_mode_toggle.dart';
 import 'package:redux/redux.dart';
 
@@ -10,8 +10,8 @@ void main() {
   testWidgets('DarkModeToggle dispatches action on toggle',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer,
-        middleware: [], initialState: AppState.init());
+    final store =
+        Store<AppState>(appReducer, middleware: [], initialState: AppState());
 
     // build our app and trigger a frame
     await tester.pumpWidget(

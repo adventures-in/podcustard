@@ -42,11 +42,11 @@ import 'package:mockito/mockito.dart';
 ///
 /// The underlying code is taken from the Flutter repo:
 /// https://github.com/flutter/flutter/blob/master/dev/manual_tests/test/mock_image_http.dart
-R provideMockedNetworkImages<R>(R body(),
+R provideMockedNetworkImages<R>(R Function() body,
     {List<int> imageBytes = _transparentImage}) {
   return HttpOverrides.runZoned(
     body,
-    createHttpClient: (_) => _createMockImageHttpClient(_, imageBytes),
+    createHttpClient: (_) => _createMockImageHttpClient(_!, imageBytes),
   );
 }
 
@@ -66,7 +66,7 @@ MockHttpClient _createMockImageHttpClient(
   final response = MockHttpClientResponse();
   final headers = MockHttpHeaders();
 
-  when(client.getUrl(any))
+  when(client.getUrl(Uri()))
       .thenAnswer((_) => Future<HttpClientRequest>.value(request));
   when(request.headers).thenReturn(headers);
   when(request.close())

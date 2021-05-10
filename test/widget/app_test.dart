@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/models/actions/redux_action.dart';
-import 'package:redux/redux.dart';
-import 'package:podcustard/redux/app_reducer.dart';
+import 'package:podcustard/actions/redux_action.dart';
+import 'package:podcustard/middleware/middleware_middleware.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/redux/middleware.dart';
+import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/services/auth_service.dart';
-import 'package:podcustard/app/app.dart';
+import 'package:podcustard/widgets/app_widget.dart';
+import 'package:redux/redux.dart';
 
+import '../mocks/apple_signin_mocks.dart';
 import '../mocks/audio_player_service_mocks.dart';
 import '../mocks/firebase_auth_mocks.dart';
 import '../mocks/google_signin_mocks.dart';
@@ -26,17 +27,17 @@ void main() {
       // observe auth state and a reducer that saves the emitted auth state
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState.init(),
+        initialState: AppState(),
         middleware: [
           ...createMiddleware(
-              authService:
-                  AuthService(fakeFirebaseAuth, fakeGoogleSignIn, null),
+              authService: AuthService(
+                  fakeFirebaseAuth, fakeGoogleSignIn, FakeAppleSignIn()),
               audioPlayerService:
-                  FakeAudioPlayerService(controller: audioEventsController)),
+                  FakeAudioPlayerService(audioEventsController)),
         ],
       );
 
-      fakeFirebaseAuth.add(FakeFirebaseUserNull());
+      fakeFirebaseAuth.add(null);
 
       // build our app and trigger a frame
       await tester.pumpWidget(PodcustardApp(store));

@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/models/actions/add_problem.dart';
-import 'package:podcustard/models/actions/store_track_duration.dart';
-import 'package:podcustard/models/actions/store_track_position.dart';
-import 'package:podcustard/models/actions/store_track_state.dart';
+import 'package:podcustard/actions/add_problem_action.dart';
+import 'package:podcustard/actions/store_track_duration_action.dart';
+import 'package:podcustard/actions/store_track_position_action.dart';
+import 'package:podcustard/actions/store_track_state_action.dart';
+import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/models/track.dart';
 import 'package:podcustard/services/audio_player_service.dart';
 
 import '../../mocks/audio_player_service_mocks.dart';
@@ -19,17 +19,14 @@ void main() {
 
       // test that when fakeAudioPlayerObject.loadFromRemoteUrl()
       // calls the onError callback the error comes through the stream
-      service.loadWithUrl('url');
+      await service.loadWithUrl('url');
 
       await expectLater(
-        service.streamOfAudioEvents,
-        emitsInOrder([
-          StoreTrackState((b) => b..state = TrackStateEnum.loading),
-          AddProblem((b) => b.problem
-            ..message = 'error string'
-            ..type = ProblemTypeEnum.audioPlayerService_loadWithUrl_onError),
-        ]),
-      );
+          service.streamOfAudioEvents,
+          emitsInOrder([
+            StoreTrackStateAction(TrackStateEnum.loading),
+            AddProblemAction(Problem(message: 'error string'))
+          ]));
     });
 
     test(
@@ -45,14 +42,14 @@ void main() {
 
       // test that when fakeAudioPlayerObject.loadFromRemoteUrl()
       // is called the callbacks comes through the stream
-      service.loadWithUrl('url');
+      await service.loadWithUrl('url');
 
       await expectLater(
         service.streamOfAudioEvents,
         emitsInOrder([
-          StoreTrackState((b) => b..state = TrackStateEnum.loading),
-          StoreTrackDuration((b) => b..duration = 1.0),
-          StoreTrackPosition((b) => b..position = 0.5),
+          StoreTrackStateAction(TrackStateEnum.loading),
+          StoreTrackDurationAction(1.0),
+          StoreTrackPositionAction(0.5),
         ]),
       );
     });

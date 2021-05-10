@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions/store_main_page_index.dart';
+import 'package:podcustard/actions/store_main_page_index_action.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/widgets/more_options/more_options_page.dart';
 import 'package:podcustard/widgets/podcasts_search/search_page.dart';
@@ -52,19 +52,19 @@ class MainPage extends StatelessWidget {
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                title: Text('Home'),
+                label: 'Home',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.business),
-                title: Text('Business'),
+                label: 'Business',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
-                title: Text('Search'),
+                label: 'Search',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.more_vert),
-                title: Text('More'),
+                label: 'More',
               ),
             ],
             type: BottomNavigationBarType.fixed,
@@ -79,6 +79,6 @@ class MainPage extends StatelessWidget {
 
   void _onItemTapped(BuildContext context, int index) {
     StoreProvider.of<AppState>(context)
-        .dispatch(StoreMainPageIndex((b) => b..index = index));
+        .dispatch(StoreMainPageIndexAction(index));
   }
 }

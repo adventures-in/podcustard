@@ -1,4 +1,4 @@
-import 'package:built_collection/built_collection.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:test/test.dart';
 
@@ -57,27 +57,28 @@ void main() {
 
     test('members take expected values', () {
       final nowTime = DateTime.now();
-      final podcastSummary = PodcastSummary((b) => b
-        ..artistId = 1
-        ..collectionId = 2
-        ..trackId = 3
-        ..trackCount = 4
-        ..releaseDate = nowTime
-        ..artistName = 'a'
-        ..collectionName = 'b'
-        ..trackName = 'c'
-        ..artistViewUrl = 'd'
-        ..collectionViewUrl = 'e'
-        ..feedUrl = 'f'
-        ..trackViewUrl = 'g'
-        ..artworkUrl30 = 'h'
-        ..artworkUrl60 = 'i'
-        ..artworkUrl100 = 'j'
-        ..artworkUrl600 = 'k'
-        ..country = 'l'
-        ..primaryGenreName = 'm'
-        ..genreIds = ListBuilder(<String>['n', 'o'])
-        ..genres = ListBuilder(<String>['p', 'q']));
+      final podcastSummary = PodcastSummary(
+        artistId: 1,
+        collectionId: 2,
+        trackId: 3,
+        trackCount: 4,
+        releaseDate: nowTime,
+        artistName: 'a',
+        collectionName: 'b',
+        trackName: 'c',
+        artistViewUrl: 'd',
+        collectionViewUrl: 'e',
+        feedUrl: 'f',
+        trackViewUrl: 'g',
+        artworkUrl30: 'h',
+        artworkUrl60: 'i',
+        artworkUrl100: 'j',
+        artworkUrl600: 'k',
+        country: 'l',
+        primaryGenreName: 'm',
+        genreIds: ['n', 'o'].lock,
+        genres: ['p', 'q'].lock,
+      );
 
       expect(podcastSummary.artistId, 1);
       expect(podcastSummary.collectionId, 2);

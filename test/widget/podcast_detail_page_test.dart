@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/models/actions/select_podcast.dart';
+import 'package:podcustard/actions/select_podcast_action.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/redux/app_reducer.dart';
-import 'package:podcustard/redux/middleware.dart';
+import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
 import 'package:redux/redux.dart';
 
@@ -17,16 +16,15 @@ void main() {
       (WidgetTester tester) async {
     final summary = await getInTheDarkSummary();
     // create a basic store with expected app state
-    final appState =
-        AppState.init().rebuild((b) => b..detailVM.summary.replace(summary));
+    final appState = AppState().copyWith.detailVM!(summary: summary);
     final store = Store<AppState>(appReducer,
         initialState: appState,
         middleware: createMiddleware(feedsService: FakeFeedsService()));
 
-    store.dispatch(SelectPodcast((b) => b..selection = summary.toBuilder()));
+    store.dispatch(SelectPodcastAction(summary));
 
-    final artistNameFinder = find.text(summary.artistName);
-    final collectionName = find.text(summary.collectionName);
+    final artistNameFinder = find.text(summary.artistName!);
+    final collectionName = find.text(summary.collectionName!);
     final episodeFinder = find.text('S2 E17: Home');
     final episodeFinder2 = find.text('S2 E14: The Decision');
 
@@ -54,12 +52,11 @@ void main() {
       (WidgetTester tester) async {
     final summary = await getInTheDarkSummary();
     // create a basic store with expected app state
-    final appState =
-        AppState.init().rebuild((b) => b..detailVM.summary.replace(summary));
+    final appState = AppState().copyWith.detailVM!(summary: summary);
     final store = Store<AppState>(appReducer, initialState: appState);
 
-    final artistNameFinder = find.text(summary.artistName);
-    final collectionName = find.text(summary.collectionName);
+    final artistNameFinder = find.text(summary.artistName!);
+    final collectionName = find.text(summary.collectionName!);
     // var backButton = find.byTooltip('Back');
     // if (backButton.evaluate().isEmpty) {
     //   backButton = find.byType(CupertinoNavigationBarBackButton);
@@ -102,7 +99,7 @@ void main() {
       // check that the Text with the expected Strings are in the widget tree
       expect(artistNameFinder, findsOneWidget);
       expect(collectionName, findsOneWidget);
-      expect(store.state.detailVM.summary, summary);
+      expect(store.state.detailVM!.summary, summary);
 
       await tester.pageBack();
       await tester.pump();

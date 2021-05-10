@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:podcustard/models/actions/clear_podcast_selection.dart';
+import 'package:podcustard/actions/clear_podcast_selection_action.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/widgets/podcast_detail/episode_tile.dart';
@@ -10,13 +10,14 @@ class PodcastDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        StoreProvider.of<AppState>(context).dispatch(ClearPodcastSelection());
+        StoreProvider.of<AppState>(context)
+            .dispatch(ClearPodcastSelectionAction());
         return Future.value(true);
       },
       child: Scaffold(
         appBar: AppBar(),
         body: Material(
-          child: StoreConnector<AppState, PodcastDetailViewModel>(
+          child: StoreConnector<AppState, PodcastDetailViewModel?>(
             distinct: true,
             converter: (store) => store.state.detailVM,
             builder: (context, vm) {
@@ -25,7 +26,7 @@ class PodcastDetailPage extends StatelessWidget {
               }
               return Column(
                 children: <Widget>[
-                  Image.network(vm.summary.artworkUrl600),
+                  Image.network(vm.summary.artworkUrl600!),
                   Text('${vm.summary.collectionName}'),
                   Text('${vm.summary.artistName}'),
                   if (vm.feed == null)
@@ -33,9 +34,9 @@ class PodcastDetailPage extends StatelessWidget {
                   else
                     Expanded(
                       child: ListView.builder(
-                        itemCount: vm.feed.items.length,
+                        itemCount: vm.feed!.items.length,
                         itemBuilder: (context, index) {
-                          return EpisodeTile(episode: vm.feed.items[index]);
+                          return EpisodeTile(episode: vm.feed!.items[index]);
                         },
                       ),
                     )

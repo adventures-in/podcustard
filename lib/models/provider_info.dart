@@ -1,46 +1,30 @@
-library provider_info;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'dart:convert';
-
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:podcustard/models/serializers.dart';
-
+part 'provider_info.freezed.dart';
 part 'provider_info.g.dart';
 
-abstract class ProviderInfo
-    implements Built<ProviderInfo, ProviderInfoBuilder> {
-  /// The provider identifier.
-  String get providerId;
+@freezed
+class ProviderInfo with _$ProviderInfo {
+  factory ProviderInfo({
+    /// The provider identifier.
+    required String providerId,
 
-  /// The provider’s user ID for the user.
-  String get uid;
+    /// The provider’s user ID for the user.
+    String? uid,
 
-  /// The name of the user.
-  @nullable
-  String get displayName;
+    /// The name of the user.
+    String? displayName,
 
-  /// The URL of the user’s profile photo.
-  @nullable
-  String get photoUrl;
+    /// The URL of the user’s profile photo.
+    String? photoUrl,
 
-  /// The user’s email address.
-  @nullable
-  String get email;
+    /// The user’s email address.
+    String? email,
 
-  /// The user's phone number.
-  @nullable
-  String get phoneNumber;
+    /// The user's phone number.
+    String? phoneNumber,
+  }) = _ProviderInfo;
 
-  ProviderInfo._();
-
-  factory ProviderInfo([void Function(ProviderInfoBuilder) updates]) =
-      _$ProviderInfo;
-
-  Object toJson() => serializers.serializeWith(ProviderInfo.serializer, this);
-
-  static ProviderInfo fromJson(String jsonString) => serializers
-      .deserializeWith(ProviderInfo.serializer, json.decode(jsonString));
-
-  static Serializer<ProviderInfo> get serializer => _$providerInfoSerializer;
+  factory ProviderInfo.fromJson(Map<String, dynamic> json) =>
+      _$ProviderInfoFromJson(json);
 }

@@ -2,6 +2,8 @@
 
 Enjoy your podcasts right here.
 
+[Notes](https://docs.google.com/document/d/1Px74BCmqjz9S3RwSiOtCykknpeZBeD-QFSJ4KkVZvd0/edit?usp=sharing)
+
 ## Parsing RSS Feeds 
 
 Using `rss_dart` package to parse RSS into built_value objects.

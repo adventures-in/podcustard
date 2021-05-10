@@ -18,18 +18,16 @@ void main() {
 
   group('PodcastSummary', () {
     test('deals with null for nullable members', () {
-      final vm = PodcastDetailViewModelBuilder().build();
+      final vm = PodcastDetailViewModel(summary: PodcastSummary());
 
-      expect(vm.summary, PodcastSummaryBuilder().build());
+      expect(vm.summary, PodcastSummary());
       expect(vm.feed, null);
     });
 
     test('members take expected values', () async {
       final feed = await getInTheDarkFeed();
       final summary = await getInTheDarkSummary();
-      final vm = PodcastDetailViewModel((b) => b
-        ..summary = summary.toBuilder()
-        ..feed = feed.toBuilder());
+      final vm = PodcastDetailViewModel(summary: summary, feed: feed);
 
       expect(vm.summary, summary);
       expect(vm.feed, feed);

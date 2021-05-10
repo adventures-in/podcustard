@@ -1,4 +1,4 @@
-import 'package:podcustard/models/actions/store_podcast_summaries.dart';
+import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/services/itunes_service.dart';
 
@@ -9,8 +9,8 @@ import '../mocks/http_client_mocks.dart';
 Future<PodcastSummary> getInTheDarkSummary() async {
   final service =
       ItunesService(FakeHttpClient(response: summaries_json_response_string));
-  final action = await service.retrievePodcastSummaries(query: 'query')
-      as StorePodcastSummaries;
+  final action = await service.retrievePodcastSummaries('query')
+      as StorePodcastSummariesAction;
   // in the dark is the first item in the list
   return action.summaries.first;
 }

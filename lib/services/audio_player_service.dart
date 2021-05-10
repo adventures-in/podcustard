@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:audiofileplayer/audiofileplayer.dart';
-import 'package:podcustard/models/actions/add_problem.dart';
-import 'package:podcustard/models/actions/redux_action.dart';
-import 'package:podcustard/models/actions/store_track_duration.dart';
-import 'package:podcustard/models/actions/store_track_position.dart';
-import 'package:podcustard/models/actions/store_track_state.dart';
+import 'package:podcustard/actions/add_problem_action.dart';
+import 'package:podcustard/actions/redux_action.dart';
+import 'package:podcustard/actions/store_track_duration_action.dart';
+import 'package:podcustard/actions/store_track_position_action.dart';
+import 'package:podcustard/actions/store_track_state_action.dart';
+import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/models/track.dart';
 import 'package:podcustard/utils/audio_player_object.dart';
 
 class AudioPlayerService {
@@ -19,84 +19,64 @@ class AudioPlayerService {
   final AudioPlayerObject _audioPlayerObject;
 
   /// the actual player object we get from the AudioPlayerObject wrapper
-  Audio _audio;
+  Audio? _audio;
 
   /// a stream controller used to emit data events from the player
-  StreamController<ReduxAction> _controller;
+  late final StreamController<ReduxAction> _controller;
 
   /// a getter for the stream of data events from the player
   Stream<ReduxAction> get streamOfAudioEvents => _controller.stream;
 
-  void loadWithUrl(String url) async {
+  Future<void> loadWithUrl(String url) async {
     try {
-      _controller
-          .add(StoreTrackState((b) => b..state = TrackStateEnum.loading));
+      _controller.add(StoreTrackStateAction(TrackStateEnum.loading));
       _audio = _audioPlayerObject.loadFromRemoteUrl(url,
           onError: _onError,
           onDuration: _onDuration,
           onComplete: _onComplete,
           onPosition: _onPosition);
     } catch (error, trace) {
-      _controller.add(AddProblem(
-        (b) => b.problem
-          ..message = error.toString()
-          ..trace = trace?.toString()
-          ..type = ProblemTypeEnum.audioPlayerService_loadWithUrl,
-      ));
+      _controller.add(AddProblemAction(
+          Problem(message: error.toString(), trace: trace.toString())));
     }
   }
 
-  Future<void> play([double endpointSeconds]) async {
+  Future<void> play([double? endpointSeconds]) async {
     try {
-      await _audio.play(endpointSeconds);
-      _controller
-          .add(StoreTrackState((b) => b..state = TrackStateEnum.playing));
+      await _audio?.play(endpointSeconds: endpointSeconds);
+      _controller.add(StoreTrackStateAction(TrackStateEnum.playing));
     } catch (error, trace) {
-      _controller.add(AddProblem(
-        (b) => b.problem
-          ..message = error.toString()
-          ..trace = trace?.toString()
-          ..type = ProblemTypeEnum.audioPlayerService_play,
-      ));
+      _controller.add(AddProblemAction(
+          Problem(message: error.toString(), trace: trace.toString())));
     }
   }
 
-  Future<void> pause([double endpointSeconds]) async {
+  Future<void> pause([double? endpointSeconds]) async {
     try {
-      await _audio.pause();
-      _controller.add(StoreTrackState((b) => b..state = TrackStateEnum.paused));
+      await _audio?.pause();
+      _controller.add(StoreTrackStateAction(TrackStateEnum.paused));
     } catch (error, trace) {
-      _controller.add(AddProblem(
-        (b) => b.problem
-          ..message = error.toString()
-          ..trace = trace?.toString()
-          ..type = ProblemTypeEnum.audioPlayerService_pause,
-      ));
+      _controller.add(AddProblemAction(
+          Problem(message: error.toString(), trace: trace.toString())));
     }
   }
 
   Future<void> resume() async {
     try {
-      await _audio.resume();
-      _controller
-          .add(StoreTrackState((b) => b..state = TrackStateEnum.playing));
+      await _audio?.resume();
+      _controller.add(StoreTrackStateAction(TrackStateEnum.playing));
     } catch (error, trace) {
-      _controller.add(AddProblem(
-        (b) => b.problem
-          ..message = error.toString()
-          ..trace = trace?.toString()
-          ..type = ProblemTypeEnum.audioPlayerService_resume,
-      ));
+      _controller.add(AddProblemAction(
+          Problem(message: error.toString(), trace: trace.toString())));
     }
   }
 
-  void _onError(String message) => _controller.add(AddProblem((b) => b.problem
-    ..message = message
-    ..type = ProblemTypeEnum.audioPlayerService_loadWithUrl_onError));
+  void _onError(String? message) =>
+      _controller.add(AddProblemAction(Problem(message: message ?? 'null')));
   void _onComplete() =>
-      _controller.add(StoreTrackState((b) => b..state = TrackStateEnum.paused));
+      _controller.add(StoreTrackStateAction(TrackStateEnum.paused));
   void _onDuration(double duration) =>
-      _controller.add(StoreTrackDuration((b) => b..duration = duration));
+      _controller.add(StoreTrackDurationAction(duration));
   void _onPosition(double position) =>
-      _controller.add(StoreTrackPosition((b) => b..position = position));
+      _controller.add(StoreTrackPositionAction(position));
 }

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart' hide Action;
-import 'package:podcustard/models/actions/retrieve_podcast_summaries.dart';
+import 'package:podcustard/actions/retrieve_podcast_summaries_action.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:redux/redux.dart';
 
 class SearchText extends StatefulWidget {
-  SearchText(
-    this._store, {
-    Key key,
-  }) : super(key: key);
+  SearchText(this._store, {Key? key}) : super(key: key);
 
   final Store<AppState> _store;
 
@@ -18,7 +15,7 @@ class SearchText extends StatefulWidget {
 class _SearchTextState extends State<SearchText> {
   // instance variables of the state object
   // StreamSubscription<AppState> _subscription;
-  TextEditingController _controller;
+  late final TextEditingController _controller;
   // keep the last query that was emitted
   // String _lastQuery;
 
@@ -51,8 +48,8 @@ class _SearchTextState extends State<SearchText> {
   Widget build(BuildContext context) {
     return TextField(
       controller: _controller,
-      onChanged: (text) => widget._store
-          .dispatch(RetrievePodcastSummaries((b) => b..query = text)),
+      onChanged: (text) =>
+          widget._store.dispatch(RetrievePodcastSummariesAction(text)),
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(

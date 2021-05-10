@@ -8,15 +8,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:redux/redux.dart';
-import 'package:podcustard/redux/app_reducer.dart';
-
 import 'package:podcustard/models/app_state.dart';
+import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/main_page.dart';
+import 'package:redux/redux.dart';
 
 void main() {
   testWidgets('MainPage displays...', (WidgetTester tester) async {
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store = Store<AppState>(appReducer, initialState: AppState());
 
     final moreOptionsFinder = find.text('More');
 
@@ -35,7 +34,7 @@ void main() {
 
   testWidgets('MainPage navigates to BottomNav options',
       (WidgetTester tester) async {
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store = Store<AppState>(appReducer, initialState: AppState());
 
     final moreOptionsFinder = find.text('More');
     final signoutFinder = find.text('SIGN OUT');

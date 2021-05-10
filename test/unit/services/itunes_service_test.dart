@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/models/actions/store_podcast_summaries.dart';
+import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/services/itunes_service.dart';
 
 import '../../data/podcast_summary_data.dart';
@@ -13,8 +13,8 @@ void main() {
       final service = ItunesService(
           FakeHttpClient(response: summaries_json_response_string));
 
-      final action = await service.retrievePodcastSummaries(query: 'query')
-          as StorePodcastSummaries;
+      final action = await service.retrievePodcastSummaries('query')
+          as StorePodcastSummariesAction;
 
       expect(action.summaries.length, 50);
     });

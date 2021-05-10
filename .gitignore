@@ -46,6 +46,8 @@ android/app/src/main/res/values/secrets.xml
 lib/utilities/mocks.dart
 # generated files 
 *.g.dart
+*.freezed.dart
+*.mocks.dart
 # don't add project credentials to version control
 ios/Runner/GoogleService-Info.plist
 android/app/google-services.json

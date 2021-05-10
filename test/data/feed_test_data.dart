@@ -1,6 +1,6 @@
-import 'package:podcustard/models/actions/store_feed.dart';
+import 'package:podcustard/actions/store_feed_action.dart';
+import 'package:podcustard/models/rss/rss_feed.dart';
 import 'package:podcustard/services/feeds_service.dart';
-import 'package:rss_dart/models/rss_feed.dart';
 
 import '../mocks/http_client_mocks.dart';
 
@@ -8,7 +8,7 @@ import '../mocks/http_client_mocks.dart';
 /// response data for the after dark podcast
 Future<RssFeed> getInTheDarkFeed() async {
   final service = FeedsService(FakeHttpClient(response: in_the_dark_feed));
-  final action = await service.retrieveFeed(url: 'url') as StoreFeed;
+  final action = await service.retrieveFeed('url') as StoreFeedAction;
   return action.feed;
 }
 

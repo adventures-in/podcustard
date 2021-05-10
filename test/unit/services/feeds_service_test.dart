@@ -1,4 +1,4 @@
-import 'package:podcustard/models/actions/store_feed.dart';
+import 'package:podcustard/actions/store_feed_action.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:test/test.dart';
 
@@ -12,7 +12,7 @@ void main() {
       final service = FeedsService(FakeHttpClient(response: twit_feed));
 
       final url = 'http://feeds.twit.tv/twit.xml';
-      final action = await service.retrieveFeed(url: url) as StoreFeed;
+      final action = await service.retrieveFeed(url) as StoreFeedAction;
 
       expect(action.feed.title, 'This Week in Tech (MP3)');
       expect(action.feed.items.length, 10);
@@ -24,11 +24,11 @@ void main() {
 
       final url =
           'https://feeds.publicradio.org/public_feeds/in-the-dark/itunes/rss';
-      final action = await service.retrieveFeed(url: url) as StoreFeed;
+      final action = await service.retrieveFeed(url) as StoreFeedAction;
 
       expect(action.feed.title, 'In the Dark');
       expect(action.feed.items.length, 35);
-      expect(action.feed.items.first.enclosure.length, 17295613);
+      expect(action.feed.items.first.enclosure!.length, 17295613);
     });
   });
 }

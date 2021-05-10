@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/redux/app_reducer.dart';
+import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
 import 'package:podcustard/widgets/podcasts_search/podcast_summary_tile.dart';
 import 'package:redux/redux.dart';
@@ -14,13 +14,13 @@ void main() {
   testWidgets('PodcastSummaryTile displays expected values',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store = Store<AppState>(appReducer, initialState: AppState());
 
     final summary = await getInTheDarkSummary();
 
     final arrowFinder = find.byIcon(Icons.arrow_forward_ios);
-    final titleFinder = find.text(summary.collectionName);
-    final subtitleFinder = find.text(summary.artistName);
+    final titleFinder = find.text(summary.collectionName!);
+    final subtitleFinder = find.text(summary.artistName!);
 
     /// so we can pump NetworkImages without crashing
     await provideMockedNetworkImages(() async {
@@ -44,7 +44,7 @@ void main() {
   testWidgets('PodcastSummaryTile dispatches and navigates on selection',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store = Store<AppState>(appReducer, initialState: AppState());
 
     final tileFinder = find.byType(ListTile);
     final detailFinder = find.byType(PodcastDetailPage);
@@ -71,7 +71,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
 
-    expect(store.state.detailVM.summary, summary);
+    expect(store.state.detailVM!.summary, summary);
     expect(detailFinder, findsOneWidget);
   });
 }
