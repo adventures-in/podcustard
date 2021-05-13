@@ -2,8 +2,8 @@ import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:test/test.dart';
 
-import '../../data/feed_test_data.dart';
-import '../../data/podcast_summary_data.dart';
+import '../../test-data/feed_test_data.dart';
+import '../../test-data/podcast_summary_data.dart';
 
 void main() {
   ///

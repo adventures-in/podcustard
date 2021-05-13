@@ -34,7 +34,7 @@ void main() async {
             GoogleSignIn(scopes: <String>['email']),
             AppleSignInObject(),
           ),
-          itunesService: ItunesService(httpClient),
+          iTunesService: ItunesService(httpClient),
           feedsService: FeedsService(httpClient),
           audioPlayerService: AudioPlayerService(AudioPlayerObject())),
     ],

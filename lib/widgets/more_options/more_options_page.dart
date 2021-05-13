@@ -11,12 +11,12 @@ class MoreOptionsPage extends StatelessWidget {
     return Column(
       children: <Widget>[
         ListTile(
-          title: RaisedButton(
-            child: Text('SIGN OUT'),
+          title: TextButton(
             onPressed: () {
               GoogleSignIn().disconnect();
               FirebaseAuth.instance.signOut();
             },
+            child: Text('SIGN OUT'),
           ),
         ),
         DarkModeToggle(),

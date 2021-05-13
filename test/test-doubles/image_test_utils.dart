@@ -91,7 +91,7 @@ MockHttpClient _createMockImageHttpClient(
   return client;
 }
 
-const List<int> _transparentImage = const <int>[
+const List<int> _transparentImage = <int>[
   0x89,
   0x50,
   0x4E,

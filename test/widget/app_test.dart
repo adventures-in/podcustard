@@ -2,40 +2,28 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/actions/redux_action.dart';
-import 'package:podcustard/middleware/middleware_middleware.dart';
-import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/widgets/app_widget.dart';
-import 'package:redux/redux.dart';
 
-import '../mocks/apple_signin_mocks.dart';
-import '../mocks/audio_player_service_mocks.dart';
-import '../mocks/firebase_auth_mocks.dart';
-import '../mocks/google_signin_mocks.dart';
+import '../test-doubles/faked_out_store.dart';
+import '../test-doubles/plugins/apple_signin_mocks.dart';
+import '../test-doubles/plugins/firebase_auth_mocks.dart';
+import '../test-doubles/plugins/google_signin_mocks.dart';
+import '../test-doubles/services/audio_player_service_mocks.dart';
 
 void main() {
   group('PodcustardApp widget', () {
     testWidgets('observes auth state on load and navigates',
         (WidgetTester tester) async {
       final fakeFirebaseAuth = FakeFirebaseAuthOpen();
-      final fakeGoogleSignIn = FakeGoogleSignIn();
-
       final audioEventsController = StreamController<ReduxAction>();
 
       // create a basic store with middleware that uses the AuthService to
       // observe auth state and a reducer that saves the emitted auth state
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: [
-          ...createMiddleware(
-              authService: AuthService(
-                  fakeFirebaseAuth, fakeGoogleSignIn, FakeAppleSignIn()),
-              audioPlayerService:
-                  FakeAudioPlayerService(audioEventsController)),
-        ],
-      );
+      final store = FakedOutStore(
+          authService: AuthService(
+              fakeFirebaseAuth, FakeGoogleSignIn(), FakeAppleSignIn()),
+          audioPlayerService: FakeAudioPlayerService(audioEventsController));
 
       fakeFirebaseAuth.add(null);
 

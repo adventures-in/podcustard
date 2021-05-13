@@ -7,9 +7,10 @@ import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
 import 'package:redux/redux.dart';
 
-import '../data/podcast_summary_data.dart';
-import '../mocks/feeds_service_mocks.dart';
-import '../mocks/image_test_utils.dart';
+import '../test-data/podcast_summary_data.dart';
+import '../test-doubles/faked_out_store.dart';
+import '../test-doubles/image_test_utils.dart';
+import '../test-doubles/services/feeds_service_mocks.dart';
 
 void main() {
   testWidgets('PodcastDetailPage displays expected values',
@@ -17,9 +18,8 @@ void main() {
     final summary = await getInTheDarkSummary();
     // create a basic store with expected app state
     final appState = AppState().copyWith.detailVM!(summary: summary);
-    final store = Store<AppState>(appReducer,
-        initialState: appState,
-        middleware: createMiddleware(feedsService: FakeFeedsService()));
+    final store =
+        FakedOutStore(appState: appState, feedsService: FakeFeedsService());
 
     store.dispatch(SelectPodcastAction(summary));
 
@@ -71,8 +71,7 @@ void main() {
             body: Builder(
               builder: (BuildContext context) {
                 return Center(
-                  child: FlatButton(
-                    child: const Text('X'),
+                  child: TextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute<void>(
                         builder: (BuildContext context) {
@@ -80,6 +79,7 @@ void main() {
                         },
                       ));
                     },
+                    child: const Text('X'),
                   ),
                 );
               },

@@ -2,8 +2,8 @@ import 'package:podcustard/actions/store_feed_action.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:test/test.dart';
 
-import '../../data/feed_test_data.dart';
-import '../../mocks/http_client_mocks.dart';
+import '../../test-data/feed_test_data.dart';
+import '../../test-doubles/plugins/http_client_mocks.dart';
 
 void main() {
   group('FeedsService', () {

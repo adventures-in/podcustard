@@ -36,6 +36,7 @@ dev_dependencies:
   pedantic:
   build_runner:
   freezed:
+  json_serializable: 
   test:
   mockito:
 

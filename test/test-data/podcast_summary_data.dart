@@ -2,7 +2,7 @@ import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/services/itunes_service.dart';
 
-import '../mocks/http_client_mocks.dart';
+import '../test-doubles/plugins/http_client_mocks.dart';
 
 /// Use the itunes service with a fake http client that returns previously saved
 /// response data from searching with query string 'dark'

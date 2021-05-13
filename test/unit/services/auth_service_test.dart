@@ -4,9 +4,9 @@ import 'package:podcustard/actions/store_user_action.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:test/test.dart';
 
-import '../../mocks/apple_signin_mocks.dart';
-import '../../mocks/firebase_auth_mocks.dart';
-import '../../mocks/google_signin_mocks.dart';
+import '../../test-doubles/plugins/apple_signin_mocks.dart';
+import '../../test-doubles/plugins/firebase_auth_mocks.dart';
+import '../../test-doubles/plugins/google_signin_mocks.dart';
 
 void main() {
   group('Auth Service', () {

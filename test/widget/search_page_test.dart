@@ -9,7 +9,7 @@ import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcasts_search/search_page.dart';
 import 'package:redux/redux.dart';
 
-import '../mocks/image_test_utils.dart';
+import '../test-doubles/image_test_utils.dart';
 
 void main() {
   testWidgets('SearchPage displays the results of a search',

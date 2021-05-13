@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/services/itunes_service.dart';
 
-import '../../data/podcast_summary_data.dart';
-import '../../mocks/http_client_mocks.dart';
+import '../../test-data/podcast_summary_data.dart';
+import '../../test-doubles/plugins/http_client_mocks.dart';
 
 void main() {
   group('ItunesService', () {

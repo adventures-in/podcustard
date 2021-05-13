@@ -2,7 +2,7 @@ import 'package:podcustard/actions/store_feed_action.dart';
 import 'package:podcustard/models/rss/rss_feed.dart';
 import 'package:podcustard/services/feeds_service.dart';
 
-import '../mocks/http_client_mocks.dart';
+import '../test-doubles/plugins/http_client_mocks.dart';
 
 /// Use the feeds service with a fake http client that returns previously saved
 /// response data for the after dark podcast

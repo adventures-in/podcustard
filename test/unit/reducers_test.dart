@@ -18,9 +18,9 @@ import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
-import '../data/feed_test_data.dart';
-import '../data/podcast_summary_data.dart';
-import '../data/track_test_data.dart';
+import '../test-data/feed_test_data.dart';
+import '../test-data/podcast_summary_data.dart';
+import '../test-data/track_test_data.dart';
 
 void main() {
   group('Reducer', () {

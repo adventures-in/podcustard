@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
-import 'exceptions.dart';
+import '../exceptions.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
 

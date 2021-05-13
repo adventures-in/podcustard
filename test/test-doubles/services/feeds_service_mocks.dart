@@ -4,8 +4,8 @@ import 'package:podcustard/actions/store_feed_action.dart';
 import 'package:podcustard/models/rss/rss_feed.dart';
 import 'package:podcustard/services/feeds_service.dart';
 
-import '../data/feed_test_data.dart';
-import 'http_client_mocks.dart';
+import '../../test-data/feed_test_data.dart';
+import '../plugins/http_client_mocks.dart';
 
 class FakeFeedsService extends Fake implements FeedsService {
   final client = FakeHttpClient(response: in_the_dark_feed);

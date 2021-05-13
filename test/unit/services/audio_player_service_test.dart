@@ -7,7 +7,7 @@ import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/services/audio_player_service.dart';
 
-import '../../mocks/audio_player_service_mocks.dart';
+import '../../test-doubles/services/audio_player_service_mocks.dart';
 
 void main() {
   group('Audio Player Service', () {

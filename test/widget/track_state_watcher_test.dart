@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcasts_search/search_text.dart';
 import 'package:podcustard/widgets/track_state_watcher.dart';
-import 'package:redux/redux.dart';
+
+import '../test-doubles/faked_out_store.dart';
 
 void main() {
   testWidgets('SearchText dispatches actions on input',
@@ -13,14 +13,13 @@ void main() {
     // create mock services so the Store provides mock data
 
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer,
-        middleware: [...createMiddleware()], initialState: AppState());
+    final fakedOutStore = FakedOutStore();
 
     // build our app and trigger a frame
     await tester.pumpWidget(
       // create a StoreProvider to wrap widget
       StoreProvider<AppState>(
-        store: store,
+        store: fakedOutStore,
         child: MaterialApp(
             home: Scaffold(
                 appBar: AppBar(
@@ -34,6 +33,6 @@ void main() {
     // check that the search triggered a request to the iTunesService, which
     // gets the test data and converts to a list of Podcast objects, and
     // the list was stored
-    expect(store.state.podcastSummaries.length, 50);
+    expect(fakedOutStore.state.podcastSummaries.length, 50);
   });
 }

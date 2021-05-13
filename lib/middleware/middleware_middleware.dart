@@ -21,7 +21,7 @@ import 'package:redux/redux.dart';
 /// The middleawre can also perform another action using the [NextDispatcher]
 List<Middleware<AppState>> createMiddleware(
     {required AuthService authService,
-    required ItunesService itunesService,
+    required ItunesService iTunesService,
     required FeedsService feedsService,
     required AudioPlayerService audioPlayerService}) {
   return [
@@ -29,7 +29,7 @@ List<Middleware<AppState>> createMiddleware(
     ObserveAudioPlayerMiddleware(audioPlayerService),
     ObserveAuthStateMiddleware(authService),
     PauseTrackMiddleware(audioPlayerService),
-    RetrievePodcastSummariesMiddleware(itunesService),
+    RetrievePodcastSummariesMiddleware(iTunesService),
     ResumeTrackMiddleware(audioPlayerService),
     SigninWithAppleMiddleware(authService),
     SigninWithGoogleMiddleware(authService),

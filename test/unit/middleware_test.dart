@@ -15,23 +15,20 @@ import 'package:podcustard/actions/signin_with_google_action.dart';
 import 'package:podcustard/actions/store_auth_step_action.dart';
 import 'package:podcustard/actions/store_track_action.dart';
 import 'package:podcustard/actions/store_user_action.dart';
-import 'package:podcustard/middleware/middleware_middleware.dart';
-import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/user.dart';
-import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
-import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
-import '../data/feed_test_data.dart';
-import '../data/podcast_summary_data.dart';
-import '../data/track_test_data.dart';
-import '../mocks/audio_player_service_mocks.dart';
-import '../mocks/feeds_service_mocks.dart';
-import '../mocks/http_client_mocks.dart';
+import '../test-data/feed_test_data.dart';
+import '../test-data/podcast_summary_data.dart';
+import '../test-data/track_test_data.dart';
+import '../test-doubles/faked_out_store.dart';
+import '../test-doubles/plugins/http_client_mocks.dart';
+import '../test-doubles/services/audio_player_service_mocks.dart';
+import '../test-doubles/services/feeds_service_mocks.dart';
 
 class MockAuthService extends Mock implements AuthService {}
 
@@ -47,12 +44,7 @@ void main() {
         ]),
       );
 
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(authService: mockAuthService),
-      );
+      final store = FakedOutStore(authService: mockAuthService);
 
       // dispatch action to observe the auth state
       store.dispatch(ObserveAuthStateAction());
@@ -77,12 +69,7 @@ void main() {
             [StoreAuthStepAction(1), AddProblemAction(Problem(message: 'm'))]),
       );
 
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(authService: mockAuthService),
-      );
+      final store = FakedOutStore(authService: mockAuthService);
 
       // dispatch action to initiate signin
       store.dispatch(SigninWithGoogleAction());
@@ -108,12 +95,7 @@ void main() {
             [StoreAuthStepAction(1), AddProblemAction(Problem(message: 'm'))]),
       );
 
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(authService: mockAuthService),
-      );
+      final store = FakedOutStore(authService: mockAuthService);
 
       // dispatch action to initiate signin
       store.dispatch(SigninWithAppleAction());
@@ -132,15 +114,10 @@ void main() {
     test('_retrievePodcastSummaries uses service to retrieve summaries',
         () async {
       // setup a mock service to give a test response
-      final fakeService = ItunesService(
+      final fakedOutService = ItunesService(
           FakeHttpClient(response: summaries_json_response_string));
 
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(itunesService: fakeService),
-      );
+      final store = FakedOutStore(iTunesService: fakedOutService);
 
       // dispatch action to initiate signin
       await store.dispatch(RetrievePodcastSummariesAction('query'));
@@ -151,15 +128,10 @@ void main() {
 
     test('_retrieveFeed retrieves and parses the feed', () async {
       // setup a mock service to give a test response
-      final fakeService =
+      final fakedOutService =
           FeedsService(FakeHttpClient(response: in_the_dark_feed));
 
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(feedsService: fakeService),
-      );
+      final store = FakedOutStore(feedsService: fakedOutService);
 
       final summary = await getInTheDarkSummary();
 
@@ -178,12 +150,7 @@ void main() {
       final controller = StreamController<ReduxAction>();
       final fakeService = FakeAudioPlayerService(controller);
 
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(audioPlayerService: fakeService),
-      );
+      final store = FakedOutStore(audioPlayerService: fakeService);
 
       // trigger the _observeAudioPlayer function (ie. the sut)
       store.dispatch(ObserveAudioPlayerAction());
@@ -202,14 +169,9 @@ void main() {
       // setup a mock service to give a test response
       final controller = StreamController<ReduxAction>();
 
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(
-            feedsService: FakeFeedsService(),
-            audioPlayerService: FakeAudioPlayerService(controller)),
-      );
+      final store = FakedOutStore(
+          feedsService: FakeFeedsService(),
+          audioPlayerService: FakeAudioPlayerService(controller));
 
       final summary = await getInTheDarkSummary();
 
@@ -229,13 +191,8 @@ void main() {
       final controller = StreamController<ReduxAction>();
       final service = FakeAudioPlayerService(controller);
 
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(
-            audioPlayerService: service, feedsService: FakeFeedsService()),
-      );
+      final store = FakedOutStore(
+          audioPlayerService: service, feedsService: FakeFeedsService());
 
       // add a track to the app state
       final summary = await getInTheDarkSummary();
@@ -254,13 +211,9 @@ void main() {
       // setup a mock service to give a test response
       final controller = StreamController<ReduxAction>();
       final service = FakeAudioPlayerService(controller);
-      // create a basic store with the mocked out middleware
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-        middleware: createMiddleware(
-            audioPlayerService: service, feedsService: FakeFeedsService()),
-      );
+
+      final store = FakedOutStore(
+          audioPlayerService: service, feedsService: FakeFeedsService());
 
       // add a track to the app state
       final summary = await getInTheDarkSummary();
