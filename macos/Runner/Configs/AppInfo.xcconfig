@@ -11,4 +11,4 @@ PRODUCT_NAME = podcustard
 PRODUCT_BUNDLE_IDENTIFIER = co.enspyr.podcustard
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2019 co.enspyr. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2021 co.enspyr. All rights reserved.

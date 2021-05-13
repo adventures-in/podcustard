@@ -5,16 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Main",
+            "name": "podcustard",
             "request": "launch",
             "type": "dart",
-            "program": "lib/app/main.dart"
+            "program": "lib/main.dart"
         },
         {
-            "name": "MainRDT",
+            "name": "redux_dev_tools",
             "type": "dart",
             "request": "launch",
-            "program": "lib/app/main_rdt.dart",
+            "program": "lib/main_rdt.dart",
         }
     ]
 }
