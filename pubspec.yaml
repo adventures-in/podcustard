@@ -25,9 +25,8 @@ dependencies:
 
   firebase_auth:
   google_sign_in:
-  apple_sign_in:
+  sign_in_with_apple: 
   device_info:
-  flutter_auth_buttons:
 
 dev_dependencies:
   flutter_test:

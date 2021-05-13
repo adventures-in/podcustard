@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart' hide Action;
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/actions/signin_with_apple_action.dart';
 import 'package:podcustard/actions/signin_with_google_action.dart';
 import 'package:podcustard/models/app_state.dart';
+
+import 'auth_page_buttons/apple_sign_in_button.dart';
+import 'auth_page_buttons/google_sign_in_button.dart';
 
 class AuthPage extends StatefulWidget {
   @override

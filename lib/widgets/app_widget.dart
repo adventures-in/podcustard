@@ -4,7 +4,7 @@ import 'package:podcustard/actions/observe_audio_player_action.dart';
 import 'package:podcustard/actions/observe_auth_state_action.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/user.dart';
-import 'package:podcustard/widgets/auth_page.dart';
+import 'package:podcustard/widgets/auth/auth_page.dart';
 import 'package:podcustard/widgets/main_page.dart';
 import 'package:redux/redux.dart';
 

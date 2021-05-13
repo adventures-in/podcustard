@@ -1,4 +1,3 @@
-import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:podcustard/actions/add_problem_action.dart';
@@ -69,44 +68,46 @@ class AuthService {
   }
 
   Stream<ReduxAction> get appleSignInStream async* {
-    // signal to change UI
-    yield StoreAuthStepAction(1);
+    _appleSignIn;
+    yield StoreAuthStepAction(0);
+    // // signal to change UI
+    // yield StoreAuthStepAction(1);
 
-    try {
-      final result = await _appleSignIn.startAuth();
+    // try {
+    //   final result = await _appleSignIn.startAuth();
 
-      switch (result.status) {
-        case AuthorizationStatus.authorized:
-          // signal to change UI
-          yield StoreAuthStepAction(2);
+    //   switch (result.status) {
+    //     case AuthorizationStatus.authorized:
+    //       // signal to change UI
+    //       yield StoreAuthStepAction(2);
 
-          // retrieve the apple credential and convert to oauth credential
-          final appleIdCredential = result.credential;
-          final oAuthProvider = OAuthProvider('apple.com');
-          final credential = oAuthProvider.credential(
-            idToken: String.fromCharCodes(appleIdCredential.identityToken),
-            accessToken:
-                String.fromCharCodes(appleIdCredential.authorizationCode),
-          );
+    //       // retrieve the apple credential and convert to oauth credential
+    //       final appleIdCredential = result.credential;
+    //       final oAuthProvider = OAuthProvider('apple.com');
+    //       final credential = oAuthProvider.credential(
+    //         idToken: String.fromCharCodes(appleIdCredential.identityToken),
+    //         accessToken:
+    //             String.fromCharCodes(appleIdCredential.authorizationCode),
+    //       );
 
-          // use the credential to sign in to firebase
-          await FirebaseAuth.instance.signInWithCredential(credential);
-          break;
-        case AuthorizationStatus.error:
-          throw result.error;
+    //       // use the credential to sign in to firebase
+    //       await FirebaseAuth.instance.signInWithCredential(credential);
+    //       break;
+    //     case AuthorizationStatus.error:
+    //       throw result.error;
 
-        case AuthorizationStatus.cancelled:
-          yield StoreAuthStepAction(0);
-          break;
-      }
-    } catch (error, trace) {
-      // reset the UI and display an alert
+    //     case AuthorizationStatus.cancelled:
+    //       yield StoreAuthStepAction(0);
+    //       break;
+    //   }
+    // } catch (error, trace) {
+    //   // reset the UI and display an alert
 
-      yield StoreAuthStepAction(0);
-      // any specific errors are caught and dealt with so we can assume
-      // anything caught here is a problem and send to the store for display
-      yield AddProblemAction(
-          Problem(message: error.toString(), trace: trace.toString()));
-    }
+    //   yield StoreAuthStepAction(0);
+    //   // any specific errors are caught and dealt with so we can assume
+    //   // anything caught here is a problem and send to the store for display
+    //   yield AddProblemAction(
+    //       Problem(message: error.toString(), trace: trace.toString()));
+    // }
   }
 }
