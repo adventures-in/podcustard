@@ -205,7 +205,7 @@ packages:
     source: hosted
     version: "1.2.0"
   fast_immutable_collections:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: fast_immutable_collections
       url: "https://pub.dartlang.org"
@@ -394,34 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
-  json_serializable:
-    dependency: transitive
-    description:
-      name: json_serializable
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.1.1"
-  json_serializable_fic:
-    dependency: "direct dev"
-    description:
-      name: json_serializable_fic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
-  json_serializable_fic_typehelpers:
-    dependency: transitive
-    description:
-      name: json_serializable_fic_typehelpers
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  json_serializable_type_helper_utils:
-    dependency: transitive
-    description:
-      name: json_serializable_type_helper_utils
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   logging:
     dependency: transitive
     description:
@@ -542,7 +514,7 @@ packages:
     source: hosted
     version: "0.7.0"
   redux_remote_devtools:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: redux_remote_devtools
       url: "https://pub.dartlang.org"

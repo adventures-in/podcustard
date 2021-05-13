@@ -7,9 +7,6 @@ version: 0.0.1
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
-dependency_overrides:
-  fast_immutable_collections: ^5.0.0-dev.12
-
 dependencies:
   flutter:
     sdk: flutter
@@ -24,7 +21,7 @@ dependencies:
 
   redux:
   flutter_redux:
-  redux_remote_devtools:
+  fast_immutable_collections: ^5.0.0-dev.12
 
   firebase_auth:
   google_sign_in:
@@ -35,10 +32,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  redux_remote_devtools:
   pedantic:
   build_runner:
   freezed:
-  json_serializable_fic: ^0.2.0
   test:
   mockito:
 
