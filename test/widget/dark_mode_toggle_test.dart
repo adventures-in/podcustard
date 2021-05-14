@@ -10,8 +10,8 @@ void main() {
   testWidgets('DarkModeToggle dispatches action on toggle',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store =
-        Store<AppState>(appReducer, middleware: [], initialState: AppState());
+    final store = Store<AppState>(appReducer,
+        middleware: [], initialState: AppState.init());
 
     // build our app and trigger a frame
     await tester.pumpWidget(

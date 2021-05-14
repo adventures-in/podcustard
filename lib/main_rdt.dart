@@ -19,13 +19,13 @@ import 'package:redux/redux.dart';
 import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 
 void main() async {
-  final remoteDevtools = RemoteDevToolsMiddleware(imac18);
+  final remoteDevtools = RemoteDevToolsMiddleware<AppState>(imac18);
 
   final httpClient = http.Client();
 
   final store = Store<AppState>(
     appReducer,
-    initialState: AppState(),
+    initialState: AppState.init(),
     middleware: [
       remoteDevtools,
       ...createMiddleware(

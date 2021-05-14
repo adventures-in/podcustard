@@ -23,7 +23,7 @@ void main() {
 
       await expectLater(
           service.streamOfAudioEvents,
-          emitsInOrder([
+          emitsInOrder(<dynamic>[
             StoreTrackStateAction(TrackStateEnum.loading),
             AddProblemAction(Problem(message: 'error string'))
           ]));
@@ -46,7 +46,7 @@ void main() {
 
       await expectLater(
         service.streamOfAudioEvents,
-        emitsInOrder([
+        emitsInOrder(<dynamic>[
           StoreTrackStateAction(TrackStateEnum.loading),
           StoreTrackDurationAction(1.0),
           StoreTrackPositionAction(0.5),

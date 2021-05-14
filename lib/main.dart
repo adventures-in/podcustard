@@ -18,7 +18,7 @@ void main() async {
   final httpClient = http.Client();
   final store = Store<AppState>(
     appReducer,
-    initialState: AppState(),
+    initialState: AppState.init(),
     middleware: [
       ...createMiddleware(
           authService: AuthService(

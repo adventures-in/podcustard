@@ -25,8 +25,8 @@ class PodcastSummary with _$PodcastSummary {
     String? artworkUrl600,
     String? country,
     String? primaryGenreName,
-    @Default([]) IList<String> genreIds,
-    @Default([]) IList<String> genres,
+    IList<String>? genreIds,
+    IList<String>? genres,
   }) = _PodcastSummary;
 
   factory PodcastSummary.fromJson(Map<String, dynamic> json) =>

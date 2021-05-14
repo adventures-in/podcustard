@@ -17,7 +17,7 @@ void main() {
       (WidgetTester tester) async {
     final summary = await getInTheDarkSummary();
     // create a basic store with expected app state
-    final appState = AppState().copyWith.detailVM!(summary: summary);
+    final appState = AppState.init().copyWith.detailVM!(summary: summary);
     final store =
         FakedOutStore(appState: appState, feedsService: FakeFeedsService());
 
@@ -52,7 +52,7 @@ void main() {
       (WidgetTester tester) async {
     final summary = await getInTheDarkSummary();
     // create a basic store with expected app state
-    final appState = AppState().copyWith.detailVM!(summary: summary);
+    final appState = AppState.init().copyWith.detailVM!(summary: summary);
     final store = Store<AppState>(appReducer, initialState: appState);
 
     final artistNameFinder = find.text(summary.artistName!);

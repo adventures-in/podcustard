@@ -51,8 +51,8 @@ void main() {
       expect(podcastSummary.artworkUrl600, null);
       expect(podcastSummary.country, null);
       expect(podcastSummary.primaryGenreName, null);
-      expect(podcastSummary.genreIds, []);
-      expect(podcastSummary.genres, []);
+      expect(podcastSummary.genreIds, null);
+      expect(podcastSummary.genres, null);
     });
 
     test('members take expected values', () {

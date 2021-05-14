@@ -46,8 +46,8 @@ void main() {
           uid: 'uid',
           phoneNumber: 'number');
 
-      expect(user.providers.length, 1);
-      expect(user.providers.first, info);
+      expect(user.providers?.length, 1);
+      expect(user.providers?.first, info);
     });
   });
 }

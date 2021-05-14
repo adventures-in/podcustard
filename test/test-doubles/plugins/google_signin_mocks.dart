@@ -42,7 +42,7 @@ class FakeGoogleSignInAccount extends Fake implements GoogleSignInAccount {
       Future.value(FakeGoogleSignInAuthentication());
 
   @override
-  bool operator ==(o) =>
+  bool operator ==(Object? o) =>
       o is GoogleSignInAccount &&
       displayName == o.displayName &&
       email == o.email &&

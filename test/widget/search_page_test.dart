@@ -15,7 +15,7 @@ void main() {
   testWidgets('SearchPage displays the results of a search',
       (WidgetTester tester) async {
     // create a basic store with a reducer that...
-    final store = Store<AppState>(appReducer, initialState: AppState());
+    final store = Store<AppState>(appReducer, initialState: AppState.init());
 
     final summary1 = PodcastSummary(
         artistName: 'a', collectionName: 'b', artworkUrl100: 'h');

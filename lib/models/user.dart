@@ -23,7 +23,7 @@ class User with _$User {
     required String email,
 
     /// Info on each auth provider the user has linked to their account.
-    @Default([]) IList<ProviderInfo> providers,
+    IList<ProviderInfo>? providers,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

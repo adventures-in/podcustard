@@ -10,7 +10,7 @@ void main() {
   testWidgets('MoreOptionsPage displays...', (WidgetTester tester) async {
     // create a basic store with middleware that uses the AuthService to
     // observe auth state and a reducer that saves the emitted auth state
-    final store = Store<AppState>(appReducer, initialState: AppState());
+    final store = Store<AppState>(appReducer, initialState: AppState.init());
 
     final signoutFinder = find.text('SIGN OUT');
 

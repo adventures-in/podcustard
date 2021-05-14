@@ -15,7 +15,7 @@ import 'package:redux/redux.dart';
 
 void main() {
   testWidgets('MainPage displays...', (WidgetTester tester) async {
-    final store = Store<AppState>(appReducer, initialState: AppState());
+    final store = Store<AppState>(appReducer, initialState: AppState.init());
 
     final moreOptionsFinder = find.text('More');
 
@@ -34,7 +34,7 @@ void main() {
 
   testWidgets('MainPage navigates to BottomNav options',
       (WidgetTester tester) async {
-    final store = Store<AppState>(appReducer, initialState: AppState());
+    final store = Store<AppState>(appReducer, initialState: AppState.init());
 
     final moreOptionsFinder = find.text('More');
     final signoutFinder = find.text('SIGN OUT');

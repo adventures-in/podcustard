@@ -18,7 +18,8 @@ class TrackStateWatcher extends StatelessWidget {
         // if the track state has changed to loading and the bottom sheet is not
         // already shown then show it
         if (newViewModel == TrackStateEnum.loading && !shown) {
-          Scaffold.of(context).showBottomSheet((context) {
+          Scaffold.of(context)
+              .showBottomSheet<AudioPlayerBottomSheet>((context) {
             return AudioPlayerBottomSheet();
           });
         }

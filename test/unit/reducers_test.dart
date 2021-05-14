@@ -28,7 +28,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // dispatch action to store auth state
@@ -46,7 +46,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // dispatch action to add a problem
@@ -65,7 +65,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // dispatch action to store auth step
@@ -80,7 +80,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // dispatch action to store auth step
@@ -96,7 +96,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       final summary = await getInTheDarkSummary();
@@ -112,7 +112,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // dispatch action to store themeMode
@@ -132,7 +132,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       final feed = await getInTheDarkFeed();
@@ -148,7 +148,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // use a pre-defined track from the test data
@@ -165,7 +165,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // use a pre-defined track from the test data
@@ -192,7 +192,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // use a pre-defined track from the test data
@@ -219,7 +219,7 @@ void main() {
       // create a basic store with the app reducers
       final store = Store<AppState>(
         appReducer,
-        initialState: AppState(),
+        initialState: AppState.init(),
       );
 
       // use a pre-defined track from the test data

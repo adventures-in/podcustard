@@ -1,4 +1,3 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:podcustard/models/provider_info.dart';
 import 'package:podcustard/models/user.dart';
@@ -17,7 +16,7 @@ void main() {
       expect(user.photoUrl, 'url');
       // we should still have an empty list even without passing anything in
       // the constructor
-      expect(user.providers, BuiltList<ProviderInfo>.from([]));
+      expect(user.providers, IList<ProviderInfo>());
     });
 
     test('members take expected values', () {

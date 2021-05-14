@@ -9,7 +9,7 @@ class Problem with _$Problem {
   factory Problem(
       {required String message,
       String? trace,
-      @Default([]) IMap<String, dynamic> info}) = _Problem;
+      IMap<String, Object?>? info}) = _Problem;
 
   factory Problem.fromJson(Map<String, dynamic> json) =>
       _$ProblemFromJson(json);

@@ -12,24 +12,24 @@ part 'app_state.g.dart';
 @freezed
 class AppState with _$AppState {
   factory AppState({
-    @Default([]) IList<Problem> problems,
-    @Default(0) int authStep,
-    @Default(0) int mainPageIndex,
-    @Default(false) bool bottomSheetShown,
-    @Default(2) int themeMode,
+    required IList<Problem> problems,
+    required int authStep,
+    required int mainPageIndex,
+    required bool bottomSheetShown,
+    required int themeMode,
     User? user,
     PodcastDetailViewModel? detailVM,
     Track? track,
-    @Default([]) IList<PodcastSummary> podcastSummaries,
+    required IList<PodcastSummary> podcastSummaries,
   }) = _AppState;
 
-  // factory AppState.init() => AppState(
-  //     problems: IList(),
-  //     authStep: 0,
-  //     mainPageIndex: 0,
-  //     bottomSheetShown: false,
-  //     themeMode: 2,
-  //     podcastSummaries: IList());
+  factory AppState.init() => AppState(
+      problems: IList(),
+      authStep: 0,
+      mainPageIndex: 0,
+      bottomSheetShown: false,
+      themeMode: 2,
+      podcastSummaries: IList());
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);

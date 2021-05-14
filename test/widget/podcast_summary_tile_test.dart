@@ -14,7 +14,7 @@ void main() {
   testWidgets('PodcastSummaryTile displays expected values',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer, initialState: AppState());
+    final store = Store<AppState>(appReducer, initialState: AppState.init());
 
     final summary = await getInTheDarkSummary();
 
@@ -44,7 +44,7 @@ void main() {
   testWidgets('PodcastSummaryTile dispatches and navigates on selection',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer, initialState: AppState());
+    final store = Store<AppState>(appReducer, initialState: AppState.init());
 
     final tileFinder = find.byType(ListTile);
     final detailFinder = find.byType(PodcastDetailPage);

@@ -21,12 +21,17 @@ void main() {
   group('ApState', () {
     test('deals with null for nullable members', () {
       final appState = AppState(
-          authStep: 0, mainPageIndex: 0, themeMode: 0, bottomSheetShown: false);
+          problems: IList(),
+          authStep: 0,
+          mainPageIndex: 0,
+          themeMode: 0,
+          bottomSheetShown: false,
+          podcastSummaries: IList());
 
       expect(appState.authStep, 0);
       expect(appState.mainPageIndex, 0);
       expect(appState.themeMode, 0);
-      expect(appState.problems, []);
+      expect(appState.problems, <Problem>[]);
       expect(appState.user, null);
     });
 
@@ -56,7 +61,8 @@ void main() {
           themeMode: 0,
           bottomSheetShown: false,
           problems: [problem].lock,
-          user: user);
+          user: user,
+          podcastSummaries: IList());
 
       expect(appState.authStep, 0);
       expect(appState.mainPageIndex, 0);

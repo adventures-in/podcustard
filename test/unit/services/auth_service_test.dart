@@ -62,7 +62,7 @@ void main() {
       // about the exception
       expect(
           service.googleSignInStream,
-          emitsInOrder([
+          emitsInOrder(<dynamic>[
             TypeMatcher<StoreAuthStepAction>()
               ..having((a) => a.step, 'step', 1),
             TypeMatcher<StoreAuthStepAction>()
@@ -121,7 +121,7 @@ void main() {
       // about the exception
       expect(
           service.googleSignInStream,
-          emitsInOrder([
+          emitsInOrder(<dynamic>[
             TypeMatcher<StoreAuthStepAction>()
               ..having((a) => a.step, 'step', 1),
             TypeMatcher<StoreAuthStepAction>()

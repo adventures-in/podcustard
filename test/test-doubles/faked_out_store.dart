@@ -23,7 +23,7 @@ class FakedOutStore extends Store<AppState> {
     ItunesService? iTunesService,
   }) : super(
           appReducer,
-          initialState: appState ?? AppState(),
+          initialState: appState ?? AppState.init(),
           middleware: [
             ...createMiddleware(
                 authService: authService ??

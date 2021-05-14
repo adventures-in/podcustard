@@ -20,7 +20,7 @@ class PodcastSummaryTile extends StatelessWidget {
       onTap: () {
         StoreProvider.of<AppState>(context)
             .dispatch(SelectPodcastAction(_summary));
-        Navigator.push(
+        Navigator.push<PodcastDetailPage>(
           context,
           MaterialPageRoute(builder: (context) => PodcastDetailPage()),
         );
