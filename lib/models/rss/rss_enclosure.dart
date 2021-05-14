@@ -12,7 +12,7 @@ class RssEnclosure with _$RssEnclosure {
     int? length,
   }) = _RssEnclosure;
 
-  factory RssEnclosure.fromJson(Map<String, dynamic> json) =>
+  factory RssEnclosure.fromJson(Map<String, Object?> json) =>
       _$RssEnclosureFromJson(json);
 
   factory RssEnclosure.parse(XmlElement? element) => RssEnclosure(

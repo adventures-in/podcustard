@@ -8,6 +8,6 @@ part 'signin_with_apple_action.g.dart';
 class SigninWithAppleAction with _$SigninWithAppleAction, ReduxAction {
   factory SigninWithAppleAction() = _SigninWithAppleAction;
 
-  factory SigninWithAppleAction.fromJson(Map<String, dynamic> json) =>
+  factory SigninWithAppleAction.fromJson(Map<String, Object?> json) =>
       _$SigninWithAppleActionFromJson(json);
 }

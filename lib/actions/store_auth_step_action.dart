@@ -8,6 +8,6 @@ part 'store_auth_step_action.g.dart';
 class StoreAuthStepAction with _$StoreAuthStepAction, ReduxAction {
   factory StoreAuthStepAction(int step) = _StoreAuthStepAction;
 
-  factory StoreAuthStepAction.fromJson(Map<String, dynamic> json) =>
+  factory StoreAuthStepAction.fromJson(Map<String, Object?> json) =>
       _$StoreAuthStepActionFromJson(json);
 }

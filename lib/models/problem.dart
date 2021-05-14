@@ -11,6 +11,6 @@ class Problem with _$Problem {
       String? trace,
       IMap<String, Object?>? info}) = _Problem;
 
-  factory Problem.fromJson(Map<String, dynamic> json) =>
+  factory Problem.fromJson(Map<String, Object?> json) =>
       _$ProblemFromJson(json);
 }

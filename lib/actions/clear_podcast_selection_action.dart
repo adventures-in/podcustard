@@ -9,6 +9,6 @@ class ClearPodcastSelectionAction
     with _$ClearPodcastSelectionAction, ReduxAction {
   factory ClearPodcastSelectionAction() = _ClearPodcastSelectionAction;
 
-  factory ClearPodcastSelectionAction.fromJson(Map<String, dynamic> json) =>
+  factory ClearPodcastSelectionAction.fromJson(Map<String, Object?> json) =>
       _$ClearPodcastSelectionActionFromJson(json);
 }

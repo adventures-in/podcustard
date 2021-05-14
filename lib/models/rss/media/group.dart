@@ -10,7 +10,7 @@ part 'group.g.dart';
 class Group with _$Group {
   factory Group(IList<Content> contents) = _Group;
 
-  factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
+  factory Group.fromJson(Map<String, Object?> json) => _$GroupFromJson(json);
 
   factory Group.parse(XmlElement element) => Group(element
       .findElements('media:content')

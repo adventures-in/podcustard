@@ -10,6 +10,6 @@ class StorePodcastSummaryAction with _$StorePodcastSummaryAction, ReduxAction {
   factory StorePodcastSummaryAction(PodcastSummary summary) =
       _StorePodcastSummaryAction;
 
-  factory StorePodcastSummaryAction.fromJson(Map<String, dynamic> json) =>
+  factory StorePodcastSummaryAction.fromJson(Map<String, Object?> json) =>
       _$StorePodcastSummaryActionFromJson(json);
 }

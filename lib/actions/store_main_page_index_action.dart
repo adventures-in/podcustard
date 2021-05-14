@@ -8,6 +8,6 @@ part 'store_main_page_index_action.g.dart';
 class StoreMainPageIndexAction with _$StoreMainPageIndexAction, ReduxAction {
   factory StoreMainPageIndexAction(int index) = _StoreMainPageIndexAction;
 
-  factory StoreMainPageIndexAction.fromJson(Map<String, dynamic> json) =>
+  factory StoreMainPageIndexAction.fromJson(Map<String, Object?> json) =>
       _$StoreMainPageIndexActionFromJson(json);
 }

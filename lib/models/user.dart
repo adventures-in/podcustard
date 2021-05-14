@@ -26,5 +26,5 @@ class User with _$User {
     IList<ProviderInfo>? providers,
   }) = _User;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);
 }

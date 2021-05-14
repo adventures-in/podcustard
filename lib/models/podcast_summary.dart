@@ -29,6 +29,6 @@ class PodcastSummary with _$PodcastSummary {
     IList<String>? genres,
   }) = _PodcastSummary;
 
-  factory PodcastSummary.fromJson(Map<String, dynamic> json) =>
+  factory PodcastSummary.fromJson(Map<String, Object?> json) =>
       _$PodcastSummaryFromJson(json);
 }

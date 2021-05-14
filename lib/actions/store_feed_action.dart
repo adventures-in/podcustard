@@ -9,6 +9,6 @@ part 'store_feed_action.g.dart';
 class StoreFeedAction with _$StoreFeedAction, ReduxAction {
   factory StoreFeedAction(RssFeed feed) = _StoreFeedAction;
 
-  factory StoreFeedAction.fromJson(Map<String, dynamic> json) =>
+  factory StoreFeedAction.fromJson(Map<String, Object?> json) =>
       _$StoreFeedActionFromJson(json);
 }

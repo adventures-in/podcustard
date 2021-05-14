@@ -8,6 +8,6 @@ part 'resume_track_action.g.dart';
 class ResumeTrackAction with _$ResumeTrackAction, ReduxAction {
   factory ResumeTrackAction() = _ResumeTrackAction;
 
-  factory ResumeTrackAction.fromJson(Map<String, dynamic> json) =>
+  factory ResumeTrackAction.fromJson(Map<String, Object?> json) =>
       _$ResumeTrackActionFromJson(json);
 }

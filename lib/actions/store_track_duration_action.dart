@@ -8,6 +8,6 @@ part 'store_track_duration_action.g.dart';
 class StoreTrackDurationAction with _$StoreTrackDurationAction, ReduxAction {
   factory StoreTrackDurationAction(double duration) = _StoreTrackDurationAction;
 
-  factory StoreTrackDurationAction.fromJson(Map<String, dynamic> json) =>
+  factory StoreTrackDurationAction.fromJson(Map<String, Object?> json) =>
       _$StoreTrackDurationActionFromJson(json);
 }

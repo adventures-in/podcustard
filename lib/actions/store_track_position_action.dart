@@ -8,6 +8,6 @@ part 'store_track_position_action.g.dart';
 class StoreTrackPositionAction with _$StoreTrackPositionAction, ReduxAction {
   factory StoreTrackPositionAction(double position) = _StoreTrackPositionAction;
 
-  factory StoreTrackPositionAction.fromJson(Map<String, dynamic> json) =>
+  factory StoreTrackPositionAction.fromJson(Map<String, Object?> json) =>
       _$StoreTrackPositionActionFromJson(json);
 }

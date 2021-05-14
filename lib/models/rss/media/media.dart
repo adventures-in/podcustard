@@ -10,7 +10,7 @@ part 'media.g.dart';
 class Media with _$Media {
   factory Media(IList<Content> contents) = _Media;
 
-  factory Media.fromJson(Map<String, dynamic> json) => _$MediaFromJson(json);
+  factory Media.fromJson(Map<String, Object?> json) => _$MediaFromJson(json);
 
   factory Media.parse(XmlElement element) => Media(element
       .findElements('media:content')

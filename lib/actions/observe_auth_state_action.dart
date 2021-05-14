@@ -8,6 +8,6 @@ part 'observe_auth_state_action.g.dart';
 class ObserveAuthStateAction with _$ObserveAuthStateAction, ReduxAction {
   factory ObserveAuthStateAction() = _ObserveAuthStateAction;
 
-  factory ObserveAuthStateAction.fromJson(Map<String, dynamic> json) =>
+  factory ObserveAuthStateAction.fromJson(Map<String, Object?> json) =>
       _$ObserveAuthStateActionFromJson(json);
 }

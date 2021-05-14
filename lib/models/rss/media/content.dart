@@ -23,7 +23,7 @@ class Content with _$Content {
     String? lang,
   }) = _Content;
 
-  factory Content.fromJson(Map<String, dynamic> json) =>
+  factory Content.fromJson(Map<String, Object?> json) =>
       _$ContentFromJson(json);
 
   factory Content.parse(XmlElement element) => Content(

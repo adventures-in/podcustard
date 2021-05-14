@@ -10,6 +10,6 @@ class RetrievePodcastSummariesAction
   factory RetrievePodcastSummariesAction(String query) =
       _RetrievePodcastSummariesAction;
 
-  factory RetrievePodcastSummariesAction.fromJson(Map<String, dynamic> json) =>
+  factory RetrievePodcastSummariesAction.fromJson(Map<String, Object?> json) =>
       _$RetrievePodcastSummariesActionFromJson(json);
 }

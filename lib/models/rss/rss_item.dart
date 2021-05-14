@@ -17,7 +17,7 @@ class RssItem with _$RssItem {
     RssEnclosure? enclosure,
   }) = _RssItem;
 
-  factory RssItem.fromJson(Map<String, dynamic> json) =>
+  factory RssItem.fromJson(Map<String, Object?> json) =>
       _$RssItemFromJson(json);
 
   factory RssItem.parse(XmlElement element) => RssItem(

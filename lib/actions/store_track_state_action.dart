@@ -9,6 +9,6 @@ part 'store_track_state_action.g.dart';
 class StoreTrackStateAction with _$StoreTrackStateAction, ReduxAction {
   factory StoreTrackStateAction(TrackStateEnum state) = _StoreTrackStateAction;
 
-  factory StoreTrackStateAction.fromJson(Map<String, dynamic> json) =>
+  factory StoreTrackStateAction.fromJson(Map<String, Object?> json) =>
       _$StoreTrackStateActionFromJson(json);
 }

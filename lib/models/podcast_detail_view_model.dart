@@ -12,6 +12,6 @@ class PodcastDetailViewModel with _$PodcastDetailViewModel {
     RssFeed? feed,
   }) = _PodcastDetailViewModel;
 
-  factory PodcastDetailViewModel.fromJson(Map<String, dynamic> json) =>
+  factory PodcastDetailViewModel.fromJson(Map<String, Object?> json) =>
       _$PodcastDetailViewModelFromJson(json);
 }

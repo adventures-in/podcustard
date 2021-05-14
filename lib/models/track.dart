@@ -16,5 +16,5 @@ class Track with _$Track {
     double? position,
   }) = _Track;
 
-  factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
+  factory Track.fromJson(Map<String, Object?> json) => _$TrackFromJson(json);
 }

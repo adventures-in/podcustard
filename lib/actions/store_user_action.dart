@@ -9,6 +9,6 @@ part 'store_user_action.g.dart';
 class StoreUserAction with _$StoreUserAction, ReduxAction {
   factory StoreUserAction(User? user) = _StoreUserAction;
 
-  factory StoreUserAction.fromJson(Map<String, dynamic> json) =>
+  factory StoreUserAction.fromJson(Map<String, Object?> json) =>
       _$StoreUserActionFromJson(json);
 }

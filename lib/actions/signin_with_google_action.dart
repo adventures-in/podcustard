@@ -8,6 +8,6 @@ part 'signin_with_google_action.g.dart';
 class SigninWithGoogleAction with _$SigninWithGoogleAction, ReduxAction {
   factory SigninWithGoogleAction() = _SigninWithGoogleAction;
 
-  factory SigninWithGoogleAction.fromJson(Map<String, dynamic> json) =>
+  factory SigninWithGoogleAction.fromJson(Map<String, Object?> json) =>
       _$SigninWithGoogleActionFromJson(json);
 }

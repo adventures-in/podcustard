@@ -12,6 +12,6 @@ class StorePodcastSummariesAction
   factory StorePodcastSummariesAction(IList<PodcastSummary> summaries) =
       _StorePodcastSummariesAction;
 
-  factory StorePodcastSummariesAction.fromJson(Map<String, dynamic> json) =>
+  factory StorePodcastSummariesAction.fromJson(Map<String, Object?> json) =>
       _$StorePodcastSummariesActionFromJson(json);
 }

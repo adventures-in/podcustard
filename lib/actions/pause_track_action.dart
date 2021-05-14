@@ -8,6 +8,6 @@ part 'pause_track_action.g.dart';
 class PauseTrackAction with _$PauseTrackAction, ReduxAction {
   factory PauseTrackAction() = _PauseTrackAction;
 
-  factory PauseTrackAction.fromJson(Map<String, dynamic> json) =>
+  factory PauseTrackAction.fromJson(Map<String, Object?> json) =>
       _$PauseTrackActionFromJson(json);
 }

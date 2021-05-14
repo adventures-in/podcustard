@@ -9,6 +9,6 @@ part 'select_podcast_action.g.dart';
 class SelectPodcastAction with _$SelectPodcastAction, ReduxAction {
   factory SelectPodcastAction(PodcastSummary selection) = _SelectPodcastAction;
 
-  factory SelectPodcastAction.fromJson(Map<String, dynamic> json) =>
+  factory SelectPodcastAction.fromJson(Map<String, Object?> json) =>
       _$SelectPodcastActionFromJson(json);
 }

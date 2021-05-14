@@ -31,6 +31,6 @@ class AppState with _$AppState {
       themeMode: 2,
       podcastSummaries: IList());
 
-  factory AppState.fromJson(Map<String, dynamic> json) =>
+  factory AppState.fromJson(Map<String, Object?> json) =>
       _$AppStateFromJson(json);
 }

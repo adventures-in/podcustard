@@ -9,6 +9,6 @@ part 'add_problem_action.g.dart';
 class AddProblemAction with _$AddProblemAction, ReduxAction {
   factory AddProblemAction(Problem problem) = _AddProblemAction;
 
-  factory AddProblemAction.fromJson(Map<String, dynamic> json) =>
+  factory AddProblemAction.fromJson(Map<String, Object?> json) =>
       _$AddProblemActionFromJson(json);
 }

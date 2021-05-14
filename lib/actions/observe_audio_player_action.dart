@@ -8,6 +8,6 @@ part 'observe_audio_player_action.g.dart';
 class ObserveAudioPlayerAction with _$ObserveAudioPlayerAction, ReduxAction {
   factory ObserveAudioPlayerAction() = _ObserveAudioPlayerAction;
 
-  factory ObserveAudioPlayerAction.fromJson(Map<String, dynamic> json) =>
+  factory ObserveAudioPlayerAction.fromJson(Map<String, Object?> json) =>
       _$ObserveAudioPlayerActionFromJson(json);
 }

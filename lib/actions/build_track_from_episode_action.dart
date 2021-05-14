@@ -10,6 +10,6 @@ class BuildTrackFromEpisodeAction
   factory BuildTrackFromEpisodeAction(String audioUrl, String episodeTitle) =
       _BuildTrackFromEpisodeAction;
 
-  factory BuildTrackFromEpisodeAction.fromJson(Map<String, dynamic> json) =>
+  factory BuildTrackFromEpisodeAction.fromJson(Map<String, Object?> json) =>
       _$BuildTrackFromEpisodeActionFromJson(json);
 }

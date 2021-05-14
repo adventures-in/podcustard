@@ -17,7 +17,7 @@ class RssFeed with _$RssFeed {
     required IList<RssItem> items,
   }) = _RssFeed;
 
-  factory RssFeed.fromJson(Map<String, dynamic> json) =>
+  factory RssFeed.fromJson(Map<String, Object?> json) =>
       _$RssFeedFromJson(json);
 
   factory RssFeed.parse(String xmlString) {

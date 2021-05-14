@@ -25,6 +25,6 @@ class ProviderInfo with _$ProviderInfo {
     String? phoneNumber,
   }) = _ProviderInfo;
 
-  factory ProviderInfo.fromJson(Map<String, dynamic> json) =>
+  factory ProviderInfo.fromJson(Map<String, Object?> json) =>
       _$ProviderInfoFromJson(json);
 }

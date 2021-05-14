@@ -22,7 +22,7 @@ class ItunesService {
       );
       // cast the decoded json to the correct type piece by piece
       // and collect the addresses in a list
-      final decodedJson = jsonDecode(uriResponse.body) as Map<String, dynamic>;
+      final decodedJson = jsonDecode(uriResponse.body) as Map<String, Object?>;
       final jsonResultsList = decodedJson['results'] as List<dynamic>;
 
       final summariesList = <PodcastSummary>[];
