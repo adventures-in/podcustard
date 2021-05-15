@@ -2,6 +2,8 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/actions/signin_with_apple_action.dart';
 import 'package:podcustard/actions/signin_with_google_action.dart';
+import 'package:podcustard/enums/auth_step_enum.dart';
+import 'package:podcustard/extensions/extensions.dart';
 import 'package:podcustard/models/app_state.dart';
 
 import 'auth_page_buttons/apple_sign_in_button.dart';
@@ -17,14 +19,14 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, int>(
+    return StoreConnector<AppState, AuthStepEnum>(
         distinct: true,
         converter: (store) => store.state.authStep,
-        builder: (context, authState) {
+        builder: (context, authStep) {
           return Material(
             child: IndexedStack(
               alignment: Alignment.center,
-              index: authState,
+              index: authStep.value,
               children: <Widget>[
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,

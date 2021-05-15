@@ -1,7 +1,7 @@
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/utils/apple_signin_object.dart';
+import 'package:podcustard/services/wrappers/apple_signin_wrapper.dart';
 
-class FakeAppleSignIn extends Fake implements AppleSignInObject {
+class FakeAppleSignIn extends Fake implements AppleSignInWrapper {
   // @override
   // Future<AuthorizationResult> startAuth() {
   //   final result = AuthorizationResult(
@@ -14,7 +14,7 @@ class FakeAppleSignIn extends Fake implements AppleSignInObject {
 
 // When the user cancels during the signin process, the Future returned
 // by startAuth has cancelled status
-class FakeAppleSignInCancels extends Fake implements AppleSignInObject {
+class FakeAppleSignInCancels extends Fake implements AppleSignInWrapper {
   // @override
   // Future<AuthorizationResult> startAuth() {
   //   final result = AuthorizationResult(
@@ -25,7 +25,7 @@ class FakeAppleSignInCancels extends Fake implements AppleSignInObject {
   // }
 }
 
-class FakeAppleSignInThrows extends Fake implements AppleSignInObject {
+class FakeAppleSignInThrows extends Fake implements AppleSignInWrapper {
   // @override
   // Future<AuthorizationResult> startAuth() {
   //   throw Exception('AppleSignIn.signIn');

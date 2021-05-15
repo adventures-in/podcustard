@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:podcustard/actions/redux_action.dart';
+import 'package:podcustard/enums/auth_step_enum.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -18,8 +19,9 @@ class FakeStore implements Store<AppState> {
   // Named constructor for creating an authenticated fake store that will
   // allow tests to bypass the auth UI
   FakeStore.authenticated()
-      : _state =
-            AppState.init().copyWith(user: UserExamples.basic, authStep: 0),
+      : _state = AppState.init().copyWith(
+            authUserData: UserExamples.basic,
+            authStep: AuthStepEnum.waitingForInput),
         _changeController = StreamController<AppState>.broadcast(),
         reducer = EmptyReducer();
 

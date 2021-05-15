@@ -25,7 +25,7 @@ void main() {
           service.streamOfAudioEvents,
           emitsInOrder(<dynamic>[
             StoreTrackStateAction(TrackStateEnum.loading),
-            AddProblemAction(Problem(message: 'error string'))
+            AddProblemAction(Problem('error string'))
           ]));
     });
 

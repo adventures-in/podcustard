@@ -1,18 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:podcustard/actions/add_problem_action.dart';
+import 'package:podcustard/actions/auth/store_auth_user_data_action.dart';
 import 'package:podcustard/actions/redux_action.dart';
 import 'package:podcustard/actions/store_auth_step_action.dart';
-import 'package:podcustard/actions/store_user_action.dart';
 import 'package:podcustard/extensions/extensions.dart';
 import 'package:podcustard/models/auth/apple_id_credential.dart';
 import 'package:podcustard/models/auth/auth_user_data.dart';
 import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/services/wrappers/apple_signin_wrapper.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {
-  AuthService(this._fireAuth, this._googleSignIn, this._appleSignIn);
+  AuthService(this._fireAuth, this._googleSignIn, this._appleSignInWrapper);
 
   final FirebaseAuth _fireAuth;
   final GoogleSignIn _googleSignIn;
@@ -25,12 +24,12 @@ class AuthService {
   Stream<ReduxAction> get streamOfStateChanges {
     return _fireAuth
         .authStateChanges()
-        .map((user) => StoreUserAction(user?.toModel()));
+        .map((user) => StoreAuthUserDataAction(user?.toModel()));
   }
 
   Stream<ReduxAction> get googleSignInStream async* {
     // signal to change UI
-    yield StoreAuthStepAction(1);
+    yield StoreAuthStepAction.contactingGoogle();
 
     try {
       final googleUser = await _googleSignIn.signIn();
@@ -38,12 +37,12 @@ class AuthService {
       // if the user canceled signin, an error is thrown but it gets swallowed
       // by the signIn() method so we need to reset the UI and close the stream
       if (googleUser == null) {
-        yield StoreAuthStepAction(0);
+        yield StoreAuthStepAction.waitingForInput();
         return;
       }
 
       // signal to change UI
-      yield StoreAuthStepAction(2);
+      yield StoreAuthStepAction.signingInWithFirebase();
 
       final googleAuth = await googleUser.authentication;
 
@@ -57,26 +56,21 @@ class AuthService {
       await _fireAuth.signInWithCredential(credential);
 
       // we are signed in so reset the UI
-      yield StoreAuthStepAction(0);
+      yield StoreAuthStepAction.waitingForInput();
     } catch (error, trace) {
       // reset the UI and display an alert
 
-      yield StoreAuthStepAction(0);
+      yield StoreAuthStepAction.waitingForInput();
       // errors with code kSignInCanceledError are swallowed by the
       // GoogleSignIn.signIn() method so we can assume anything caught here
       // is a problem and send to the store for display
       yield AddProblemAction(
-          Problem(message: error.toString(), trace: trace.toString()));
+          Problem(error.toString(), trace: trace.toString()));
     }
   }
 
   Future<AppleIdCredential> getAppleCredential() async {
-    final appleIdCredential =
-        await SignInWithApple.getAppleIDCredential(scopes: [
-      AppleIDAuthorizationScopes.email,
-      AppleIDAuthorizationScopes.fullName,
-    ]);
-
+    final appleIdCredential = await _appleSignInWrapper.getCredential();
     return appleIdCredential.toModel();
   }
 

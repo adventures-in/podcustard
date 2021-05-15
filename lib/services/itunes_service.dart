@@ -57,7 +57,7 @@ class ItunesService {
     } catch (error, trace) {
       // if there were any problems collect available info and create an action
       return AddProblemAction(
-          Problem(message: error.toString(), trace: trace.toString()));
+          Problem(error.toString(), trace: trace.toString()));
     }
   }
 }

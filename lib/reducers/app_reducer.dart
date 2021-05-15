@@ -2,6 +2,7 @@ import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/reducers/add_problem_reducer.dart';
 import 'package:podcustard/reducers/clear_podcast_selection_reducer.dart';
 import 'package:podcustard/reducers/store_auth_step_reducer.dart';
+import 'package:podcustard/reducers/store_auth_user_data_reducer.dart';
 import 'package:podcustard/reducers/store_feed_reducer.dart';
 import 'package:podcustard/reducers/store_main_page_index_reducer.dart';
 import 'package:podcustard/reducers/store_podcast_summaries_reducer.dart';
@@ -11,7 +12,6 @@ import 'package:podcustard/reducers/store_track_duration_reducer.dart';
 import 'package:podcustard/reducers/store_track_position_reducer.dart';
 import 'package:podcustard/reducers/store_track_reducer.dart';
 import 'package:podcustard/reducers/store_track_state_reducer.dart';
-import 'package:podcustard/reducers/store_user_reducer.dart';
 import 'package:redux/redux.dart';
 
 /// Reducers specify how the application"s state changes in response to actions
@@ -32,5 +32,5 @@ final appReducer =
   StoreTrackPositionReducer(),
   StoreTrackStateReducer(),
   StoreTrackReducer(),
-  StoreUserReducer(),
+  StoreAuthUserDataReducer(),
 ]);

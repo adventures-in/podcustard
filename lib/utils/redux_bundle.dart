@@ -10,8 +10,8 @@ import 'package:podcustard/services/audio_player_service.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
-import 'package:podcustard/utils/apple_signin_object.dart';
-import 'package:podcustard/utils/audio_player_object.dart';
+import 'package:podcustard/services/wrappers/apple_signin_wrapper.dart';
+import 'package:podcustard/services/wrappers/audio_player_wrapper.dart';
 import 'package:podcustard/utils/store_operation.dart';
 import 'package:redux/redux.dart';
 
@@ -45,11 +45,11 @@ class ReduxBundle {
       AudioPlayerService? audioPlayerService})
       : _authService = authService ??
             AuthService(FirebaseAuth.instance,
-                GoogleSignIn(scopes: <String>['email']), AppleSignInObject()),
+                GoogleSignIn(scopes: <String>['email']), AppleSignInWrapper()),
         _iTunesService = iTunesService ?? ItunesService(_httpClient),
         _feedsService = feedsService ?? FeedsService(_httpClient),
         _audioPlayerService =
-            audioPlayerService ?? AudioPlayerService(AudioPlayerObject());
+            audioPlayerService ?? AudioPlayerService(AudioPlayerWrapper());
 
   Future<Store<AppState>> createStore() async {
     final _store = Store<AppState>(

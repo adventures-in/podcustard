@@ -36,8 +36,8 @@ class AudioPlayerService {
           onComplete: _onComplete,
           onPosition: _onPosition);
     } catch (error, trace) {
-      _controller.add(AddProblemAction(
-          Problem(message: error.toString(), trace: trace.toString())));
+      _controller.add(
+          AddProblemAction(Problem(error.toString(), trace: trace.toString())));
     }
   }
 
@@ -46,8 +46,8 @@ class AudioPlayerService {
       await _audio?.play(endpointSeconds: endpointSeconds);
       _controller.add(StoreTrackStateAction(TrackStateEnum.playing));
     } catch (error, trace) {
-      _controller.add(AddProblemAction(
-          Problem(message: error.toString(), trace: trace.toString())));
+      _controller.add(
+          AddProblemAction(Problem(error.toString(), trace: trace.toString())));
     }
   }
 
@@ -56,8 +56,8 @@ class AudioPlayerService {
       await _audio?.pause();
       _controller.add(StoreTrackStateAction(TrackStateEnum.paused));
     } catch (error, trace) {
-      _controller.add(AddProblemAction(
-          Problem(message: error.toString(), trace: trace.toString())));
+      _controller.add(
+          AddProblemAction(Problem(error.toString(), trace: trace.toString())));
     }
   }
 
@@ -66,13 +66,13 @@ class AudioPlayerService {
       await _audio?.resume();
       _controller.add(StoreTrackStateAction(TrackStateEnum.playing));
     } catch (error, trace) {
-      _controller.add(AddProblemAction(
-          Problem(message: error.toString(), trace: trace.toString())));
+      _controller.add(
+          AddProblemAction(Problem(error.toString(), trace: trace.toString())));
     }
   }
 
   void _onError(String? message) =>
-      _controller.add(AddProblemAction(Problem(message: message ?? 'null')));
+      _controller.add(AddProblemAction(Problem(message ?? 'null')));
   void _onComplete() =>
       _controller.add(StoreTrackStateAction(TrackStateEnum.paused));
   void _onDuration(double duration) =>

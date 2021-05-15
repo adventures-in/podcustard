@@ -6,10 +6,8 @@ part 'problem.g.dart';
 
 @freezed
 class Problem with _$Problem {
-  factory Problem(
-      {required String message,
-      String? trace,
-      IMap<String, Object?>? info}) = _Problem;
+  factory Problem(String message,
+      {String? trace, IMap<String, Object?>? info}) = _Problem;
 
   factory Problem.fromJson(Map<String, Object?> json) =>
       _$ProblemFromJson(json);

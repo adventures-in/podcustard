@@ -1,5 +1,6 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:podcustard/actions/add_problem_action.dart';
+import 'package:podcustard/actions/auth/store_auth_user_data_action.dart';
 import 'package:podcustard/actions/store_auth_step_action.dart';
 import 'package:podcustard/actions/store_feed_action.dart';
 import 'package:podcustard/actions/store_main_page_index_action.dart';
@@ -9,16 +10,16 @@ import 'package:podcustard/actions/store_track_action.dart';
 import 'package:podcustard/actions/store_track_duration_action.dart';
 import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
-import 'package:podcustard/actions/store_user_action.dart';
+import 'package:podcustard/enums/auth_step_enum.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/models/user.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../test-data/feed_test_data.dart';
+import '../test-data/models/user_examples.dart';
 import '../test-data/podcast_summary_data.dart';
 import '../test-data/track_test_data.dart';
 
@@ -32,14 +33,13 @@ void main() {
       );
 
       // dispatch action to store auth state
-      store.dispatch(StoreUserAction(User(
-          displayName: 'name', email: 'email', photoUrl: 'url', uid: 'uid')));
+      store.dispatch(StoreAuthUserDataAction(UserExamples.basic));
 
       // check that the store has the expected value
-      expect(store.state.user!.uid, equals('uid'));
-      expect(store.state.user!.email, equals('email'));
-      expect(store.state.user!.photoUrl, equals('url'));
-      expect(store.state.user!.displayName, equals('name'));
+      expect(store.state.authUserData!.uid, equals('uid'));
+      expect(store.state.authUserData!.email, equals('email'));
+      expect(store.state.authUserData!.photoURL, equals('url'));
+      expect(store.state.authUserData!.displayName, equals('name'));
     });
 
     test('_addProblem adds to the list', () {
@@ -51,7 +51,7 @@ void main() {
 
       // dispatch action to add a problem
       store.dispatch(AddProblemAction(
-          Problem(message: 'm', info: {'a': 'b'}.lock, trace: 'trace')));
+          Problem('m', info: {'a': 'b'}.lock, trace: 'trace')));
 
       // check that the store has the expected value
       expect(store.state.problems.length, 1);
@@ -69,10 +69,10 @@ void main() {
       );
 
       // dispatch action to store auth step
-      store.dispatch(StoreAuthStepAction(1));
+      store.dispatch(StoreAuthStepAction.contactingApple());
 
       // check that the store has the expected value
-      expect(store.state.authStep, 1);
+      expect(store.state.authStep, AuthStepEnum.contactingApple);
     });
 
     test('_storeMainPageIndex correctly stores index from MainPage BottomNav',

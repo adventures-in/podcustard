@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/actions/observe_audio_player_action.dart';
 import 'package:podcustard/actions/observe_auth_state_action.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/models/user.dart';
+import 'package:podcustard/models/auth/auth_user_data.dart';
 import 'package:podcustard/services/wrappers/firebase_wrapper.dart';
 import 'package:podcustard/utils/redux_bundle.dart';
 import 'package:podcustard/widgets/app-init/initializing_error_page.dart';
@@ -90,9 +90,9 @@ class _AppWidgetState extends State<AppWidget> {
                   : (themeMode == 1)
                       ? ThemeMode.dark
                       : ThemeMode.system,
-              home: StoreConnector<AppState, User?>(
+              home: StoreConnector<AppState, AuthUserData?>(
                 distinct: true,
-                converter: (store) => store.state.user,
+                converter: (store) => store.state.authUserData,
                 builder: (context, user) {
                   return (user == null) ? AuthPage() : MainPage();
                 },
