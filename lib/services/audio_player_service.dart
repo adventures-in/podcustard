@@ -8,15 +8,15 @@ import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/utils/audio_player_object.dart';
+import 'package:podcustard/services/wrappers/audio_player_wrapper.dart';
 
 class AudioPlayerService {
-  AudioPlayerService(this._audioPlayerObject) {
+  AudioPlayerService(this._audioPlayerWrapper) {
     _controller = StreamController<ReduxAction>();
   }
 
   /// this object just wraps the global static methods for easier testing
-  final AudioPlayerObject _audioPlayerObject;
+  final AudioPlayerWrapper _audioPlayerWrapper;
 
   /// the actual player object we get from the AudioPlayerObject wrapper
   Audio? _audio;
@@ -30,7 +30,7 @@ class AudioPlayerService {
   Future<void> loadWithUrl(String url) async {
     try {
       _controller.add(StoreTrackStateAction(TrackStateEnum.loading));
-      _audio = _audioPlayerObject.loadFromRemoteUrl(url,
+      _audio = _audioPlayerWrapper.loadFromRemoteUrl(url,
           onError: _onError,
           onDuration: _onDuration,
           onComplete: _onComplete,

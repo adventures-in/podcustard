@@ -5,15 +5,18 @@ import 'package:podcustard/actions/redux_action.dart';
 import 'package:podcustard/actions/store_auth_step_action.dart';
 import 'package:podcustard/actions/store_user_action.dart';
 import 'package:podcustard/extensions/extensions.dart';
+import 'package:podcustard/models/auth/apple_id_credential.dart';
+import 'package:podcustard/models/auth/auth_user_data.dart';
 import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/utils/apple_signin_object.dart';
+import 'package:podcustard/services/wrappers/apple_signin_wrapper.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {
   AuthService(this._fireAuth, this._googleSignIn, this._appleSignIn);
 
   final FirebaseAuth _fireAuth;
   final GoogleSignIn _googleSignIn;
-  final AppleSignInObject _appleSignIn;
+  final AppleSignInWrapper _appleSignInWrapper;
 
   // Map FirebaseUser objects emitted by FirebaseAuth to a StoreUser action,
   // which can be dispatched by the store.
@@ -67,47 +70,29 @@ class AuthService {
     }
   }
 
-  Stream<ReduxAction> get appleSignInStream async* {
-    _appleSignIn;
-    yield StoreAuthStepAction(0);
-    // // signal to change UI
-    // yield StoreAuthStepAction(1);
+  Future<AppleIdCredential> getAppleCredential() async {
+    final appleIdCredential =
+        await SignInWithApple.getAppleIDCredential(scopes: [
+      AppleIDAuthorizationScopes.email,
+      AppleIDAuthorizationScopes.fullName,
+    ]);
 
-    // try {
-    //   final result = await _appleSignIn.startAuth();
+    return appleIdCredential.toModel();
+  }
 
-    //   switch (result.status) {
-    //     case AuthorizationStatus.authorized:
-    //       // signal to change UI
-    //       yield StoreAuthStepAction(2);
+  Future<AuthUserData> signInWithApple(
+      {required AppleIdCredential credential}) async {
+    // convert to OAuthCredential
+    final oAuthCredential = OAuthProvider('apple.com').credential(
+      idToken: credential.identityToken,
+      accessToken: credential.authorizationCode,
+    );
 
-    //       // retrieve the apple credential and convert to oauth credential
-    //       final appleIdCredential = result.credential;
-    //       final oAuthProvider = OAuthProvider('apple.com');
-    //       final credential = oAuthProvider.credential(
-    //         idToken: String.fromCharCodes(appleIdCredential.identityToken),
-    //         accessToken:
-    //             String.fromCharCodes(appleIdCredential.authorizationCode),
-    //       );
-
-    //       // use the credential to sign in to firebase
-    //       await FirebaseAuth.instance.signInWithCredential(credential);
-    //       break;
-    //     case AuthorizationStatus.error:
-    //       throw result.error;
-
-    //     case AuthorizationStatus.cancelled:
-    //       yield StoreAuthStepAction(0);
-    //       break;
-    //   }
-    // } catch (error, trace) {
-    //   // reset the UI and display an alert
-
-    //   yield StoreAuthStepAction(0);
-    //   // any specific errors are caught and dealt with so we can assume
-    //   // anything caught here is a problem and send to the store for display
-    //   yield AddProblemAction(
-    //       Problem(message: error.toString(), trace: trace.toString()));
-    // }
+    // use the credential to sign in to firebase
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(oAuthCredential);
+    // not sure why user would be null (docs don't say) so we throw if it is
+    final user = userCredential.user!;
+    return user.toModel();
   }
 }

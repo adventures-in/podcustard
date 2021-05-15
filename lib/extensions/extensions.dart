@@ -1,7 +1,11 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:podcustard/models/auth/apple_id_credential.dart';
+import 'package:podcustard/models/auth/google_sign_in_credential.dart';
 import 'package:podcustard/models/provider_info.dart';
 import 'package:podcustard/models/user.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:xml/xml.dart';
 
 extension IterableExtension<T> on Iterable<T> {
@@ -40,4 +44,22 @@ extension UserExtension on auth.User {
                 uid: provider.uid),
           )
           .toIList());
+}
+
+extension GoogleSignInAuthenticationExt on GoogleSignInAuthentication {
+  GoogleSignInCredential toModel() => GoogleSignInCredential(
+      idToken: idToken,
+      accessToken: accessToken,
+      serverAuthCode: serverAuthCode);
+}
+
+extension AuthorizationCredentialAppleIDExt on AuthorizationCredentialAppleID {
+  AppleIdCredential toModel() => AppleIdCredential(
+      userIdentifier: userIdentifier,
+      givenName: givenName,
+      familyName: familyName,
+      email: email,
+      authorizationCode: authorizationCode,
+      identityToken: identityToken,
+      state: state);
 }
