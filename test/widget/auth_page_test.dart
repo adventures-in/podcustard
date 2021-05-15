@@ -7,10 +7,10 @@ import 'package:podcustard/widgets/auth/auth_page.dart';
 import 'package:podcustard/widgets/auth/auth_page_buttons/apple_sign_in_button.dart';
 import 'package:podcustard/widgets/auth/auth_page_buttons/google_sign_in_button.dart';
 
-import '../test-doubles/faked_out_store.dart';
 import '../test-doubles/plugins/apple_signin_mocks.dart';
 import '../test-doubles/plugins/firebase_auth_mocks.dart';
 import '../test-doubles/plugins/google_signin_mocks.dart';
+import '../test-doubles/redux/faked_out_store.dart';
 
 void main() {
   group('AuthPage', () {
