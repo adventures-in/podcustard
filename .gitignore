@@ -51,3 +51,4 @@ lib/utilities/mocks.dart
 # don't add project credentials to version control
 ios/Runner/GoogleService-Info.plist
 android/app/google-services.json
+macos/Runner/GoogleService-Info.plist

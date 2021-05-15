@@ -25,8 +25,8 @@ import 'package:test/test.dart';
 import '../test-data/feed_test_data.dart';
 import '../test-data/podcast_summary_data.dart';
 import '../test-data/track_test_data.dart';
-import '../test-doubles/faked_out_store.dart';
 import '../test-doubles/plugins/http_client_mocks.dart';
+import '../test-doubles/redux/faked_out_store.dart';
 import '../test-doubles/services/audio_player_service_mocks.dart';
 import '../test-doubles/services/feeds_service_mocks.dart';
 

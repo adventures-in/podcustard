@@ -5,7 +5,7 @@ analyzer:
     - build/**
     # - lib/**/*.g.dart
     # - lib/**/*.freezed.dart
-    # - test/**/*.mocks.dart
+    - test/**/*.mocks.dart
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false

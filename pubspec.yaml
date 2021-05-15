@@ -23,6 +23,7 @@ dependencies:
   flutter_redux:
   fast_immutable_collections: ^5.0.0-dev.12
 
+  firebase_core: "^1.1.0"
   firebase_auth:
   google_sign_in:
   sign_in_with_apple: 
@@ -43,3 +44,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/logo1.png
+    - assets/
