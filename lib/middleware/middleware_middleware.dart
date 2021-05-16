@@ -5,8 +5,8 @@ import 'package:podcustard/middleware/pause_track_middleware.dart';
 import 'package:podcustard/middleware/resume_track_middleware.dart';
 import 'package:podcustard/middleware/retrieve_podcast_summaries_middleware.dart';
 import 'package:podcustard/middleware/select_podcast_middleware.dart';
-import 'package:podcustard/middleware/signin_with_apple_middleware.dart';
-import 'package:podcustard/middleware/signin_with_google_middleware.dart';
+import 'package:podcustard/middleware/sign_in_with_apple_middleware.dart';
+import 'package:podcustard/middleware/sign_in_with_google_middleware.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/services/audio_player_service.dart';
 import 'package:podcustard/services/auth_service.dart';
@@ -25,14 +25,21 @@ List<Middleware<AppState>> createMiddleware(
     required FeedsService feedsService,
     required AudioPlayerService audioPlayerService}) {
   return [
-    BuildTrackFromEpisodeMiddleware(audioPlayerService),
-    ObserveAudioPlayerMiddleware(audioPlayerService),
+    // RedFire
     ObserveAuthStateMiddleware(authService),
-    PauseTrackMiddleware(audioPlayerService),
-    RetrievePodcastSummariesMiddleware(iTunesService),
-    ResumeTrackMiddleware(audioPlayerService),
-    SigninWithAppleMiddleware(authService),
-    SigninWithGoogleMiddleware(authService),
+    SignInWithAppleMiddleware(authService),
+    SignInWithGoogleMiddleware(authService),
+
+    // Podcasts
     SelectPodcastMiddleware(feedsService),
+    RetrievePodcastSummariesMiddleware(iTunesService),
+
+    // Tracks
+    BuildTrackFromEpisodeMiddleware(audioPlayerService),
+
+    // Player
+    ObserveAudioPlayerMiddleware(audioPlayerService),
+    PauseTrackMiddleware(audioPlayerService),
+    ResumeTrackMiddleware(audioPlayerService),
   ];
 }

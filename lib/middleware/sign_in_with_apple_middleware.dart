@@ -1,14 +1,14 @@
-import 'package:podcustard/actions/auth/store_auth_user_data_action.dart';
-import 'package:podcustard/actions/signin_with_apple_action.dart';
-import 'package:podcustard/actions/store_auth_step_action.dart';
 import 'package:podcustard/extensions/extensions.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/services/auth_service.dart';
+import 'package:redfire/auth/actions/sign_in_with_apple_action.dart';
+import 'package:redfire/auth/actions/store_auth_step_action.dart';
+import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
 import 'package:redux/redux.dart';
 
-class SigninWithAppleMiddleware
-    extends TypedMiddleware<AppState, SigninWithAppleAction> {
-  SigninWithAppleMiddleware(AuthService authService)
+class SignInWithAppleMiddleware
+    extends TypedMiddleware<AppState, SignInWithAppleAction> {
+  SignInWithAppleMiddleware(AuthService authService)
       : super((store, action, next) async {
           next(action);
 

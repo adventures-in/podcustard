@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/actions/observe_audio_player_action.dart';
-import 'package:podcustard/actions/observe_auth_state_action.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/models/auth/auth_user_data.dart';
-import 'package:podcustard/services/wrappers/firebase_wrapper.dart';
 import 'package:podcustard/utils/redux_bundle.dart';
 import 'package:podcustard/widgets/app-init/initializing_error_page.dart';
 import 'package:podcustard/widgets/app-init/initializing_indicator.dart';
-import 'package:podcustard/widgets/auth/auth_page.dart';
 import 'package:podcustard/widgets/main_page.dart';
+import 'package:redfire/auth/actions/observe_auth_state_action.dart';
+import 'package:redfire/auth/models/auth_user_data.dart';
+import 'package:redfire/auth/widgets/auth_page.dart';
+import 'package:redfire/plugins/wrappers/firebase_wrapper.dart';
+import 'package:redfire/settings/enums/brightness_mode_enum.dart';
+import 'package:redfire/settings/extensions/brightness_mode_enum_extensions.dart';
 import 'package:redux/redux.dart';
 
 class AppWidget extends StatefulWidget {
@@ -78,18 +80,14 @@ class _AppWidgetState extends State<AppWidget> {
 
     return StoreProvider<AppState>(
       store: _store,
-      child: StoreConnector<AppState, int>(
+      child: StoreConnector<AppState, BrightnessModeEnum>(
           distinct: true,
-          converter: (store) => store.state.themeMode,
-          builder: (context, themeMode) {
+          converter: (store) => store.state.settings.brightnessMode,
+          builder: (context, brightnessMode) {
             return MaterialApp(
               theme: ThemeData(),
               darkTheme: ThemeData.dark(),
-              themeMode: (themeMode == 0)
-                  ? ThemeMode.light
-                  : (themeMode == 1)
-                      ? ThemeMode.dark
-                      : ThemeMode.system,
+              themeMode: brightnessMode.toThemeMode(),
               home: StoreConnector<AppState, AuthUserData?>(
                 distinct: true,
                 converter: (store) => store.state.authUserData,

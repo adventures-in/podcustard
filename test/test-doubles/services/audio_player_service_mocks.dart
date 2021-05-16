@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/actions/redux_action.dart';
+import 'package:podcustard/plugins/wrappers/audio_player_wrapper.dart';
 import 'package:podcustard/services/audio_player_service.dart';
-import 'package:podcustard/services/wrappers/audio_player_wrapper.dart';
+import 'package:redfire/types/redux_action.dart';
 
 class FakeAudioPlayerService extends Fake implements AudioPlayerService {
   FakeAudioPlayerService(this.controller);

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/actions/redux_action.dart';
 import 'package:podcustard/services/auth_service.dart';
+import 'package:redfire/types/redux_action.dart';
 
 import '../test-doubles/plugins/apple_signin_mocks.dart';
 import '../test-doubles/plugins/firebase_auth_mocks.dart';

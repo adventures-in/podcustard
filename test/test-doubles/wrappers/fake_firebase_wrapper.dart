@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:podcustard/services/wrappers/firebase_wrapper.dart';
+import 'package:redfire/plugins/wrappers/firebase_wrapper.dart';
 
 import '../firebase/firebase_test_doubles.mocks.dart';
 

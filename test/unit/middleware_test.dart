@@ -1,23 +1,23 @@
 import 'dart:async';
 
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/actions/add_problem_action.dart';
-import 'package:podcustard/actions/auth/store_auth_user_data_action.dart';
 import 'package:podcustard/actions/build_track_from_episode_action.dart';
 import 'package:podcustard/actions/observe_audio_player_action.dart';
-import 'package:podcustard/actions/observe_auth_state_action.dart';
 import 'package:podcustard/actions/pause_track_action.dart';
-import 'package:podcustard/actions/redux_action.dart';
 import 'package:podcustard/actions/resume_track_action.dart';
 import 'package:podcustard/actions/retrieve_podcast_summaries_action.dart';
 import 'package:podcustard/actions/select_podcast_action.dart';
-import 'package:podcustard/actions/signin_with_google_action.dart';
-import 'package:podcustard/actions/store_auth_step_action.dart';
 import 'package:podcustard/actions/store_track_action.dart';
-import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
+import 'package:redfire/auth/actions/observe_auth_state_action.dart';
+import 'package:redfire/auth/actions/sign_in_with_google_action.dart';
+import 'package:redfire/auth/actions/store_auth_step_action.dart';
+import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
+import 'package:redfire/problems/actions/add_problem_action.dart';
+import 'package:redfire/problems/models/problem_info.dart';
+import 'package:redfire/types/redux_action.dart';
 import 'package:test/test.dart';
 
 import '../test-data/feed_test_data.dart';
@@ -64,14 +64,14 @@ void main() {
       when(mockAuthService.googleSignInStream).thenAnswer(
         (_) => Stream.fromIterable([
           StoreAuthStepAction.contactingGoogle(),
-          AddProblemAction(Problem('m'))
+          AddProblemAction(ProblemInfo('m'))
         ]),
       );
 
       final store = FakedOutStore(authService: mockAuthService);
 
       // dispatch action to initiate signin
-      store.dispatch(SigninWithGoogleAction());
+      store.dispatch(SignInWithGoogleAction());
 
       // verify the middleware used the service to get a stream of actions
       verify(mockAuthService.googleSignInStream);

@@ -1,36 +1,39 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:podcustard/enums/auth_step_enum.dart';
-import 'package:podcustard/models/auth/auth_user_data.dart';
 import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/models/podcast_summary.dart';
-import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/models/track.dart';
+import 'package:redfire/app_state.dart';
+import 'package:redfire/auth/enums/auth_step_enum.dart';
+import 'package:redfire/auth/models/auth_user_data.dart';
+import 'package:redfire/problems/models/problem_info.dart';
+import 'package:redfire/settings/models/settings.dart';
 
 part 'app_state.freezed.dart';
 part 'app_state.g.dart';
 
 @freezed
 class AppState with _$AppState {
+  @Implements(RedFireState)
   factory AppState({
-    required IList<Problem> problems,
+    required IList<ProblemInfo> problems,
+    required Settings settings,
     required AuthStepEnum authStep,
+    required AuthUserData? authUserData,
     required int mainPageIndex,
     required bool bottomSheetShown,
-    required int themeMode,
-    required AuthUserData? authUserData,
+    required IList<PodcastSummary> podcastSummaries,
     PodcastDetailViewModel? detailVM,
     Track? track,
-    required IList<PodcastSummary> podcastSummaries,
   }) = _AppState;
 
   factory AppState.init() => AppState(
       problems: IList(),
+      settings: Settings.init(),
       authStep: AuthStepEnum.waitingForInput,
       authUserData: null,
       mainPageIndex: 0,
       bottomSheetShown: false,
-      themeMode: 2,
       podcastSummaries: IList());
 
   factory AppState.fromJson(Map<String, Object?> json) =>

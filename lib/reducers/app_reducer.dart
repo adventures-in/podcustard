@@ -7,7 +7,6 @@ import 'package:podcustard/reducers/store_feed_reducer.dart';
 import 'package:podcustard/reducers/store_main_page_index_reducer.dart';
 import 'package:podcustard/reducers/store_podcast_summaries_reducer.dart';
 import 'package:podcustard/reducers/store_podcast_summary_reducer.dart';
-import 'package:podcustard/reducers/store_theme_mode_reducer.dart';
 import 'package:podcustard/reducers/store_track_duration_reducer.dart';
 import 'package:podcustard/reducers/store_track_position_reducer.dart';
 import 'package:podcustard/reducers/store_track_reducer.dart';
@@ -27,7 +26,6 @@ final appReducer =
   StoreMainPageIndexReducer(),
   StorePodcastSummariesReducer(),
   StorePodcastSummaryReducer(),
-  StoreThemeModeReducer(),
   StoreTrackDurationReducer(),
   StoreTrackPositionReducer(),
   StoreTrackStateReducer(),

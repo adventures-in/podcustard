@@ -1,5 +1,5 @@
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/services/wrappers/apple_signin_wrapper.dart';
+import 'package:redfire/plugins/wrappers/apple_signin_wrapper.dart';
 
 class FakeAppleSignIn extends Fake implements AppleSignInWrapper {
   // @override

@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:audiofileplayer/audiofileplayer.dart';
-import 'package:podcustard/actions/add_problem_action.dart';
-import 'package:podcustard/actions/redux_action.dart';
 import 'package:podcustard/actions/store_track_duration_action.dart';
 import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
-import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/services/wrappers/audio_player_wrapper.dart';
+import 'package:podcustard/plugins/wrappers/audio_player_wrapper.dart';
+import 'package:redfire/problems/extensions/error_extensions.dart';
+import 'package:redfire/types/redux_action.dart';
 
 class AudioPlayerService {
   AudioPlayerService(this._audioPlayerWrapper) {
@@ -36,8 +35,7 @@ class AudioPlayerService {
           onComplete: _onComplete,
           onPosition: _onPosition);
     } catch (error, trace) {
-      _controller.add(
-          AddProblemAction(Problem(error.toString(), trace: trace.toString())));
+      _controller.add(error.toAddProblemAction(trace));
     }
   }
 
@@ -46,8 +44,7 @@ class AudioPlayerService {
       await _audio?.play(endpointSeconds: endpointSeconds);
       _controller.add(StoreTrackStateAction(TrackStateEnum.playing));
     } catch (error, trace) {
-      _controller.add(
-          AddProblemAction(Problem(error.toString(), trace: trace.toString())));
+      _controller.add(error.toAddProblemAction(trace));
     }
   }
 
@@ -56,8 +53,7 @@ class AudioPlayerService {
       await _audio?.pause();
       _controller.add(StoreTrackStateAction(TrackStateEnum.paused));
     } catch (error, trace) {
-      _controller.add(
-          AddProblemAction(Problem(error.toString(), trace: trace.toString())));
+      _controller.add(error.toAddProblemAction(trace));
     }
   }
 
@@ -66,13 +62,12 @@ class AudioPlayerService {
       await _audio?.resume();
       _controller.add(StoreTrackStateAction(TrackStateEnum.playing));
     } catch (error, trace) {
-      _controller.add(
-          AddProblemAction(Problem(error.toString(), trace: trace.toString())));
+      _controller.add(error.toAddProblemAction(trace));
     }
   }
 
   void _onError(String? message) =>
-      _controller.add(AddProblemAction(Problem(message ?? 'null')));
+      _controller.add(message.toAddProblemAction());
   void _onComplete() =>
       _controller.add(StoreTrackStateAction(TrackStateEnum.paused));
   void _onDuration(double duration) =>

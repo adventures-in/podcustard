@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:podcustard/actions/redux_action.dart';
+import 'package:redfire/types/redux_action.dart';
 
 part 'build_track_from_episode_action.freezed.dart';
 part 'build_track_from_episode_action.g.dart';

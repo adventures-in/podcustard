@@ -1,5 +1,5 @@
 import 'package:audiofileplayer/audiofileplayer.dart';
-import 'package:podcustard/services/wrappers/audio_player_wrapper.dart';
+import 'package:podcustard/plugins/wrappers/audio_player_wrapper.dart';
 
 class FakeAudioPlayersWrapper implements AudioPlayerWrapper {
   @override

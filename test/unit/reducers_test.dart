@@ -1,20 +1,20 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-import 'package:podcustard/actions/add_problem_action.dart';
-import 'package:podcustard/actions/auth/store_auth_user_data_action.dart';
-import 'package:podcustard/actions/store_auth_step_action.dart';
 import 'package:podcustard/actions/store_feed_action.dart';
 import 'package:podcustard/actions/store_main_page_index_action.dart';
 import 'package:podcustard/actions/store_podcast_summaries_action.dart';
-import 'package:podcustard/actions/store_theme_mode_action.dart';
 import 'package:podcustard/actions/store_track_action.dart';
 import 'package:podcustard/actions/store_track_duration_action.dart';
 import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
-import 'package:podcustard/enums/auth_step_enum.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
+import 'package:redfire/auth/actions/store_auth_step_action.dart';
+import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
+import 'package:redfire/auth/enums/auth_step_enum.dart';
+import 'package:redfire/problems/actions/add_problem_action.dart';
+import 'package:redfire/problems/models/problem_info.dart';
+import 'package:redfire/themes/actions/store_theme_mode_action.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
@@ -50,14 +50,12 @@ void main() {
       );
 
       // dispatch action to add a problem
-      store.dispatch(AddProblemAction(
-          Problem('m', info: {'a': 'b'}.lock, trace: 'trace')));
+      store.dispatch(AddProblemAction(ProblemInfo('m', 'trace')));
 
       // check that the store has the expected value
       expect(store.state.problems.length, 1);
       final problem = store.state.problems.first;
       expect(problem.message, 'm');
-      expect(problem.info, {'a': 'b'});
       expect(problem.trace, 'trace');
     });
 
@@ -119,13 +117,13 @@ void main() {
       store.dispatch(StoreThemeModeAction(0));
 
       // check that the store has the expected value
-      expect(store.state.themeMode, 0);
+      expect(store.state.settings.brightnessMode, 0);
 
       // dispatch action to store themeMode
       store.dispatch(StoreThemeModeAction(1));
 
       // check that the store has the expected value
-      expect(store.state.themeMode, 1);
+      expect(store.state.settings.brightnessMode, 1);
     });
 
     test('_storeFeed correctly stores a feed', () async {

@@ -5,14 +5,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
 import 'package:podcustard/middleware/middleware_middleware.dart';
 import 'package:podcustard/models/app_state.dart';
+import 'package:podcustard/plugins/wrappers/audio_player_wrapper.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/services/audio_player_service.dart';
 import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
-import 'package:podcustard/services/wrappers/apple_signin_wrapper.dart';
-import 'package:podcustard/services/wrappers/audio_player_wrapper.dart';
 import 'package:podcustard/utils/store_operation.dart';
+import 'package:redfire/plugins/wrappers/apple_signin_wrapper.dart';
 import 'package:redux/redux.dart';
 
 /// Services can be injected, or if missing are given default values

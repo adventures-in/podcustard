@@ -1,14 +1,14 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:podcustard/actions/add_problem_action.dart';
-import 'package:podcustard/enums/auth_step_enum.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/models/auth/apple_id_credential.dart';
-import 'package:podcustard/models/auth/auth_provider_data.dart';
-import 'package:podcustard/models/auth/auth_user_data.dart';
-import 'package:podcustard/models/auth/google_sign_in_credential.dart';
-import 'package:podcustard/models/problem.dart';
+import 'package:redfire/auth/enums/auth_step_enum.dart';
+import 'package:redfire/auth/models/apple_id_credential.dart';
+import 'package:redfire/auth/models/auth_provider_data.dart';
+import 'package:redfire/auth/models/auth_user_data.dart';
+import 'package:redfire/auth/models/google_sign_in_credential.dart';
+import 'package:redfire/problems/actions/add_problem_action.dart';
+import 'package:redfire/problems/models/problem_info.dart';
 import 'package:redux/redux.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:xml/xml.dart';
@@ -73,7 +73,7 @@ extension AuthorizationCredentialAppleIDExt on AuthorizationCredentialAppleID {
 
 extension StoreExtension on Store<AppState> {
   dynamic dispatchProblem(dynamic error, StackTrace trace) => dispatch(
-      AddProblemAction(Problem(error.toString(), trace: trace.toString())));
+      AddProblemAction(ProblemInfo(error.toString(), trace.toString())));
 }
 
 extension FirebaseUserExtension on auth.User {

@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:podcustard/actions/add_problem_action.dart';
 import 'package:podcustard/actions/store_track_duration_action.dart';
 import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
-import 'package:podcustard/models/problem.dart';
 import 'package:podcustard/services/audio_player_service.dart';
+import 'package:redfire/problems/actions/add_problem_action.dart';
+import 'package:redfire/problems/models/problem_info.dart';
 
 import '../../test-doubles/services/audio_player_service_mocks.dart';
 
@@ -25,7 +25,7 @@ void main() {
           service.streamOfAudioEvents,
           emitsInOrder(<dynamic>[
             StoreTrackStateAction(TrackStateEnum.loading),
-            AddProblemAction(Problem('error string'))
+            AddProblemAction(ProblemInfo('error string'))
           ]));
     });
 

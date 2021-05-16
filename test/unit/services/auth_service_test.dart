@@ -1,7 +1,7 @@
-import 'package:podcustard/actions/add_problem_action.dart';
-import 'package:podcustard/actions/auth/store_auth_user_data_action.dart';
-import 'package:podcustard/actions/store_auth_step_action.dart';
 import 'package:podcustard/services/auth_service.dart';
+import 'package:redfire/auth/actions/store_auth_step_action.dart';
+import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
+import 'package:redfire/problems/actions/add_problem_action.dart';
 import 'package:test/test.dart';
 
 import '../../test-doubles/plugins/apple_signin_mocks.dart';
@@ -68,7 +68,7 @@ void main() {
             TypeMatcher<StoreAuthStepAction>()
               ..having((a) => a.step, 'step', 0),
             TypeMatcher<AddProblemAction>()
-              ..having((p) => p.problem.message, 'message',
+              ..having((p) => p.info.message, 'message',
                   equals('Exception: GoogleSignIn.signIn')),
             emitsDone,
           ]));
@@ -127,7 +127,7 @@ void main() {
             TypeMatcher<StoreAuthStepAction>()
               ..having((a) => a.step, 'step', 0),
             TypeMatcher<AddProblemAction>()
-              ..having((p) => p.problem.message, 'message',
+              ..having((p) => p.info.message, 'message',
                   equals('Exception: AppleSignIn.signIn')),
             emitsDone,
           ]));

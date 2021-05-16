@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:podcustard/actions/add_problem_action.dart';
-import 'package:podcustard/actions/auth/store_auth_user_data_action.dart';
-import 'package:podcustard/actions/redux_action.dart';
-import 'package:podcustard/actions/store_auth_step_action.dart';
 import 'package:podcustard/extensions/extensions.dart';
-import 'package:podcustard/models/auth/apple_id_credential.dart';
-import 'package:podcustard/models/auth/auth_user_data.dart';
-import 'package:podcustard/models/problem.dart';
-import 'package:podcustard/services/wrappers/apple_signin_wrapper.dart';
+import 'package:redfire/auth/actions/store_auth_step_action.dart';
+import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
+import 'package:redfire/auth/models/apple_id_credential.dart';
+import 'package:redfire/auth/models/auth_user_data.dart';
+import 'package:redfire/plugins/wrappers/apple_signin_wrapper.dart';
+import 'package:redfire/problems/extensions/error_extensions.dart';
+import 'package:redfire/types/redux_action.dart';
 
 class AuthService {
   AuthService(this._fireAuth, this._googleSignIn, this._appleSignInWrapper);
@@ -64,8 +63,7 @@ class AuthService {
       // errors with code kSignInCanceledError are swallowed by the
       // GoogleSignIn.signIn() method so we can assume anything caught here
       // is a problem and send to the store for display
-      yield AddProblemAction(
-          Problem(error.toString(), trace: trace.toString()));
+      yield error.toAddProblemAction(trace);
     }
   }
 

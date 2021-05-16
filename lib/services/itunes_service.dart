@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:http/http.dart' as http;
-import 'package:podcustard/actions/add_problem_action.dart';
-import 'package:podcustard/actions/redux_action.dart';
 import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/models/podcast_summary.dart';
-import 'package:podcustard/models/problem.dart';
+import 'package:redfire/problems/extensions/error_extensions.dart';
+import 'package:redfire/types/redux_action.dart';
 
 class ItunesService {
   ItunesService(this._httpClient);
@@ -56,8 +55,7 @@ class ItunesService {
       return StorePodcastSummariesAction(IList<PodcastSummary>(summariesList));
     } catch (error, trace) {
       // if there were any problems collect available info and create an action
-      return AddProblemAction(
-          Problem(error.toString(), trace: trace.toString()));
+      return error.toAddProblemAction(trace);
     }
   }
 }
