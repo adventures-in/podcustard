@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:redfire/themes/actions/store_theme_mode_action.dart';
+import 'package:redfire/settings/actions/store_theme_mode_action.dart';
 
 class DarkModeToggle extends StatefulWidget {
   @override

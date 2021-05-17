@@ -6,21 +6,17 @@ import 'package:flutter/material.dart';
 /// It's a separate widget as the existing ProgressIndicator widget doesn't
 /// need to have it's contents in a Material widget.
 class InitializingIndicator extends StatelessWidget {
-  final bool firebaseDone;
-  final bool reduxDone;
-  const InitializingIndicator({
-    required this.firebaseDone,
-    required this.reduxDone,
-    Key? key,
-  }) : super(key: key);
+  final bool _firebaseDone;
+  final bool _reduxDone;
+  const InitializingIndicator(this._firebaseDone, this._reduxDone);
 
   @override
   Widget build(BuildContext context) {
     var message = '';
-    if (!firebaseDone) {
+    if (!_firebaseDone) {
       message = 'Firing up the machine...';
-    } else if (!reduxDone) {
-      message = 'Plumbing the streams...';
+    } else if (!_reduxDone) {
+      message = 'Taking care to not cross streams...';
     }
     return Material(
       child: Column(

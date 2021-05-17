@@ -14,7 +14,7 @@ import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
 import 'package:redfire/auth/enums/auth_step_enum.dart';
 import 'package:redfire/problems/actions/add_problem_action.dart';
 import 'package:redfire/problems/models/problem_info.dart';
-import 'package:redfire/themes/actions/store_theme_mode_action.dart';
+import 'package:redfire/settings/actions/store_theme_mode_action.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 

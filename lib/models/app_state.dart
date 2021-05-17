@@ -13,8 +13,7 @@ part 'app_state.freezed.dart';
 part 'app_state.g.dart';
 
 @freezed
-class AppState with _$AppState {
-  @Implements(RedFireState)
+class AppState with _$AppState, RedFireState {
   factory AppState({
     required IList<ProblemInfo> problems,
     required Settings settings,

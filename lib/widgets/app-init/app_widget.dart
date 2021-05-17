@@ -36,32 +36,26 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   void initState() {
     super.initState();
-    initializeFlutterFire();
+    try {
+      initializeFlutterFire();
+    } catch (e) {
+      setState(() => _error = e);
+    }
   }
 
   void initializeFlutterFire() async {
-    try {
-      // firebase must be initialised first so createStore() can run
-      await widget._firebase.init();
-      setState(() {
-        _initializedFirebase = true;
-      });
+    // firebase must be initialised first so createStore() can run
+    await widget._firebase.init();
+    setState(() => _initializedFirebase = true);
 
-      // use the injected redux bundle if there is one or create one
-      _redux = widget._redux ?? ReduxBundle();
-      // create the redux store and run any extra operations
-      _store = await _redux.createStore();
-      setState(() {
-        _initializedRedux = true;
-      });
+    // use the injected redux bundle if there is one or create one
+    _redux = widget._redux ?? ReduxBundle();
+    // create the redux store and run any extra operations
+    _store = await _redux.createStore();
+    setState(() => _initializedRedux = true);
 
-      _store.dispatch(ObserveAuthStateAction());
-      _store.dispatch(ObserveAudioPlayerAction());
-    } catch (e) {
-      setState(() {
-        _error = e;
-      });
-    }
+    _store.dispatch(ObserveAuthStateAction());
+    _store.dispatch(ObserveAudioPlayerAction());
   }
 
   @override
@@ -72,10 +66,7 @@ class _AppWidgetState extends State<AppWidget> {
 
     // Show a loader until FlutterFire is initialized
     if (!_initializedFirebase || !_initializedRedux) {
-      return InitializingIndicator(
-        firebaseDone: _initializedFirebase,
-        reduxDone: _initializedRedux,
-      );
+      return InitializingIndicator(_initializedFirebase, _initializedRedux);
     }
 
     return StoreProvider<AppState>(
