@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/services/auth_service.dart';
-import 'package:redfire/auth/widgets/auth_page.dart';
-import 'package:redfire/auth/widgets/auth_page_buttons/apple_sign_in_button.dart';
-import 'package:redfire/auth/widgets/auth_page_buttons/google_sign_in_button.dart';
+import 'package:redfire/auth/services/auth_service.dart';
+import 'package:redfire/auth/widgets/auth/auth_page.dart';
+import 'package:redfire/auth/widgets/auth/auth_page_buttons/apple_sign_in_button.dart';
+import 'package:redfire/auth/widgets/auth/auth_page_buttons/google_sign_in_button.dart';
 
 import '../test-doubles/plugins/apple_signin_mocks.dart';
 import '../test-doubles/plugins/firebase_auth_mocks.dart';

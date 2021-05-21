@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/utils/redux_bundle.dart';
+import 'package:redfire/app_state.dart';
+import 'package:redfire/utils/redux/redux_bundle.dart';
 import 'package:redux/src/store.dart';
 
 /// The purpose of this class is to take a [Completer] that completes with
@@ -15,5 +16,5 @@ class FakeReduxBundleCompletable implements ReduxBundle {
   }
 
   @override
-  Future<Store<AppState>> createStore() => _reduxCompleter.future;
+  Future<Store<RedFireState>> createStore() => _reduxCompleter.future;
 }

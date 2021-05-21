@@ -1,10 +1,9 @@
-import 'package:podcustard/middleware/middleware_middleware.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/services/audio_player_service.dart';
-import 'package:podcustard/services/auth_service.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
+import 'package:redfire/auth/services/auth_service.dart';
 import 'package:redux/redux.dart';
 
 import '../firebase/fake_firebase_auth.dart';

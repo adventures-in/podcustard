@@ -11,18 +11,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/main_page.dart';
+import 'package:redfire/app_state.dart';
 import 'package:redux/redux.dart';
 
 void main() {
   testWidgets('MainPage displays...', (WidgetTester tester) async {
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store =
+        Store<RedFireState>(appReducer, initialState: AppState.init());
 
     final moreOptionsFinder = find.text('More');
 
     // build the widget and trigger a frame
     await tester.pumpWidget(
       // create a StoreProvider to wrap widget
-      StoreProvider<AppState>(
+      StoreProvider<RedFireState>(
         store: store,
         child: MaterialApp(home: MainPage()),
       ),
@@ -34,7 +36,8 @@ void main() {
 
   testWidgets('MainPage navigates to BottomNav options',
       (WidgetTester tester) async {
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store =
+        Store<RedFireState>(appReducer, initialState: AppState.init());
 
     final moreOptionsFinder = find.text('More');
     final signoutFinder = find.text('SIGN OUT');
@@ -42,7 +45,7 @@ void main() {
     // build the widget and trigger a frame
     await tester.pumpWidget(
       // make store available by wrapping in a StoreProvider
-      StoreProvider<AppState>(
+      StoreProvider<RedFireState>(
         store: store,
         child: MaterialApp(home: MainPage()),
       ),

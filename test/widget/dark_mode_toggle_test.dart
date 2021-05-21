@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/more_options/dark_mode_toggle.dart';
+import 'package:redfire/app_state.dart';
 import 'package:redfire/settings/enums/brightness_mode_enum.dart';
 import 'package:redux/redux.dart';
 
@@ -11,13 +12,13 @@ void main() {
   testWidgets('DarkModeToggle dispatches action on toggle',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer,
+    final store = Store<RedFireState>(appReducer,
         middleware: [], initialState: AppState.init());
 
     // build our app and trigger a frame
     await tester.pumpWidget(
       // create a StoreProvider to wrap widget
-      StoreProvider<AppState>(
+      StoreProvider<RedFireState>(
         store: store,
         child: MaterialApp(home: Material(child: DarkModeToggle())),
       ),

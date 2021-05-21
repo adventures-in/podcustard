@@ -9,6 +9,7 @@ import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
+import 'package:redfire/app_state.dart';
 import 'package:redfire/auth/actions/store_auth_step_action.dart';
 import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
 import 'package:redfire/auth/enums/auth_step_enum.dart';
@@ -27,7 +28,7 @@ void main() {
   group('Reducer', () {
     test('_storeAuthState stores auth state', () {
       // create a basic store with the app reducers
-      final store = Store<AppState>(
+      final store = Store<RedFireState>(
         appReducer,
         initialState: AppState.init(),
       );
@@ -44,7 +45,7 @@ void main() {
 
     test('_addProblem adds to the list', () {
       // create a basic store with the app reducers
-      final store = Store<AppState>(
+      final store = Store<RedFireState>(
         appReducer,
         initialState: AppState.init(),
       );
@@ -61,7 +62,7 @@ void main() {
 
     test('_storeAuthStep stores the auth step', () {
       // create a basic store with the app reducers
-      final store = Store<AppState>(
+      final store = Store<RedFireState>(
         appReducer,
         initialState: AppState.init(),
       );
@@ -76,7 +77,7 @@ void main() {
     test('_storeMainPageIndex correctly stores index from MainPage BottomNav',
         () {
       // create a basic store with the app reducers
-      final store = Store<AppState>(
+      final store = Store<RedFireState>(
         appReducer,
         initialState: AppState.init(),
       );
@@ -92,7 +93,7 @@ void main() {
         '_storePodcastSummaries correctly stores summaries in the StorePodcastSummaries action',
         () async {
       // create a basic store with the app reducers
-      final store = Store<AppState>(
+      final store = Store<RedFireState>(
         appReducer,
         initialState: AppState.init(),
       );

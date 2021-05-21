@@ -7,6 +7,7 @@ import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcasts_search/search_page.dart';
+import 'package:redfire/app_state.dart';
 import 'package:redux/redux.dart';
 
 import '../test-doubles/image_test_utils.dart';
@@ -15,7 +16,8 @@ void main() {
   testWidgets('SearchPage displays the results of a search',
       (WidgetTester tester) async {
     // create a basic store with a reducer that...
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store =
+        Store<RedFireState>(appReducer, initialState: AppState.init());
 
     final summary1 = PodcastSummary(
         artistName: 'a', collectionName: 'b', artworkUrl100: 'h');
@@ -33,7 +35,7 @@ void main() {
       // build our app and trigger a frame
       await tester.pumpWidget(
         // create a StoreProvider to wrap widget
-        StoreProvider<AppState>(
+        StoreProvider<RedFireState>(
           store: store,
           child: MaterialApp(home: Material(child: SearchPage())),
         ),

@@ -6,8 +6,9 @@ import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:redfire/problems/extensions/error_extensions.dart';
 import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/types/redux_service.dart';
 
-class ItunesService {
+class ItunesService with ReduxService {
   ItunesService(this._httpClient);
 
   final http.Client _httpClient;

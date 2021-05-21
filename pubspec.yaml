@@ -28,9 +28,6 @@ dependencies:
   fast_immutable_collections: ^5.0.0-dev.12
 
   firebase_core: "^1.1.0"
-  firebase_auth:
-  google_sign_in:
-  sign_in_with_apple: 
   device_info:
 
 dev_dependencies:

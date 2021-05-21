@@ -5,6 +5,7 @@ import 'package:podcustard/actions/select_podcast_action.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
+import 'package:redfire/app_state.dart';
 import 'package:redux/redux.dart';
 
 import '../test-data/podcast_summary_data.dart';
@@ -53,7 +54,7 @@ void main() {
     final summary = await getInTheDarkSummary();
     // create a basic store with expected app state
     final appState = AppState.init().copyWith.detailVM!(summary: summary);
-    final store = Store<AppState>(appReducer, initialState: appState);
+    final store = Store<RedFireState>(appReducer, initialState: appState);
 
     final artistNameFinder = find.text(summary.artistName!);
     final collectionName = find.text(summary.collectionName!);
@@ -63,7 +64,7 @@ void main() {
     // }
 
     Widget buildFrame() {
-      return StoreProvider<AppState>(
+      return StoreProvider<RedFireState>(
         store: store,
         child: MaterialApp(
           home: Scaffold(

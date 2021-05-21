@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/utils/redux_bundle.dart';
-import 'package:podcustard/widgets/app-init/app_widget.dart';
+import 'package:redfire/auth/widgets/app-init/app_widget.dart';
 import 'package:redfire/plugins/wrappers/firebase_wrapper.dart';
+import 'package:redfire/utils/redux/redux_bundle.dart';
 import 'package:redux/redux.dart';
 
 import '../test-doubles/redux/fake_redux_bundle.dart';

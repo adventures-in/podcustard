@@ -5,6 +5,7 @@ import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
 import 'package:podcustard/widgets/podcasts_search/podcast_summary_tile.dart';
+import 'package:redfire/app_state.dart';
 import 'package:redux/redux.dart';
 
 import '../test-data/podcast_summary_data.dart';
@@ -14,7 +15,8 @@ void main() {
   testWidgets('PodcastSummaryTile displays expected values',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store =
+        Store<RedFireState>(appReducer, initialState: AppState.init());
 
     final summary = await getInTheDarkSummary();
 
@@ -27,7 +29,7 @@ void main() {
       // build our app and trigger a frame
       await tester.pumpWidget(
         // create a StoreProvider to wrap widget
-        StoreProvider<AppState>(
+        StoreProvider<RedFireState>(
           store: store,
           child:
               MaterialApp(home: Material(child: PodcastSummaryTile(summary))),
@@ -44,7 +46,8 @@ void main() {
   testWidgets('PodcastSummaryTile dispatches and navigates on selection',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<AppState>(appReducer, initialState: AppState.init());
+    final store =
+        Store<RedFireState>(appReducer, initialState: AppState.init());
 
     final tileFinder = find.byType(ListTile);
     final detailFinder = find.byType(PodcastDetailPage);
@@ -56,7 +59,7 @@ void main() {
       // build our app and trigger a frame
       await tester.pumpWidget(
         // create a StoreProvider to wrap widget
-        StoreProvider<AppState>(
+        StoreProvider<RedFireState>(
           store: store,
           child:
               MaterialApp(home: Material(child: PodcastSummaryTile(summary))),
