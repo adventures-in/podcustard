@@ -3,11 +3,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:podcustard/models/podcast_detail_view_model.dart';
 import 'package:podcustard/models/podcast_summary.dart';
 import 'package:podcustard/models/track.dart';
-import 'package:redfire/app_state.dart';
 import 'package:redfire/auth/enums/auth_step_enum.dart';
 import 'package:redfire/auth/models/auth_user_data.dart';
 import 'package:redfire/problems/models/problem_info.dart';
 import 'package:redfire/settings/models/settings.dart';
+import 'package:redfire/types/red_fire_state.dart';
 
 part 'app_state.freezed.dart';
 part 'app_state.g.dart';
