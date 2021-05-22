@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:podcustard/models/app_state.dart';
-import 'package:redfire/utils/redux/redux_bundle.dart';
+import 'package:redfire/redux/redux_bundle.dart';
 import 'package:redux/src/store.dart';
 
 /// The purpose of this class is to provide the [Store] that it is passed in as
