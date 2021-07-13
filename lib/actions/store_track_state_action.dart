@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
-import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/types.dart';
 
 part 'store_track_state_action.freezed.dart';
 part 'store_track_state_action.g.dart';

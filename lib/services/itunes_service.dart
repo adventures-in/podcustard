@@ -4,9 +4,8 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:http/http.dart' as http;
 import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/models/podcast_summary.dart';
-import 'package:redfire/problems/extensions/error_extensions.dart';
-import 'package:redfire/types/redux_action.dart';
-import 'package:redfire/types/redux_service.dart';
+import 'package:redfire/src/problems/extensions/error_extensions.dart';
+import 'package:redfire/types.dart';
 
 class ItunesService with ReduxService {
   ItunesService(this._httpClient);

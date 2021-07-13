@@ -5,7 +5,7 @@ publish_to: none
 version: 0.0.1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -25,9 +25,9 @@ dependencies:
 
   redux:
   flutter_redux:
-  fast_immutable_collections: ^5.0.0-dev.12
+  fast_immutable_collections:
 
-  firebase_core: "^1.1.0"
+  firebase_core:
   device_info:
 
 dev_dependencies:

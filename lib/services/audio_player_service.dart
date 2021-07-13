@@ -6,8 +6,8 @@ import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/plugins/wrappers/audio_player_wrapper.dart';
-import 'package:redfire/problems/extensions/error_extensions.dart';
-import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/extensions.dart';
+import 'package:redfire/types.dart';
 
 class AudioPlayerService {
   AudioPlayerService(this._audioPlayerWrapper) {

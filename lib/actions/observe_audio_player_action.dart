@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/types.dart';
 
 part 'observe_audio_player_action.freezed.dart';
 part 'observe_audio_player_action.g.dart';

@@ -17,7 +17,7 @@ import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
 import 'package:redfire/auth/services/auth_service.dart';
 import 'package:redfire/problems/actions/add_problem_action.dart';
 import 'package:redfire/problems/models/problem_info.dart';
-import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/types.dart';
 import 'package:test/test.dart';
 
 import '../test-data/feed_test_data.dart';

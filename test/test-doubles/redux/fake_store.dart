@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:podcustard/models/app_state.dart';
 import 'package:redfire/auth/enums/auth_step_enum.dart';
-import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/types.dart';
 import 'package:redux/redux.dart';
 
 import '../../test-data/models/user_examples.dart';

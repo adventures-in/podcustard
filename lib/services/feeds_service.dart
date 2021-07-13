@@ -1,8 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'package:podcustard/actions/store_feed_action.dart';
 import 'package:podcustard/models/rss/rss_feed.dart';
-import 'package:redfire/problems/extensions/error_extensions.dart';
-import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/src/problems/extensions/error_extensions.dart';
+import 'package:redfire/types.dart';
 
 class FeedsService {
   FeedsService(this._httpClient);

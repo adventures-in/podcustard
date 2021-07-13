@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:podcustard/models/podcast_summary.dart';
-import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/types.dart';
 
 part 'store_podcast_summary_action.freezed.dart';
 part 'store_podcast_summary_action.g.dart';

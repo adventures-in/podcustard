@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:redfire/types/redux_action.dart';
+import 'package:redfire/types.dart';
 
 part 'store_track_position_action.freezed.dart';
 part 'store_track_position_action.g.dart';

@@ -1,4 +1,4 @@
-import 'package:redfire/auth/enums/auth_step_enum.dart';
+import 'package:redfire/types.dart';
 import 'package:xml/xml.dart';
 
 extension IterableExtension<T> on Iterable<T> {
@@ -10,20 +10,20 @@ extension IterableExtension<T> on Iterable<T> {
   }
 }
 
-extension AuthStepEnumExtension on AuthStepEnum {
+extension AuthenticationEnumExtension on AuthenticationEnum {
   int get value {
     switch (this) {
-      case AuthStepEnum.waitingForInput:
+      case AuthenticationEnum.waitingForInput:
         return 0;
-      case AuthStepEnum.contactingGoogle:
+      case AuthenticationEnum.contactingGoogle:
         return 1;
-      case AuthStepEnum.contactingApple:
+      case AuthenticationEnum.contactingApple:
         return 2;
-      case AuthStepEnum.checking:
+      case AuthenticationEnum.checking:
         return 3;
-      case AuthStepEnum.signingInWithFirebase:
+      case AuthenticationEnum.signingInWithFirebase:
         return 4;
-      case AuthStepEnum.signingOut:
+      case AuthenticationEnum.signingOut:
         return 5;
       default:
         return -1;
