@@ -18,8 +18,8 @@ dependencies:
 
   # redfire 
   redfire:
-    # git: https://github.com/enspyrco/redfire.git
-    path: /Users/nick/git/orgs/enspyrco/redfire
+    git: https://github.com/enspyrco/redfire.git
+    # path: /Users/nick/git/orgs/enspyrco/redfire
   freezed_annotation:
   json_annotation: 
   redux:
