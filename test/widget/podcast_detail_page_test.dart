@@ -3,14 +3,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/actions/select_podcast_action.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
-import 'package:redfire/app_state.dart';
 import 'package:redux/redux.dart';
 
 import '../test-data/podcast_summary_data.dart';
-import '../test-doubles/image_test_utils.dart';
-import '../test-doubles/redux/faked_out_store.dart';
 import '../test-doubles/services/feeds_service_mocks.dart';
 
 void main() {

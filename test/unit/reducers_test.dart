@@ -8,72 +8,15 @@ import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/reducers/app_reducer.dart';
-import 'package:redfire/app_state.dart';
-import 'package:redfire/auth/actions/store_auth_step_action.dart';
-import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
-import 'package:redfire/auth/enums/auth_step_enum.dart';
-import 'package:redfire/problems/actions/add_problem_action.dart';
-import 'package:redfire/problems/models/problem_info.dart';
-import 'package:redfire/settings/actions/store_theme_mode_action.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../test-data/feed_test_data.dart';
-import '../test-data/models/user_examples.dart';
 import '../test-data/podcast_summary_data.dart';
 import '../test-data/track_test_data.dart';
 
 void main() {
   group('Reducer', () {
-    test('_storeAuthState stores auth state', () {
-      // create a basic store with the app reducers
-      final store = Store<RedFireState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
-
-      // dispatch action to store auth state
-      store.dispatch(StoreAuthUserDataAction(UserExamples.basic));
-
-      // check that the store has the expected value
-      expect(store.state.authUserData!.uid, equals('uid'));
-      expect(store.state.authUserData!.email, equals('email'));
-      expect(store.state.authUserData!.photoURL, equals('url'));
-      expect(store.state.authUserData!.displayName, equals('name'));
-    });
-
-    test('_addProblem adds to the list', () {
-      // create a basic store with the app reducers
-      final store = Store<RedFireState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
-
-      // dispatch action to add a problem
-      store.dispatch(AddProblemAction(ProblemInfo('m', 'trace')));
-
-      // check that the store has the expected value
-      expect(store.state.problems.length, 1);
-      final problem = store.state.problems.first;
-      expect(problem.message, 'm');
-      expect(problem.trace, 'trace');
-    });
-
-    test('_storeAuthStep stores the auth step', () {
-      // create a basic store with the app reducers
-      final store = Store<RedFireState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
-
-      // dispatch action to store auth step
-      store.dispatch(StoreAuthStepAction.contactingApple());
-
-      // check that the store has the expected value
-      expect(store.state.authStep, AuthStepEnum.contactingApple);
-    });
-
     test('_storeMainPageIndex correctly stores index from MainPage BottomNav',
         () {
       // create a basic store with the app reducers
@@ -105,26 +48,6 @@ void main() {
 
       // check that the store has the expected value
       expect(store.state.podcastSummaries.first, summary);
-    });
-
-    test('_storeThemeMode correctly stores themeMode', () {
-      // create a basic store with the app reducers
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
-
-      // dispatch action to store themeMode
-      store.dispatch(StoreThemeModeAction(0));
-
-      // check that the store has the expected value
-      expect(store.state.settings.brightnessMode, 0);
-
-      // dispatch action to store themeMode
-      store.dispatch(StoreThemeModeAction(1));
-
-      // check that the store has the expected value
-      expect(store.state.settings.brightnessMode, 1);
     });
 
     test('_storeFeed correctly stores a feed', () async {

@@ -10,106 +10,17 @@ import 'package:podcustard/actions/select_podcast_action.dart';
 import 'package:podcustard/actions/store_track_action.dart';
 import 'package:podcustard/services/feeds_service.dart';
 import 'package:podcustard/services/itunes_service.dart';
-import 'package:redfire/auth/actions/observe_auth_state_action.dart';
-import 'package:redfire/auth/actions/sign_in_with_google_action.dart';
-import 'package:redfire/auth/actions/store_auth_step_action.dart';
-import 'package:redfire/auth/actions/store_auth_user_data_action.dart';
-import 'package:redfire/auth/services/auth_service.dart';
-import 'package:redfire/problems/actions/add_problem_action.dart';
-import 'package:redfire/problems/models/problem_info.dart';
 import 'package:redfire/types.dart';
 import 'package:test/test.dart';
 
 import '../test-data/feed_test_data.dart';
-import '../test-data/models/user_examples.dart';
 import '../test-data/podcast_summary_data.dart';
 import '../test-data/track_test_data.dart';
-import '../test-doubles/plugins/http_client_mocks.dart';
-import '../test-doubles/redux/faked_out_store.dart';
 import '../test-doubles/services/audio_player_service_mocks.dart';
 import '../test-doubles/services/feeds_service_mocks.dart';
 
-class MockAuthService extends Mock implements AuthService {}
-
 void main() {
   group('Middleware', () {
-    test('_observeAuthState listens to stream and emits actions', () async {
-      // setup a mock auth service to give a test response
-      final mockAuthService = MockAuthService();
-      when(mockAuthService.streamOfStateChanges).thenAnswer(
-        (_) =>
-            Stream.fromIterable([StoreAuthUserDataAction(UserExamples.basic)]),
-      );
-
-      final store = FakedOutStore(authService: mockAuthService);
-
-      // dispatch action to observe the auth state
-      store.dispatch(ObserveAuthStateAction());
-
-      // verify the middleware used the service to get a stream of auth state
-      verify(mockAuthService.streamOfStateChanges);
-
-      // wait for the stream to complete so we can test that the middleware did it's thing
-      await for (ReduxAction _ in mockAuthService.streamOfStateChanges) {}
-
-      // all the middleware does is dispatch a StoreAuthState action so check the state
-      expect(store.state.authUserData!.uid, 'id');
-    });
-
-    test(
-        '_signInWithGoogle starts signin sequence and dispatches emitted actions',
-        () async {
-      // setup a mock auth service to give a test response
-      final mockAuthService = MockAuthService();
-      when(mockAuthService.googleSignInStream).thenAnswer(
-        (_) => Stream.fromIterable([
-          StoreAuthStepAction.contactingGoogle(),
-          AddProblemAction(ProblemInfo('m'))
-        ]),
-      );
-
-      final store = FakedOutStore(authService: mockAuthService);
-
-      // dispatch action to initiate signin
-      store.dispatch(SignInWithGoogleAction());
-
-      // verify the middleware used the service to get a stream of actions
-      verify(mockAuthService.googleSignInStream);
-
-      // wait for the stream to complete so we can test that the middleware did it's thing
-      await for (ReduxAction _ in mockAuthService.googleSignInStream) {}
-
-      // all the middleware does is dispatch a StoreAuthState action so check the state
-      expect(store.state.authStep, 1);
-      expect(store.state.problems.length, 1);
-    });
-
-    test(
-        '_signInWithApple starts signin sequence and dispatches emitted actions',
-        () async {
-      // // setup a mock auth service to give a test response
-      // final mockAuthService = MockAuthService();
-      // when(mockAuthService.appleSignInStream).thenAnswer(
-      //   (_) => Stream.fromIterable(
-      //       [StoreAuthStepAction(1), AddProblemAction(Problem(message: 'm'))]),
-      // );
-
-      // final store = FakedOutStore(authService: mockAuthService);
-
-      // // dispatch action to initiate signin
-      // store.dispatch(SigninWithAppleAction());
-
-      // // verify the middleware used the service to get a stream of actions
-      // verify(mockAuthService.appleSignInStream);
-
-      // // wait for the stream to complete so we can test that the middleware did it's thing
-      // await for (ReduxAction _ in mockAuthService.appleSignInStream) {}
-
-      // // all the middleware does is dispatch a StoreAuthState action so check the state
-      // expect(store.state.authStep, 1);
-      // expect(store.state.problems.length, 1);
-    });
-
     test('_retrievePodcastSummaries uses service to retrieve summaries',
         () async {
       // setup a mock service to give a test response

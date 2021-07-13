@@ -6,8 +6,6 @@ import 'package:podcustard/services/itunes_service.dart';
 import 'package:podcustard/widgets/podcasts_search/search_text.dart';
 
 import '../test-data/podcast_summary_data.dart';
-import '../test-doubles/plugins/http_client_mocks.dart';
-import '../test-doubles/redux/faked_out_store.dart';
 
 void main() {
   testWidgets('SearchText dispatches actions on input',

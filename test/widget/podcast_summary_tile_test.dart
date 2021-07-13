@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcast_detail/podcast_detail_page.dart';
 import 'package:podcustard/widgets/podcasts_search/podcast_summary_tile.dart';
-import 'package:redfire/app_state.dart';
 import 'package:redux/redux.dart';
 
 import '../test-data/podcast_summary_data.dart';
-import '../test-doubles/image_test_utils.dart';
 
 void main() {
   testWidgets('PodcastSummaryTile displays expected values',

@@ -5,12 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/podcast_summary.dart';
-import 'package:podcustard/reducers/app_reducer.dart';
 import 'package:podcustard/widgets/podcasts_search/search_page.dart';
-import 'package:redfire/app_state.dart';
 import 'package:redux/redux.dart';
-
-import '../test-doubles/image_test_utils.dart';
 
 void main() {
   testWidgets('SearchPage displays the results of a search',

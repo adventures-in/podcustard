@@ -5,8 +5,6 @@ import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/widgets/podcasts_search/search_text.dart';
 import 'package:podcustard/widgets/track_state_watcher.dart';
 
-import '../test-doubles/redux/faked_out_store.dart';
-
 void main() {
   testWidgets('SearchText dispatches actions on input',
       (WidgetTester tester) async {
