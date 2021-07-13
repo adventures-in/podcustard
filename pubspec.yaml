@@ -16,18 +16,16 @@ dependencies:
   audiofileplayer:
   xml:
 
-  freezed_annotation:
-  json_annotation: 
-
+  # redfire 
   redfire:
     # git: https://github.com/enspyrco/redfire.git
     path: /Users/nick/git/orgs/enspyrco/redfire
-
+  freezed_annotation:
+  json_annotation: 
   redux:
   flutter_redux:
   fast_immutable_collections:
 
-  firebase_core:
   device_info:
 
 dev_dependencies:
