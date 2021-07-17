@@ -5,7 +5,7 @@ import 'package:audiofileplayer/audiofileplayer.dart';
 ///
 /// The only reason we do this is to allow for a mock to be injected
 /// during testing
-class AudioPlayerWrapper {
+class AudioWrapper {
   /// Creates an Audio object using a remote URL.
   ///
   /// --- From [Audio.loadFromRemoteUrl] ----

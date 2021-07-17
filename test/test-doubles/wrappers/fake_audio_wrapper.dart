@@ -1,7 +1,7 @@
 import 'package:audiofileplayer/audiofileplayer.dart';
-import 'package:podcustard/plugins/wrappers/audio_player_wrapper.dart';
+import 'package:podcustard/plugins/wrappers/audio_wrapper.dart';
 
-class FakeAudioPlayersWrapper implements AudioPlayerWrapper {
+class FakeAudioWrapper implements AudioWrapper {
   @override
   Audio? loadFromRemoteUrl(String url,
       {void Function(String? p1)? onError,

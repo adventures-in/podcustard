@@ -3,7 +3,7 @@ import 'package:podcustard/services/feeds_service.dart';
 import 'package:test/test.dart';
 
 import '../../test-data/feed_test_data.dart';
-import '../../test-doubles/plugins/http_client_mocks.dart';
+import '../../test-doubles/plugins/fake_http_client.dart';
 
 void main() {
   group('FeedsService', () {

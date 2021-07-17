@@ -3,14 +3,16 @@ import 'package:podcustard/actions/store_track_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/app_state.dart';
 import 'package:podcustard/models/track.dart';
-import 'package:podcustard/services/audio_player_service.dart';
+import 'package:podcustard/utils/locator.dart';
 import 'package:redux/redux.dart';
 
 class BuildTrackFromEpisodeMiddleware
     extends TypedMiddleware<AppState, BuildTrackFromEpisodeAction> {
-  BuildTrackFromEpisodeMiddleware(AudioPlayerService audioPlayerService)
+  BuildTrackFromEpisodeMiddleware()
       : super((store, action, next) async {
           next(action);
+
+          final audioPlayerService = Locator.getAudioPlayerService();
 
           final track = Track(
               episode: action.episodeTitle,

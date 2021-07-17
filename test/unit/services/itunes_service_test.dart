@@ -3,7 +3,7 @@ import 'package:podcustard/actions/store_podcast_summaries_action.dart';
 import 'package:podcustard/services/itunes_service.dart';
 
 import '../../test-data/podcast_summary_data.dart';
-import '../../test-doubles/plugins/http_client_mocks.dart';
+import '../../test-doubles/plugins/fake_http_client.dart';
 
 void main() {
   group('ItunesService', () {

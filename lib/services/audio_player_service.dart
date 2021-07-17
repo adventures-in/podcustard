@@ -5,7 +5,7 @@ import 'package:podcustard/actions/store_track_duration_action.dart';
 import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
-import 'package:podcustard/plugins/wrappers/audio_player_wrapper.dart';
+import 'package:podcustard/plugins/wrappers/audio_wrapper.dart';
 import 'package:redfire/extensions.dart';
 import 'package:redfire/types.dart';
 
@@ -15,7 +15,7 @@ class AudioPlayerService {
   }
 
   /// this object just wraps the global static methods for easier testing
-  final AudioPlayerWrapper _audioPlayerWrapper;
+  final AudioWrapper _audioPlayerWrapper;
 
   /// the actual player object we get from the AudioPlayerObject wrapper
   Audio? _audio;

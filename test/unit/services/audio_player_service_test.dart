@@ -4,8 +4,8 @@ import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/services/audio_player_service.dart';
-import 'package:redfire/problems/actions/add_problem_action.dart';
-import 'package:redfire/problems/models/problem_info.dart';
+import 'package:redfire/actions.dart';
+import 'package:redfire/types.dart';
 
 import '../../test-doubles/services/audio_player_service_mocks.dart';
 

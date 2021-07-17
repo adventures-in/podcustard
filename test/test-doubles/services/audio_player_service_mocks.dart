@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:mockito/mockito.dart';
-import 'package:podcustard/plugins/wrappers/audio_player_wrapper.dart';
+import 'package:podcustard/plugins/wrappers/audio_wrapper.dart';
 import 'package:podcustard/services/audio_player_service.dart';
 import 'package:redfire/types.dart';
 
@@ -49,7 +49,7 @@ class FakeAudioPlayerService extends Fake implements AudioPlayerService {
 /// The FakeAudioPlayerObject allows passing arguments that will
 /// call the callbacks that are passed in to loadFromRemoteUrl
 /// and would be called by the Audio object on the corresponding events
-class FakeAudioPlayerObject extends Fake implements AudioPlayerWrapper {
+class FakeAudioPlayerObject extends Fake implements AudioWrapper {
   FakeAudioPlayerObject(
       {this.callOnError,
       this.callOnDuration,
