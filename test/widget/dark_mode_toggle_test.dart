@@ -9,13 +9,13 @@ void main() {
   testWidgets('DarkModeToggle dispatches action on toggle',
       (WidgetTester tester) async {
     // create a basic store with a reducer that ...
-    final store = Store<RedFireState>(appReducer,
+    final store = Store<AppState>(appReducer,
         middleware: [], initialState: AppState.init());
 
     // build our app and trigger a frame
     await tester.pumpWidget(
       // create a StoreProvider to wrap widget
-      StoreProvider<RedFireState>(
+      StoreProvider<AppState>(
         store: store,
         child: MaterialApp(home: Material(child: DarkModeToggle())),
       ),

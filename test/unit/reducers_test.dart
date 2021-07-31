@@ -8,7 +8,14 @@ import 'package:podcustard/actions/store_track_position_action.dart';
 import 'package:podcustard/actions/store_track_state_action.dart';
 import 'package:podcustard/enums/track_state_enum.dart';
 import 'package:podcustard/models/app_state.dart';
-import 'package:redux/redux.dart';
+import 'package:podcustard/models/podcast_summary.dart';
+import 'package:podcustard/reducers/store_feed_reducer.dart';
+import 'package:podcustard/reducers/store_main_page_index_reducer.dart';
+import 'package:podcustard/reducers/store_podcast_summaries_reducer.dart';
+import 'package:podcustard/reducers/store_track_duration_reducer.dart';
+import 'package:podcustard/reducers/store_track_position_reducer.dart';
+import 'package:podcustard/reducers/store_track_reducer.dart';
+import 'package:podcustard/reducers/store_track_state_reducer.dart';
 import 'package:test/test.dart';
 
 import '../test-data/feed_test_data.dart';
@@ -16,151 +23,96 @@ import '../test-data/podcast_summary_data.dart';
 import '../test-data/track_test_data.dart';
 
 void main() {
-  group('Reducer', () {
-    test('_storeMainPageIndex correctly stores index from MainPage BottomNav',
-        () {
-      // create a basic store with the app reducers
-      final store = Store<RedFireState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
+  group('StoreMainPageIndexReducer', () {
+    test('correctly stores index', () {
+      final initialState = AppState.init();
+      expect(initialState.mainPageIndex, 0);
 
-      // dispatch action to store auth step
-      store.dispatch(StoreMainPageIndexAction(1));
+      final reducer = StoreMainPageIndexReducer();
+      final newState =
+          reducer.reducer(initialState, StoreMainPageIndexAction(2));
 
-      // check that the store has the expected value
-      expect(store.state.mainPageIndex, 1);
+      expect(newState.mainPageIndex, 2);
     });
-
-    test(
-        '_storePodcastSummaries correctly stores summaries in the StorePodcastSummaries action',
-        () async {
-      // create a basic store with the app reducers
-      final store = Store<RedFireState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
+  });
+  group('StorePodcastSummariesReducer', () {
+    test('correctly stores summaries', () async {
+      final initialState = AppState.init();
+      expect(initialState.podcastSummaries, <PodcastSummary>[]);
 
       final summary = await getInTheDarkSummary();
+      final reducer = StorePodcastSummariesReducer();
+      final newState = reducer.reducer(
+          initialState, StorePodcastSummariesAction([summary].lock));
 
-      // dispatch action to store summaries
-      store.dispatch(StorePodcastSummariesAction([summary].lock));
-
-      // check that the store has the expected value
-      expect(store.state.podcastSummaries.first, summary);
+      expect(newState.podcastSummaries.first, summary);
     });
-
-    test('_storeFeed correctly stores a feed', () async {
-      // create a basic store with the app reducers
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
+  });
+  group('StoreFeedReducer', () {
+    test('correctly stores a feed', () async {
+      final initialState = AppState.init();
+      expect(initialState.detailVM, null);
 
       final feed = await getInTheDarkFeed();
+      final reducer = StoreFeedReducer();
+      final newState = reducer.reducer(initialState, StoreFeedAction(feed));
 
-      // dispatch action to store the feed
-      store.dispatch(StoreFeedAction(feed));
-
-      // check that the store has the expected value
-      expect(store.state.detailVM!.feed, feed);
+      expect(newState.detailVM!.feed, feed);
     });
+  });
 
-    test('_storeTrack correctly stores a track', () async {
-      // create a basic store with the app reducers
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
+  group('StoreTrackReducer', () {
+    test('correctly stores a track', () async {
+      final initialState = AppState.init();
+      expect(initialState.track, null);
 
-      // use a pre-defined track from the test data
       final track = in_the_dark_s2e18_track;
+      final reducer = StoreTrackReducer();
+      final newState = reducer.reducer(initialState, StoreTrackAction(track));
 
-      // dispatch action to store the track
-      store.dispatch(StoreTrackAction(track));
-
-      // check that the store has the expected value
-      expect(store.state.track, track);
+      expect(newState.track, track);
     });
+  });
 
-    test('_storeTrackState sets the state for the current track', () async {
-      // create a basic store with the app reducers
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
+  group('StoreTrackStateReducer', () {
+    test('sets the state for the current track', () async {
+      final initialState =
+          AppState.init().copyWith(track: in_the_dark_s2e18_track);
+      expect(initialState.track!.state, TrackStateEnum.nothing);
 
-      // use a pre-defined track from the test data
-      final track = in_the_dark_s2e18_track;
+      final reducer = StoreTrackStateReducer();
+      final newState = reducer.reducer(
+          initialState, StoreTrackStateAction(TrackStateEnum.loaded));
 
-      // dispatch action to store the track
-      store.dispatch(StoreTrackAction(track));
-
-      // check the initial track state
-      expect(store.state.track!.state, TrackStateEnum.nothing);
-
-      // dispatch to update the track state
-      store.dispatch(StoreTrackStateAction(TrackStateEnum.playing));
-
-      // rebuild the test data track with the updated TrackState
-      final updatedTrack = track.copyWith(state: TrackStateEnum.playing);
-
-      // check that the store has the expected value
-      expect(store.state.track, updatedTrack);
+      expect(newState.track!.state, TrackStateEnum.loaded);
     });
+  });
 
-    test('_storeTrackDuration sets the duration for the current track',
-        () async {
-      // create a basic store with the app reducers
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
+  group('StoreTrackDurationReducer', () {
+    test('sets the duration for the current track', () async {
+      final initialState =
+          AppState.init().copyWith(track: in_the_dark_s2e18_track);
+      expect(initialState.track!.duration, null);
 
-      // use a pre-defined track from the test data
-      final track = in_the_dark_s2e18_track;
+      final reducer = StoreTrackDurationReducer();
+      final newState =
+          reducer.reducer(initialState, StoreTrackDurationAction(100.3));
 
-      // dispatch action to store the track
-      store.dispatch(StoreTrackAction(track));
-
-      // check the initial track duration
-      expect(store.state.track!.duration, null);
-
-      // dispatch to update the track duration
-      store.dispatch(StoreTrackDurationAction(100.3));
-
-      // rebuild the test data track with the updated duration
-      final updatedTrack = track.copyWith(duration: 100.3);
-
-      // check that the store has the expected value
-      expect(store.state.track, updatedTrack);
+      expect(newState.track!.duration, 100.3);
     });
+  });
 
-    test('_storeTrackPosition sets the position for the current track',
-        () async {
-      // create a basic store with the app reducers
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState.init(),
-      );
+  group('StoreTrackPositionReducer', () {
+    test(' sets the position for the current track', () async {
+      final initialState =
+          AppState.init().copyWith(track: in_the_dark_s2e18_track);
+      expect(initialState.track!.position, null);
 
-      // use a pre-defined track from the test data
-      final track = in_the_dark_s2e18_track;
+      final reducer = StoreTrackPositionReducer();
+      final newState =
+          reducer.reducer(initialState, StoreTrackPositionAction(33.4));
 
-      // dispatch action to store the track
-      store.dispatch(StoreTrackAction(track));
-
-      // check the initial track position
-      expect(store.state.track!.position, null);
-
-      // dispatch to update the track position
-      store.dispatch(StoreTrackPositionAction(55.5));
-
-      // rebuild the test data track with the updated position
-      final updatedTrack = track.copyWith(position: 55.5);
-
-      // check that the store has the expected value
-      expect(store.state.track, updatedTrack);
+      expect(newState.track!.position, 33.4);
     });
   });
 }

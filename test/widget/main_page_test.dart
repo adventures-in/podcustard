@@ -14,15 +14,14 @@ import 'package:redux/redux.dart';
 
 void main() {
   testWidgets('MainPage displays...', (WidgetTester tester) async {
-    final store =
-        Store<RedFireState>(appReducer, initialState: AppState.init());
+    final store = Store<AppState>(appReducer, initialState: AppState.init());
 
     final moreOptionsFinder = find.text('More');
 
     // build the widget and trigger a frame
     await tester.pumpWidget(
       // create a StoreProvider to wrap widget
-      StoreProvider<RedFireState>(
+      StoreProvider<AppState>(
         store: store,
         child: MaterialApp(home: MainPage()),
       ),
@@ -34,8 +33,7 @@ void main() {
 
   testWidgets('MainPage navigates to BottomNav options',
       (WidgetTester tester) async {
-    final store =
-        Store<RedFireState>(appReducer, initialState: AppState.init());
+    final store = Store<AppState>(appReducer, initialState: AppState.init());
 
     final moreOptionsFinder = find.text('More');
     final signoutFinder = find.text('SIGN OUT');
@@ -43,7 +41,7 @@ void main() {
     // build the widget and trigger a frame
     await tester.pumpWidget(
       // make store available by wrapping in a StoreProvider
-      StoreProvider<RedFireState>(
+      StoreProvider<AppState>(
         store: store,
         child: MaterialApp(home: MainPage()),
       ),
